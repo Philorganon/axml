@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axml version="3.5">
+  <metadata>
+    <title>Elektronomia - 5 Min Non-Stop Intense Odyssey</title>
+    <artist>Elektronomia &amp; AXML Master</artist>
+    <tempo>128</tempo>
+    <key>F#m</key>
+    <time-signature>4/4</time-signature>
+    <duration>300</duration>
+  </metadata>
+
+  <instruments>
+    <!-- Punchy Non-Stop EDM Kick -->
+    <instrument id="electro_kick" type="kick" volume="1.0" attack="0.002" release="0.15" />
+    
+    <!-- Layered Snare & Clap -->
+    <instrument id="electro_snare" type="snare" volume="0.85" attack="0.005" release="0.12" cutoff="3800" />
+    
+    <!-- Driving 16th Hi-Hats -->
+    <instrument id="electro_hat" type="hihat" volume="0.6" attack="0.003" release="0.05" cutoff="9800" />
+    
+    <!-- Heavy Sidechained Electro Bass -->
+    <instrument id="elec_bass" type="sawtooth" volume="0.85" attack="0.005" decay="0.15" sustain="0.75" release="0.15" cutoff="1000" resonance="14" distortion="0.4" />
+    <instrument id="sub_bass" type="sine" volume="0.8" attack="0.01" decay="0.2" sustain="0.85" release="0.2" cutoff="320" />
+    
+    <!-- Lead Synths -->
+    <instrument id="saw_lead" type="sawtooth" volume="0.75" attack="0.01" decay="0.15" sustain="0.65" release="0.3" cutoff="5000" chorus="0.6" reverb="0.45" />
+    <instrument id="super_lead" type="square" volume="0.65" attack="0.01" decay="0.2" sustain="0.45" release="0.2" cutoff="5800" distortion="0.2" reverb="0.5" />
+    
+    <!-- Wall of Sound Pads, Arps & Brass -->
+    <instrument id="synth_pad" type="triangle" volume="0.5" attack="0.4" decay="0.3" sustain="0.85" release="1.0" cutoff="2500" chorus="0.7" reverb="0.7" />
+    <instrument id="hero_arp" type="square" volume="0.45" attack="0.01" decay="0.1" sustain="0.35" release="0.1" cutoff="4500" arp="up" arpRate="0.25" octaves="2" reverb="0.5" />
+    <instrument id="brass_stab" type="sawtooth" volume="0.65" attack="0.02" decay="0.1" sustain="0.35" release="0.2" cutoff="4000" resonance="8" />
+  </instruments>
+
+  <patterns>
+    <!-- 1 BAR DRUMS -->
+    <pattern id="kick_nonstop">
+      <note pitch="C2" start="0" duration="q" />
+      <note pitch="C2" start="1" duration="q" />
+      <note pitch="C2" start="2" duration="q" />
+      <note pitch="C2" start="3" duration="q" />
+    </pattern>
+
+    <pattern id="snare_nonstop">
+      <note pitch="D2" start="1" duration="q" />
+      <note pitch="D2" start="3" duration="q" />
+    </pattern>
+
+    <pattern id="hats_16th_intense">
+      <note pitch="F#2" start="0" duration="s" /><note pitch="F#2" start="0.25" duration="s" />
+      <note pitch="F#2" start="0.5" duration="s" /><note pitch="F#2" start="0.75" duration="s" />
+      <note pitch="F#2" start="1" duration="s" /><note pitch="F#2" start="1.25" duration="s" />
+      <note pitch="F#2" start="1.5" duration="s" /><note pitch="F#2" start="1.75" duration="s" />
+      <note pitch="F#2" start="2" duration="s" /><note pitch="F#2" start="2.25" duration="s" />
+      <note pitch="F#2" start="2.5" duration="s" /><note pitch="F#2" start="2.75" duration="s" />
+      <note pitch="F#2" start="3" duration="s" /><note pitch="F#2" start="3.25" duration="s" />
+      <note pitch="F#2" start="3.5" duration="s" /><note pitch="F#2" start="3.75" duration="s" />
+    </pattern>
+
+    <!-- 4 BAR BASS -->
+    <pattern id="bass_fsharp_intense">
+      <note pitch="F#1" start="0" duration="e" /><note pitch="F#1" start="0.5" duration="e" /><note pitch="F#1" start="1" duration="e" /><note pitch="F#1" start="1.5" duration="e" />
+      <note pitch="F#1" start="2" duration="e" /><note pitch="F#1" start="2.5" duration="e" /><note pitch="A1" start="3" duration="e" /><note pitch="C#2" start="3.5" duration="e" />
+      <note pitch="D2" start="4" duration="e" /><note pitch="D2" start="4.5" duration="e" /><note pitch="D2" start="5" duration="e" /><note pitch="D2" start="5.5" duration="e" />
+      <note pitch="D2" start="6" duration="e" /><note pitch="D2" start="6.5" duration="e" /><note pitch="F#2" start="7" duration="e" /><note pitch="A2" start="7.5" duration="e" />
+      <note pitch="A1" start="8" duration="e" /><note pitch="A1" start="8.5" duration="e" /><note pitch="A1" start="9" duration="e" /><note pitch="A1" start="9.5" duration="e" />
+      <note pitch="A1" start="10" duration="e" /><note pitch="A1" start="10.5" duration="e" /><note pitch="C#2" start="11" duration="e" /><note pitch="E2" start="11.5" duration="e" />
+      <note pitch="E2" start="12" duration="e" /><note pitch="E2" start="12.5" duration="e" /><note pitch="E2" start="13" duration="e" /><note pitch="E2" start="13.5" duration="e" />
+      <note pitch="E2" start="14" duration="e" /><note pitch="E2" start="14.5" duration="e" /><note pitch="G#2" start="15" duration="e" /><note pitch="B2" start="15.5" duration="e" />
+    </pattern>
+
+    <pattern id="sub_chords_nonstop">
+      <note pitch="F#1" start="0" duration="4" />
+      <note pitch="D1" start="4" duration="4" />
+      <note pitch="A1" start="8" duration="4" />
+      <note pitch="E1" start="12" duration="4" />
+    </pattern>
+
+    <!-- 4 BAR LEADS -->
+    <pattern id="lead_anthem_main">
+      <note pitch="C#5" start="0" duration="e" /><note pitch="F#5" start="0.5" duration="e" /><note pitch="G#5" start="1" duration="q" />
+      <note pitch="A5" start="2" duration="e" /><note pitch="G#5" start="2.5" duration="e" /><note pitch="F#5" start="3" duration="q" />
+      <note pitch="D5" start="4" duration="e" /><note pitch="F#5" start="4.5" duration="e" /><note pitch="A5" start="5" duration="q" />
+      <note pitch="B5" start="6" duration="q" /><note pitch="C#6" start="7" duration="q" />
+      <note pitch="C#6" start="8" duration="e" /><note pitch="B5" start="8.5" duration="e" /><note pitch="A5" start="9" duration="q" />
+      <note pitch="G#5" start="10" duration="e" /><note pitch="F#5" start="10.5" duration="e" /><note pitch="E5" start="11" duration="q" />
+      <note pitch="F#5" start="12" duration="q" /><note pitch="G#5" start="13" duration="q" /><note pitch="A5" start="14" duration="h" />
+    </pattern>
+
+    <pattern id="lead_counter_skyhigh">
+      <note pitch="F#5" start="0" duration="q" /><note pitch="A5" start="1" duration="q" /><note pitch="C#6" start="2" duration="h" />
+      <note pitch="B5" start="4" duration="q" /><note pitch="A5" start="5" duration="q" /><note pitch="G#5" start="6" duration="h" />
+      <note pitch="A5" start="8" duration="q" /><note pitch="F#5" start="9" duration="q" /><note pitch="D5" start="10" duration="h" />
+      <note pitch="E5" start="12" duration="q" /><note pitch="G#5" start="13" duration="q" /><note pitch="F#5" start="14" duration="h" />
+    </pattern>
+
+    <!-- 4 BAR PADS, ARPS & BRASS -->
+    <pattern id="pad_chords_wall">
+      <chord start="0" duration="4"><note pitch="F#3"/><note pitch="A3"/><note pitch="C#4"/><note pitch="F#4"/></chord>
+      <chord start="4" duration="4"><note pitch="D3"/><note pitch="F#3"/><note pitch="A3"/><note pitch="D4"/></chord>
+      <chord start="8" duration="4"><note pitch="A3"/><note pitch="C#4"/><note pitch="E4"/><note pitch="A4"/></chord>
+      <chord start="12" duration="4"><note pitch="E3"/><note pitch="G#3"/><note pitch="B3"/><note pitch="E4"/></chord>
+    </pattern>
+
+    <pattern id="brass_stabs_heavy">
+      <chord start="0" duration="e"><note pitch="F#4"/><note pitch="A4"/><note pitch="C#5"/></chord>
+      <chord start="1.5" duration="e"><note pitch="F#4"/><note pitch="A4"/><note pitch="C#5"/></chord>
+      <chord start="2.5" duration="e"><note pitch="F#4"/><note pitch="A4"/><note pitch="C#5"/></chord>
+      <chord start="4" duration="e"><note pitch="D4"/><note pitch="F#4"/><note pitch="A4"/></chord>
+      <chord start="5.5" duration="e"><note pitch="D4"/><note pitch="F#4"/><note pitch="A4"/></chord>
+      <chord start="6.5" duration="e"><note pitch="D4"/><note pitch="F#4"/><note pitch="A4"/></chord>
+      <chord start="8" duration="e"><note pitch="A4"/><note pitch="C#5"/><note pitch="E5"/></chord>
+      <chord start="9.5" duration="e"><note pitch="A4"/><note pitch="C#5"/><note pitch="E5"/></chord>
+      <chord start="10.5" duration="e"><note pitch="A4"/><note pitch="C#5"/><note pitch="E5"/></chord>
+      <chord start="12" duration="e"><note pitch="E4"/><note pitch="G#4"/><note pitch="B4"/></chord>
+      <chord start="13.5" duration="e"><note pitch="E4"/><note pitch="G#4"/><note pitch="B4"/></chord>
+      <chord start="14.5" duration="e"><note pitch="E4"/><note pitch="G#4"/><note pitch="B4"/></chord>
+    </pattern>
+
+    <pattern id="hero_arp_wall">
+      <note pitch="F#4" start="0" duration="4" />
+      <note pitch="D4" start="4" duration="4" />
+      <note pitch="A4" start="8" duration="4" />
+      <note pitch="E4" start="12" duration="4" />
+    </pattern>
+  </patterns>
+
+  <tracks>
+    <!-- TRACK 1: KICK (640 Beats Non-Stop / 5 Mins) -->
+    <track instrument="electro_kick" name="Non-Stop Kick">
+      <play pattern="kick_nonstop" start="0" /><play pattern="kick_nonstop" start="4" /><play pattern="kick_nonstop" start="8" /><play pattern="kick_nonstop" start="12" />
+      <play pattern="kick_nonstop" start="16" /><play pattern="kick_nonstop" start="20" /><play pattern="kick_nonstop" start="24" /><play pattern="kick_nonstop" start="28" />
+      <play pattern="kick_nonstop" start="32" /><play pattern="kick_nonstop" start="36" /><play pattern="kick_nonstop" start="40" /><play pattern="kick_nonstop" start="44" />
+      <play pattern="kick_nonstop" start="48" /><play pattern="kick_nonstop" start="52" /><play pattern="kick_nonstop" start="56" /><play pattern="kick_nonstop" start="60" />
+      <play pattern="kick_nonstop" start="64" /><play pattern="kick_nonstop" start="68" /><play pattern="kick_nonstop" start="72" /><play pattern="kick_nonstop" start="76" />
+      <play pattern="kick_nonstop" start="80" /><play pattern="kick_nonstop" start="84" /><play pattern="kick_nonstop" start="88" /><play pattern="kick_nonstop" start="92" />
+      <play pattern="kick_nonstop" start="96" /><play pattern="kick_nonstop" start="100" /><play pattern="kick_nonstop" start="104" /><play pattern="kick_nonstop" start="108" />
+      <play pattern="kick_nonstop" start="112" /><play pattern="kick_nonstop" start="116" /><play pattern="kick_nonstop" start="120" /><play pattern="kick_nonstop" start="124" />
+      <play pattern="kick_nonstop" start="128" /><play pattern="kick_nonstop" start="132" /><play pattern="kick_nonstop" start="136" /><play pattern="kick_nonstop" start="140" />
+      <play pattern="kick_nonstop" start="144" /><play pattern="kick_nonstop" start="148" /><play pattern="kick_nonstop" start="152" /><play pattern="kick_nonstop" start="156" />
+      <play pattern="kick_nonstop" start="160" /><play pattern="kick_nonstop" start="164" /><play pattern="kick_nonstop" start="168" /><play pattern="kick_nonstop" start="172" />
+      <play pattern="kick_nonstop" start="176" /><play pattern="kick_nonstop" start="180" /><play pattern="kick_nonstop" start="184" /><play pattern="kick_nonstop" start="188" />
+      <play pattern="kick_nonstop" start="192" /><play pattern="kick_nonstop" start="196" /><play pattern="kick_nonstop" start="200" /><play pattern="kick_nonstop" start="204" />
+      <play pattern="kick_nonstop" start="208" /><play pattern="kick_nonstop" start="212" /><play pattern="kick_nonstop" start="216" /><play pattern="kick_nonstop" start="220" />
+      <play pattern="kick_nonstop" start="224" /><play pattern="kick_nonstop" start="228" /><play pattern="kick_nonstop" start="232" /><play pattern="kick_nonstop" start="236" />
+      <play pattern="kick_nonstop" start="240" /><play pattern="kick_nonstop" start="244" /><play pattern="kick_nonstop" start="248" /><play pattern="kick_nonstop" start="252" />
+      <play pattern="kick_nonstop" start="256" /><play pattern="kick_nonstop" start="260" /><play pattern="kick_nonstop" start="264" /><play pattern="kick_nonstop" start="268" />
+      <play pattern="kick_nonstop" start="272" /><play pattern="kick_nonstop" start="276" /><play pattern="kick_nonstop" start="280" /><play pattern="kick_nonstop" start="284" />
+      <play pattern="kick_nonstop" start="288" /><play pattern="kick_nonstop" start="292" /><play pattern="kick_nonstop" start="296" /><play pattern="kick_nonstop" start="300" />
+      <play pattern="kick_nonstop" start="304" /><play pattern="kick_nonstop" start="308" /><play pattern="kick_nonstop" start="312" /><play pattern="kick_nonstop" start="316" />
+      <play pattern="kick_nonstop" start="320" /><play pattern="kick_nonstop" start="324" /><play pattern="kick_nonstop" start="328" /><play pattern="kick_nonstop" start="332" />
+      <play pattern="kick_nonstop" start="336" /><play pattern="kick_nonstop" start="340" /><play pattern="kick_nonstop" start="344" /><play pattern="kick_nonstop" start="348" />
+      <play pattern="kick_nonstop" start="352" /><play pattern="kick_nonstop" start="356" /><play pattern="kick_nonstop" start="360" /><play pattern="kick_nonstop" start="364" />
+      <play pattern="kick_nonstop" start="368" /><play pattern="kick_nonstop" start="372" /><play pattern="kick_nonstop" start="376" /><play pattern="kick_nonstop" start="380" />
+      <play pattern="kick_nonstop" start="384" /><play pattern="kick_nonstop" start="388" /><play pattern="kick_nonstop" start="392" /><play pattern="kick_nonstop" start="396" />
+      <play pattern="kick_nonstop" start="400" /><play pattern="kick_nonstop" start="404" /><play pattern="kick_nonstop" start="408" /><play pattern="kick_nonstop" start="412" />
+      <play pattern="kick_nonstop" start="416" /><play pattern="kick_nonstop" start="420" /><play pattern="kick_nonstop" start="424" /><play pattern="kick_nonstop" start="428" />
+      <play pattern="kick_nonstop" start="432" /><play pattern="kick_nonstop" start="436" /><play pattern="kick_nonstop" start="440" /><play pattern="kick_nonstop" start="444" />
+      <play pattern="kick_nonstop" start="448" /><play pattern="kick_nonstop" start="452" /><play pattern="kick_nonstop" start="456" /><play pattern="kick_nonstop" start="460" />
+      <play pattern="kick_nonstop" start="464" /><play pattern="kick_nonstop" start="468" /><play pattern="kick_nonstop" start="472" /><play pattern="kick_nonstop" start="476" />
+      <play pattern="kick_nonstop" start="480" /><play pattern="kick_nonstop" start="484" /><play pattern="kick_nonstop" start="488" /><play pattern="kick_nonstop" start="492" />
+      <play pattern="kick_nonstop" start="496" /><play pattern="kick_nonstop" start="500" /><play pattern="kick_nonstop" start="504" /><play pattern="kick_nonstop" start="508" />
+      <play pattern="kick_nonstop" start="512" /><play pattern="kick_nonstop" start="516" /><play pattern="kick_nonstop" start="520" /><play pattern="kick_nonstop" start="524" />
+      <play pattern="kick_nonstop" start="528" /><play pattern="kick_nonstop" start="532" /><play pattern="kick_nonstop" start="536" /><play pattern="kick_nonstop" start="540" />
+      <play pattern="kick_nonstop" start="544" /><play pattern="kick_nonstop" start="548" /><play pattern="kick_nonstop" start="552" /><play pattern="kick_nonstop" start="556" />
+      <play pattern="kick_nonstop" start="560" /><play pattern="kick_nonstop" start="564" /><play pattern="kick_nonstop" start="568" /><play pattern="kick_nonstop" start="572" />
+      <play pattern="kick_nonstop" start="576" /><play pattern="kick_nonstop" start="580" /><play pattern="kick_nonstop" start="584" /><play pattern="kick_nonstop" start="588" />
+      <play pattern="kick_nonstop" start="592" /><play pattern="kick_nonstop" start="596" /><play pattern="kick_nonstop" start="600" /><play pattern="kick_nonstop" start="604" />
+      <play pattern="kick_nonstop" start="608" /><play pattern="kick_nonstop" start="612" /><play pattern="kick_nonstop" start="616" /><play pattern="kick_nonstop" start="620" />
+      <play pattern="kick_nonstop" start="624" /><play pattern="kick_nonstop" start="628" /><play pattern="kick_nonstop" start="632" /><play pattern="kick_nonstop" start="636" />
+    </track>
+
+    <!-- TRACK 2: SNARE (640 Beats Non-Stop) -->
+    <track instrument="electro_snare" name="Non-Stop Snare">
+      <play pattern="snare_nonstop" start="0" /><play pattern="snare_nonstop" start="16" /><play pattern="snare_nonstop" start="32" /><play pattern="snare_nonstop" start="48" />
+      <play pattern="snare_nonstop" start="64" /><play pattern="snare_nonstop" start="80" /><play pattern="snare_nonstop" start="96" /><play pattern="snare_nonstop" start="112" />
+      <play pattern="snare_nonstop" start="128" /><play pattern="snare_nonstop" start="144" /><play pattern="snare_nonstop" start="160" /><play pattern="snare_nonstop" start="176" />
+      <play pattern="snare_nonstop" start="192" /><play pattern="snare_nonstop" start="208" /><play pattern="snare_nonstop" start="224" /><play pattern="snare_nonstop" start="240" />
+      <play pattern="snare_nonstop" start="256" /><play pattern="snare_nonstop" start="272" /><play pattern="snare_nonstop" start="288" /><play pattern="snare_nonstop" start="304" />
+      <play pattern="snare_nonstop" start="320" /><play pattern="snare_nonstop" start="336" /><play pattern="snare_nonstop" start="352" /><play pattern="snare_nonstop" start="368" />
+      <play pattern="snare_nonstop" start="384" /><play pattern="snare_nonstop" start="400" /><play pattern="snare_nonstop" start="416" /><play pattern="snare_nonstop" start="432" />
+      <play pattern="snare_nonstop" start="448" /><play pattern="snare_nonstop" start="464" /><play pattern="snare_nonstop" start="480" /><play pattern="snare_nonstop" start="496" />
+      <play pattern="snare_nonstop" start="512" /><play pattern="snare_nonstop" start="528" /><play pattern="snare_nonstop" start="544" /><play pattern="snare_nonstop" start="560" />
+      <play pattern="snare_nonstop" start="576" /><play pattern="snare_nonstop" start="592" /><play pattern="snare_nonstop" start="608" /><play pattern="snare_nonstop" start="624" />
+    </track>
+
+    <!-- TRACK 3: HI-HATS (640 Beats Non-Stop) -->
+    <track instrument="electro_hat" name="Non-Stop Hi-Hats">
+      <play pattern="hats_16th_intense" start="0" /><play pattern="hats_16th_intense" start="16" /><play pattern="hats_16th_intense" start="32" /><play pattern="hats_16th_intense" start="48" />
+      <play pattern="hats_16th_intense" start="64" /><play pattern="hats_16th_intense" start="80" /><play pattern="hats_16th_intense" start="96" /><play pattern="hats_16th_intense" start="112" />
+      <play pattern="hats_16th_intense" start="128" /><play pattern="hats_16th_intense" start="144" /><play pattern="hats_16th_intense" start="160" /><play pattern="hats_16th_intense" start="176" />
+      <play pattern="hats_16th_intense" start="192" /><play pattern="hats_16th_intense" start="208" /><play pattern="hats_16th_intense" start="224" /><play pattern="hats_16th_intense" start="240" />
+      <play pattern="hats_16th_intense" start="256" /><play pattern="hats_16th_intense" start="272" /><play pattern="hats_16th_intense" start="288" /><play pattern="hats_16th_intense" start="304" />
+      <play pattern="hats_16th_intense" start="320" /><play pattern="hats_16th_intense" start="336" /><play pattern="hats_16th_intense" start="352" /><play pattern="hats_16th_intense" start="368" />
+      <play pattern="hats_16th_intense" start="384" /><play pattern="hats_16th_intense" start="400" /><play pattern="hats_16th_intense" start="416" /><play pattern="hats_16th_intense" start="432" />
+      <play pattern="hats_16th_intense" start="448" /><play pattern="hats_16th_intense" start="464" /><play pattern="hats_16th_intense" start="480" /><play pattern="hats_16th_intense" start="496" />
+      <play pattern="hats_16th_intense" start="512" /><play pattern="hats_16th_intense" start="528" /><play pattern="hats_16th_intense" start="544" /><play pattern="hats_16th_intense" start="560" />
+      <play pattern="hats_16th_intense" start="576" /><play pattern="hats_16th_intense" start="592" /><play pattern="hats_16th_intense" start="608" /><play pattern="hats_16th_intense" start="624" />
+    </track>
+
+    <!-- TRACK 4: INTENSE ELECTRO BASS (640 Beats Non-Stop) -->
+    <track instrument="elec_bass" name="Non-Stop Electro Bass">
+      <play pattern="bass_fsharp_intense" start="0" /><play pattern="bass_fsharp_intense" start="16" /><play pattern="bass_fsharp_intense" start="32" /><play pattern="bass_fsharp_intense" start="48" />
+      <play pattern="bass_fsharp_intense" start="64" /><play pattern="bass_fsharp_intense" start="80" /><play pattern="bass_fsharp_intense" start="96" /><play pattern="bass_fsharp_intense" start="112" />
+      <play pattern="bass_fsharp_intense" start="128" /><play pattern="bass_fsharp_intense" start="144" /><play pattern="bass_fsharp_intense" start="160" /><play pattern="bass_fsharp_intense" start="176" />
+      <play pattern="bass_fsharp_intense" start="192" /><play pattern="bass_fsharp_intense" start="208" /><play pattern="bass_fsharp_intense" start="224" /><play pattern="bass_fsharp_intense" start="240" />
+      <play pattern="bass_fsharp_intense" start="256" /><play pattern="bass_fsharp_intense" start="272" /><play pattern="bass_fsharp_intense" start="288" /><play pattern="bass_fsharp_intense" start="304" />
+      <play pattern="bass_fsharp_intense" start="320" /><play pattern="bass_fsharp_intense" start="336" /><play pattern="bass_fsharp_intense" start="352" /><play pattern="bass_fsharp_intense" start="368" />
+      <play pattern="bass_fsharp_intense" start="384" /><play pattern="bass_fsharp_intense" start="400" /><play pattern="bass_fsharp_intense" start="416" /><play pattern="bass_fsharp_intense" start="432" />
+      <play pattern="bass_fsharp_intense" start="448" /><play pattern="bass_fsharp_intense" start="464" /><play pattern="bass_fsharp_intense" start="480" /><play pattern="bass_fsharp_intense" start="496" />
+      <play pattern="bass_fsharp_intense" start="512" /><play pattern="bass_fsharp_intense" start="528" /><play pattern="bass_fsharp_intense" start="544" /><play pattern="bass_fsharp_intense" start="560" />
+      <play pattern="bass_fsharp_intense" start="576" /><play pattern="bass_fsharp_intense" start="592" /><play pattern="bass_fsharp_intense" start="608" /><play pattern="bass_fsharp_intense" start="624" />
+    </track>
+
+    <!-- TRACK 5: SUB BASS (640 Beats Non-Stop) -->
+    <track instrument="sub_bass" name="Non-Stop Sub Bass">
+      <play pattern="sub_chords_nonstop" start="0" /><play pattern="sub_chords_nonstop" start="16" /><play pattern="sub_chords_nonstop" start="32" /><play pattern="sub_chords_nonstop" start="48" />
+      <play pattern="sub_chords_nonstop" start="64" /><play pattern="sub_chords_nonstop" start="80" /><play pattern="sub_chords_nonstop" start="96" /><play pattern="sub_chords_nonstop" start="112" />
+      <play pattern="sub_chords_nonstop" start="128" /><play pattern="sub_chords_nonstop" start="144" /><play pattern="sub_chords_nonstop" start="160" /><play pattern="sub_chords_nonstop" start="176" />
+      <play pattern="sub_chords_nonstop" start="192" /><play pattern="sub_chords_nonstop" start="208" /><play pattern="sub_chords_nonstop" start="224" /><play pattern="sub_chords_nonstop" start="240" />
+      <play pattern="sub_chords_nonstop" start="256" /><play pattern="sub_chords_nonstop" start="272" /><play pattern="sub_chords_nonstop" start="288" /><play pattern="sub_chords_nonstop" start="304" />
+      <play pattern="sub_chords_nonstop" start="320" /><play pattern="sub_chords_nonstop" start="336" /><play pattern="sub_chords_nonstop" start="352" /><play pattern="sub_chords_nonstop" start="368" />
+      <play pattern="sub_chords_nonstop" start="384" /><play pattern="sub_chords_nonstop" start="400" /><play pattern="sub_chords_nonstop" start="416" /><play pattern="sub_chords_nonstop" start="432" />
+      <play pattern="sub_chords_nonstop" start="448" /><play pattern="sub_chords_nonstop" start="464" /><play pattern="sub_chords_nonstop" start="480" /><play pattern="sub_chords_nonstop" start="496" />
+      <play pattern="sub_chords_nonstop" start="512" /><play pattern="sub_chords_nonstop" start="528" /><play pattern="sub_chords_nonstop" start="544" /><play pattern="sub_chords_nonstop" start="560" />
+      <play pattern="sub_chords_nonstop" start="576" /><play pattern="sub_chords_nonstop" start="592" /><play pattern="sub_chords_nonstop" start="608" /><play pattern="sub_chords_nonstop" start="624" />
+    </track>
+
+    <!-- TRACK 6: MAIN SAW LEAD (640 Beats Non-Stop) -->
+    <track instrument="saw_lead" name="Non-Stop Saw Lead">
+      <play pattern="lead_anthem_main" start="0" /><play pattern="lead_anthem_main" start="16" /><play pattern="lead_anthem_main" start="32" /><play pattern="lead_anthem_main" start="48" />
+      <play pattern="lead_anthem_main" start="64" /><play pattern="lead_anthem_main" start="80" /><play pattern="lead_anthem_main" start="96" /><play pattern="lead_anthem_main" start="112" />
+      <play pattern="lead_anthem_main" start="128" /><play pattern="lead_anthem_main" start="144" /><play pattern="lead_anthem_main" start="160" /><play pattern="lead_anthem_main" start="176" />
+      <play pattern="lead_anthem_main" start="192" /><play pattern="lead_anthem_main" start="208" /><play pattern="lead_anthem_main" start="224" /><play pattern="lead_anthem_main" start="240" />
+      <play pattern="lead_anthem_main" start="256" /><play pattern="lead_anthem_main" start="272" /><play pattern="lead_anthem_main" start="288" /><play pattern="lead_anthem_main" start="304" />
+      <play pattern="lead_anthem_main" start="320" /><play pattern="lead_anthem_main" start="336" /><play pattern="lead_anthem_main" start="352" /><play pattern="lead_anthem_main" start="368" />
+      <play pattern="lead_anthem_main" start="384" /><play pattern="lead_anthem_main" start="400" /><play pattern="lead_anthem_main" start="416" /><play pattern="lead_anthem_main" start="432" />
+      <play pattern="lead_anthem_main" start="448" /><play pattern="lead_anthem_main" start="464" /><play pattern="lead_anthem_main" start="480" /><play pattern="lead_anthem_main" start="496" />
+      <play pattern="lead_anthem_main" start="512" /><play pattern="lead_anthem_main" start="528" /><play pattern="lead_anthem_main" start="544" /><play pattern="lead_anthem_main" start="560" />
+      <play pattern="lead_anthem_main" start="576" /><play pattern="lead_anthem_main" start="592" /><play pattern="lead_anthem_main" start="608" /><play pattern="lead_anthem_main" start="624" />
+    </track>
+
+    <!-- TRACK 7: SECONDARY COUNTER LEAD (640 Beats Non-Stop) -->
+    <track instrument="super_lead" name="Non-Stop Super Lead">
+      <play pattern="lead_counter_skyhigh" start="0" /><play pattern="lead_counter_skyhigh" start="16" /><play pattern="lead_counter_skyhigh" start="32" /><play pattern="lead_counter_skyhigh" start="48" />
+      <play pattern="lead_counter_skyhigh" start="64" /><play pattern="lead_counter_skyhigh" start="80" /><play pattern="lead_counter_skyhigh" start="96" /><play pattern="lead_counter_skyhigh" start="112" />
+      <play pattern="lead_counter_skyhigh" start="128" /><play pattern="lead_counter_skyhigh" start="144" /><play pattern="lead_counter_skyhigh" start="160" /><play pattern="lead_counter_skyhigh" start="176" />
+      <play pattern="lead_counter_skyhigh" start="192" /><play pattern="lead_counter_skyhigh" start="208" /><play pattern="lead_counter_skyhigh" start="224" /><play pattern="lead_counter_skyhigh" start="240" />
+      <play pattern="lead_counter_skyhigh" start="256" /><play pattern="lead_counter_skyhigh" start="272" /><play pattern="lead_counter_skyhigh" start="288" /><play pattern="lead_counter_skyhigh" start="304" />
+      <play pattern="lead_counter_skyhigh" start="320" /><play pattern="lead_counter_skyhigh" start="336" /><play pattern="lead_counter_skyhigh" start="352" /><play pattern="lead_counter_skyhigh" start="368" />
+      <play pattern="lead_counter_skyhigh" start="384" /><play pattern="lead_counter_skyhigh" start="400" /><play pattern="lead_counter_skyhigh" start="416" /><play pattern="lead_counter_skyhigh" start="432" />
+      <play pattern="lead_counter_skyhigh" start="448" /><play pattern="lead_counter_skyhigh" start="464" /><play pattern="lead_counter_skyhigh" start="480" /><play pattern="lead_counter_skyhigh" start="496" />
+      <play pattern="lead_counter_skyhigh" start="512" /><play pattern="lead_counter_skyhigh" start="528" /><play pattern="lead_counter_skyhigh" start="544" /><play pattern="lead_counter_skyhigh" start="560" />
+      <play pattern="lead_counter_skyhigh" start="576" /><play pattern="lead_counter_skyhigh" start="592" /><play pattern="lead_counter_skyhigh" start="608" /><play pattern="lead_counter_skyhigh" start="624" />
+    </track>
+
+    <!-- TRACK 8: SYNTH PAD WALL (640 Beats Non-Stop) -->
+    <track instrument="synth_pad" name="Non-Stop Synth Pad Wall">
+      <play pattern="pad_chords_wall" start="0" /><play pattern="pad_chords_wall" start="16" /><play pattern="pad_chords_wall" start="32" /><play pattern="pad_chords_wall" start="48" />
+      <play pattern="pad_chords_wall" start="64" /><play pattern="pad_chords_wall" start="80" /><play pattern="pad_chords_wall" start="96" /><play pattern="pad_chords_wall" start="112" />
+      <play pattern="pad_chords_wall" start="128" /><play pattern="pad_chords_wall" start="144" /><play pattern="pad_chords_wall" start="160" /><play pattern="pad_chords_wall" start="176" />
+      <play pattern="pad_chords_wall" start="192" /><play pattern="pad_chords_wall" start="208" /><play pattern="pad_chords_wall" start="224" /><play pattern="pad_chords_wall" start="240" />
+      <play pattern="pad_chords_wall" start="256" /><play pattern="pad_chords_wall" start="272" /><play pattern="pad_chords_wall" start="288" /><play pattern="pad_chords_wall" start="304" />
+      <play pattern="pad_chords_wall" start="320" /><play pattern="pad_chords_wall" start="336" /><play pattern="pad_chords_wall" start="352" /><play pattern="pad_chords_wall" start="368" />
+      <play pattern="pad_chords_wall" start="384" /><play pattern="pad_chords_wall" start="400" /><play pattern="pad_chords_wall" start="416" /><play pattern="pad_chords_wall" start="432" />
+      <play pattern="pad_chords_wall" start="448" /><play pattern="pad_chords_wall" start="464" /><play pattern="pad_chords_wall" start="480" /><play pattern="pad_chords_wall" start="496" />
+      <play pattern="pad_chords_wall" start="512" /><play pattern="pad_chords_wall" start="528" /><play pattern="pad_chords_wall" start="544" /><play pattern="pad_chords_wall" start="560" />
+      <play pattern="pad_chords_wall" start="576" /><play pattern="pad_chords_wall" start="592" /><play pattern="pad_chords_wall" start="608" /><play pattern="pad_chords_wall" start="624" />
+    </track>
+
+    <!-- TRACK 9: HERO ARPEGGIATOR (640 Beats Non-Stop) -->
+    <track instrument="hero_arp" name="Non-Stop Hero Arp">
+      <play pattern="hero_arp_wall" start="0" /><play pattern="hero_arp_wall" start="16" /><play pattern="hero_arp_wall" start="32" /><play pattern="hero_arp_wall" start="48" />
+      <play pattern="hero_arp_wall" start="64" /><play pattern="hero_arp_wall" start="80" /><play pattern="hero_arp_wall" start="96" /><play pattern="hero_arp_wall" start="112" />
+      <play pattern="hero_arp_wall" start="128" /><play pattern="hero_arp_wall" start="144" /><play pattern="hero_arp_wall" start="160" /><play pattern="hero_arp_wall" start="176" />
+      <play pattern="hero_arp_wall" start="192" /><play pattern="hero_arp_wall" start="208" /><play pattern="hero_arp_wall" start="224" /><play pattern="hero_arp_wall" start="240" />
+      <play pattern="hero_arp_wall" start="256" /><play pattern="hero_arp_wall" start="272" /><play pattern="hero_arp_wall" start="288" /><play pattern="hero_arp_wall" start="304" />
+      <play pattern="hero_arp_wall" start="320" /><play pattern="hero_arp_wall" start="336" /><play pattern="hero_arp_wall" start="352" /><play pattern="hero_arp_wall" start="368" />
+      <play pattern="hero_arp_wall" start="384" /><play pattern="hero_arp_wall" start="400" /><play pattern="hero_arp_wall" start="416" /><play pattern="hero_arp_wall" start="432" />
+      <play pattern="hero_arp_wall" start="448" /><play pattern="hero_arp_wall" start="464" /><play pattern="hero_arp_wall" start="480" /><play pattern="hero_arp_wall" start="496" />
+      <play pattern="hero_arp_wall" start="512" /><play pattern="hero_arp_wall" start="528" /><play pattern="hero_arp_wall" start="544" /><play pattern="hero_arp_wall" start="560" />
+      <play pattern="hero_arp_wall" start="576" /><play pattern="hero_arp_wall" start="592" /><play pattern="hero_arp_wall" start="608" /><play pattern="hero_arp_wall" start="624" />
+    </track>
+
+    <!-- TRACK 10: HEAVY BRASS STABS (640 Beats Non-Stop) -->
+    <track instrument="brass_stab" name="Non-Stop Brass Stabs">
+      <play pattern="brass_stabs_heavy" start="0" /><play pattern="brass_stabs_heavy" start="16" /><play pattern="brass_stabs_heavy" start="32" /><play pattern="brass_stabs_heavy" start="48" />
+      <play pattern="brass_stabs_heavy" start="64" /><play pattern="brass_stabs_heavy" start="80" /><play pattern="brass_stabs_heavy" start="96" /><play pattern="brass_stabs_heavy" start="112" />
+      <play pattern="brass_stabs_heavy" start="128" /><play pattern="brass_stabs_heavy" start="144" /><play pattern="brass_stabs_heavy" start="160" /><play pattern="brass_stabs_heavy" start="176" />
+      <play pattern="brass_stabs_heavy" start="192" /><play pattern="brass_stabs_heavy" start="208" /><play pattern="brass_stabs_heavy" start="224" /><play pattern="brass_stabs_heavy" start="240" />
+      <play pattern="brass_stabs_heavy" start="256" /><play pattern="brass_stabs_heavy" start="272" /><play pattern="brass_stabs_heavy" start="288" /><play pattern="brass_stabs_heavy" start="304" />
+      <play pattern="brass_stabs_heavy" start="320" /><play pattern="brass_stabs_heavy" start="336" /><play pattern="brass_stabs_heavy" start="352" /><play pattern="brass_stabs_heavy" start="368" />
+      <play pattern="brass_stabs_heavy" start="384" /><play pattern="brass_stabs_heavy" start="400" /><play pattern="brass_stabs_heavy" start="416" /><play pattern="brass_stabs_heavy" start="432" />
+      <play pattern="brass_stabs_heavy" start="448" /><play pattern="brass_stabs_heavy" start="464" /><play pattern="brass_stabs_heavy" start="480" /><play pattern="brass_stabs_heavy" start="496" />
+      <play pattern="brass_stabs_heavy" start="512" /><play pattern="brass_stabs_heavy" start="528" /><play pattern="brass_stabs_heavy" start="544" /><play pattern="brass_stabs_heavy" start="560" />
+      <play pattern="brass_stabs_heavy" start="576" /><play pattern="brass_stabs_heavy" start="592" /><play pattern="brass_stabs_heavy" start="608" /><play pattern="brass_stabs_heavy" start="624" />
+      <!-- Ending Strike at Beat 636 -->
+      <chord start="636" duration="w"><note pitch="F#3"/><note pitch="F#4"/><note pitch="C#5"/><note pitch="F#5"/></chord>
+    </track>
+  </tracks>
+</axml>

@@ -1,0 +1,86 @@
+/* Mobile Navigation Dock */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--bg-panel);
+    border-top: 1px solid var(--glass-border);
+    z-index: 1000;
+    padding: 8px 0;
+    justify-content: space-around;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.mobile-nav-item {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: var(--transition);
+    flex: 1;
+    padding: 4px 0;
+}
+
+.mobile-nav-item i {
+    font-size: 20px;
+    transition: var(--transition);
+}
+
+.mobile-nav-item:hover {
+    color: var(--text-secondary);
+}
+
+.mobile-nav-item.active {
+    color: var(--primary);
+}
+
+.mobile-nav-item.active i {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 880px) {
+    .mobile-nav {
+        display: flex;
+    }
+
+    .app-shell {
+        padding-bottom: 64px;
+    }
+
+    .main-container > aside,
+    .main-container > section {
+        display: none !important;
+    }
+
+    .main-container > .active-view {
+        display: flex !important;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .studio-nav {
+        display: flex;
+        gap: 12px;
+        font-size: 0.75rem;
+    }
+
+    .studio-nav a {
+        color: var(--text-muted);
+        text-decoration: none;
+    }
+}

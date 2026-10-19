@@ -1,120 +1,157 @@
+/* AXML Studio - Obsidian Slate & Solar Phosphor Design System */
 :root {
-    --bg-dark: #020408;
-    --bg-panel: #0a0d14;
-    --primary: #00f2ff;
-    --primary-glow: rgba(0, 242, 255, 0.5);
-    --secondary: #bd00ff;
-    --secondary-glow: rgba(189, 0, 255, 0.4);
-    --accent: #ff0055;
-    --accent-glow: rgba(255, 0, 85, 0.4);
-    --text-main: #f1f5f9;
-    --text-muted: #94a3b8;
-    --glass-bg: rgba(10, 13, 20, 0.85);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --radius-lg: 16px;
+    /* Base Surfaces */
+    --bg-dark: #090b0e;
+    --bg-abyss: #06080a;
+    --bg-panel: #0e1218;
+    --bg-surface-2: #151b23;
+    --bg-surface-3: #1c2430;
+    --bg-surface-hover: #242d3c;
+    --bg-active: #2d384a;
+
+    /* Functional Accents */
+    --primary: #f59e0b;
+    --primary-hover: #fbbf24;
+    --primary-glow: rgba(245, 158, 11, 0.25);
+
+    --phosphor: #10b981;
+    --phosphor-hover: #34d399;
+    --phosphor-glow: rgba(16, 185, 129, 0.25);
+
+    --secondary: #6366f1;
+    --secondary-hover: #818cf8;
+    --secondary-glow: rgba(99, 102, 241, 0.2);
+
+    --accent: #06b6d4;
+    --accent-glow: rgba(6, 182, 212, 0.2);
+
+    --danger: #f43f5e;
+    --danger-bg: rgba(244, 63, 94, 0.12);
+    --danger-border: rgba(244, 63, 94, 0.35);
+
+    --warning: #f97316;
+    --warning-bg: rgba(249, 115, 22, 0.12);
+    --warning-border: rgba(249, 115, 22, 0.35);
+
+    /* Text & Typography */
+    --text-main: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #64748b;
+    --text-dim: #475569;
+
+    /* Borders & Glass */
+    --glass-bg: rgba(14, 18, 24, 0.88);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border-subtle: rgba(255, 255, 255, 0.04);
+    --glass-border-focus: rgba(245, 158, 11, 0.45);
+
+    /* Radii */
+    --radius-sm: 4px;
     --radius-md: 8px;
-    --neon-blue: #00f2ff;
-    --neon-purple: #bd00ff;
-    --neon-glow: 0 0 20px rgba(0, 242, 255, 0.4);
-    --font-ui: 'Inter', sans-serif;
-    --font-code: 'JetBrains Mono', monospace;
-    --font-display: 'Orbitron', sans-serif;
-    --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --radius-lg: 12px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+    /* Typography */
+    --font-ui: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-code: 'JetBrains Mono', 'Fira Code', monospace;
+    --font-display: 'Space Grotesk', sans-serif;
+
+    /* Transitions */
+    --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-smooth: all 0.3s ease;
 }
 
 body.light-theme {
-    --bg-dark: #f0f2f5;
+    --bg-dark: #eef2f6;
+    --bg-abyss: #e2e8f0;
     --bg-panel: #ffffff;
-    --primary: #0070f3;
-    --primary-glow: rgba(0, 112, 243, 0.2);
-    --secondary: #7928ca;
-    --secondary-glow: rgba(121, 40, 202, 0.15);
-    --accent: #ff0080;
-    --text-main: #1a1a1a;
-    --text-muted: #666666;
-    --glass-bg: rgba(255, 255, 255, 0.8);
+    --bg-surface-2: #f8fafc;
+    --bg-surface-3: #edf2f7;
+    --bg-surface-hover: #e2e8f0;
+    --bg-active: #cbd5e1;
+
+    --primary: #d97706;
+    --primary-hover: #b45309;
+    --primary-glow: rgba(217, 119, 6, 0.2);
+
+    --phosphor: #059669;
+    --phosphor-hover: #047857;
+    --phosphor-glow: rgba(5, 150, 105, 0.2);
+
+    --secondary: #4f46e5;
+    --secondary-hover: #4338ca;
+    --secondary-glow: rgba(79, 70, 229, 0.15);
+
+    --accent: #0284c7;
+    --accent-glow: rgba(2, 132, 199, 0.15);
+
+    --text-main: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --text-dim: #94a3b8;
+
+    --glass-bg: rgba(255, 255, 255, 0.92);
     --glass-border: rgba(0, 0, 0, 0.08);
-    --neon-glow: 0 4px 12px rgba(0, 112, 243, 0.15);
+    --glass-border-subtle: rgba(0, 0, 0, 0.04);
+    --glass-border-focus: rgba(217, 119, 6, 0.4);
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
+/* Animations */
 @keyframes pulse {
-    0% {
-        transform: scale(1);
+    0%, 100% {
         opacity: 1;
-        text-shadow: 0 0 10px var(--primary-glow);
+        transform: scale(1);
     }
-
     50% {
-        transform: scale(1.05);
-        opacity: 0.8;
-        text-shadow: 0 0 20px var(--primary);
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
-        text-shadow: 0 0 10px var(--primary-glow);
+        opacity: 0.65;
+        transform: scale(1.03);
     }
 }
 
 @keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-@keyframes scanline {
-    0% {
-        transform: translateY(-100%);
+@keyframes live-indicator {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
     }
-
-    100% {
-        transform: translateY(100%);
+    70% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
     }
 }
 
 .rotating {
-    animation: rotate 2s linear infinite;
+    animation: rotate 1.2s linear infinite;
     display: inline-block;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - Precision Studio Look */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg-dark);
+    background: var(--bg-panel);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--glass-border);
-    border-radius: 10px;
+    background: var(--bg-surface-3);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border-subtle);
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
-    box-shadow: 0 0 10px var(--primary-glow);
-}
-
-/* Scanline Effect */
-body::before {
-    content: " ";
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
-        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-    z-index: 9999;
-    background-size: 100% 4px, 3px 100%;
-    pointer-events: none;
-    opacity: 0.3;
 }

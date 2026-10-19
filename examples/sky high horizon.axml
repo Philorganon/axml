@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axml version="4.0">
+  <metadata>
+    <title>Sky High Horizon (Elektronomia Style)</title>
+    <artist>AXML Composer</artist>
+    <tempo>128</tempo>
+    <key>Am</key>
+    <time-signature>4/4</time-signature>
+  </metadata>
+
+  <instruments>
+    <!-- Drums -->
+    <instrument id="kick" type="kick" volume="1.0" attack="0.005" decay="0.35" sustain="0.0" release="0.1" />
+    <instrument id="snare" type="snare" volume="0.85" attack="0.005" decay="0.25" sustain="0.0" release="0.15" reverb="0.25" />
+    <instrument id="hihat" type="hihat" volume="0.65" attack="0.005" decay="0.1" sustain="0.0" release="0.05" pan="0.15" />
+
+    <!-- Melodic & Bass Synths -->
+    <instrument id="bass" type="sawtooth" volume="0.85" attack="0.01" decay="0.2" sustain="0.6" release="0.1" cutoff="550" resonance="3.5" distortion="0.25" />
+    <instrument id="chords" type="sawtooth" volume="0.65" attack="0.02" decay="0.4" sustain="0.7" release="0.3" cutoff="4500" resonance="1.2" chorus="0.75" reverb="0.45" />
+    <instrument id="lead" type="sawtooth" volume="0.95" attack="0.005" decay="0.3" sustain="0.8" release="0.25" cutoff="9500" resonance="2.0" chorus="0.85" delay="0.35" delayTime="0.234" delayFeedback="0.4" reverb="0.55" />
+    <instrument id="pluck" type="square" volume="0.6" attack="0.005" decay="0.15" sustain="0.1" release="0.1" cutoff="2800" resonance="2.5" delay="0.4" delayTime="0.351" delayFeedback="0.35" reverb="0.4" pan="-0.2" />
+  </instruments>
+
+  <patterns>
+    <!-- ========================================== -->
+    <!-- 1. DRUM PATTERNS                           -->
+    <!-- ========================================== -->
+    
+    <!-- 1-Bar 4-on-the-Floor Kick (4 Beats) -->
+    <pattern id="kick_1bar">
+      <note pitch="C1" start="0" duration="q" velocity="1.0" />
+      <note pitch="C1" start="1" duration="q" velocity="1.0" />
+      <note pitch="C1" start="2" duration="q" velocity="1.0" />
+      <note pitch="C1" start="3" duration="q" velocity="1.0" />
+    </pattern>
+
+    <!-- 16-Beat Kick Loop (4 Bars) -->
+    <pattern id="kick_16">
+      <play pattern="kick_1bar" start="0" />
+      <play pattern="kick_1bar" start="4" />
+      <play pattern="kick_1bar" start="8" />
+      <play pattern="kick_1bar" start="12" />
+    </pattern>
+
+    <!-- 1-Bar Backbeat Snare/Clap on Beats 1 and 3 -->
+    <pattern id="snare_1bar">
+      <note pitch="D3" start="1" duration="q" velocity="0.9" />
+      <note pitch="D3" start="3" duration="q" velocity="0.9" />
+    </pattern>
+
+    <!-- 16-Beat Snare Loop -->
+    <pattern id="snare_16">
+      <play pattern="snare_1bar" start="0" />
+      <play pattern="snare_1bar" start="4" />
+      <play pattern="snare_1bar" start="8" />
+      <play pattern="snare_1bar" start="12" />
+    </pattern>
+
+    <!-- 16-Beat Build-Up Snare Riser (Accelerating 8th to 16th notes) -->
+    <pattern id="snare_build_16">
+      <!-- Bars 1-2: Quarter notes -->
+      <note pitch="D3" start="0" duration="q" velocity="0.5" />
+      <note pitch="D3" start="1" duration="q" velocity="0.5" />
+      <note pitch="D3" start="2" duration="q" velocity="0.55" />
+      <note pitch="D3" start="3" duration="q" velocity="0.55" />
+      <note pitch="D3" start="4" duration="q" velocity="0.6" />
+      <note pitch="D3" start="5" duration="q" velocity="0.6" />
+      <note pitch="D3" start="6" duration="q" velocity="0.65" />
+      <note pitch="D3" start="7" duration="q" velocity="0.65" />
+      <!-- Bar 3: Eighth notes -->
+      <note pitch="D3" start="8.0" duration="e" velocity="0.7" />
+      <note pitch="D3" start="8.5" duration="e" velocity="0.7" />
+      <note pitch="D3" start="9.0" duration="e" velocity="0.75" />
+      <note pitch="D3" start="9.5" duration="e" velocity="0.75" />
+      <note pitch="D3" start="10.0" duration="e" velocity="0.8" />
+      <note pitch="D3" start="10.5" duration="e" velocity="0.8" />
+      <note pitch="D3" start="11.0" duration="e" velocity="0.85" />
+      <note pitch="D3" start="11.5" duration="e" velocity="0.85" />
+      <!-- Bar 4: Sixteenth note roll + Beat 15 silence before drop -->
+      <note pitch="D3" start="12.00" duration="s" velocity="0.85" />
+      <note pitch="D3" start="12.25" duration="s" velocity="0.85" />
+      <note pitch="D3" start="12.50" duration="s" velocity="0.9" />
+      <note pitch="D3" start="12.75" duration="s" velocity="0.9" />
+      <note pitch="D3" start="13.00" duration="s" velocity="0.95" />
+      <note pitch="D3" start="13.25" duration="s" velocity="0.95" />
+      <note pitch="D3" start="13.50" duration="s" velocity="0.95" />
+      <note pitch="D3" start="13.75" duration="s" velocity="0.95" />
+      <note pitch="D3" start="14.00" duration="s" velocity="1.0" />
+      <note pitch="D3" start="14.25" duration="s" velocity="1.0" />
+      <note pitch="D3" start="14.50" duration="s" velocity="1.0" />
+      <note pitch="D3" start="14.75" duration="s" velocity="1.0" />
+      <note pitch="D3" start="15.00" duration="q" velocity="1.0" />
+    </pattern>
+
+    <!-- 1-Bar Off-Beat Club Hi-Hat -->
+    <pattern id="hat_1bar">
+      <note pitch="F#5" start="0.5" duration="e" velocity="0.85" />
+      <note pitch="F#5" start="1.5" duration="e" velocity="0.85" />
+      <note pitch="F#5" start="2.5" duration="e" velocity="0.85" />
+      <note pitch="F#5" start="3.5" duration="e" velocity="0.85" />
+    </pattern>
+
+    <!-- 16-Beat Hi-Hat Loop -->
+    <pattern id="hat_16">
+      <play pattern="hat_1bar" start="0" />
+      <play pattern="hat_1bar" start="4" />
+      <play pattern="hat_1bar" start="8" />
+      <play pattern="hat_1bar" start="12" />
+    </pattern>
+
+    <!-- ========================================== -->
+    <!-- 2. BASS & CHORD PATTERNS (Am - F - C - G)  -->
+    <!-- ========================================== -->
+
+    <!-- Driving 8th-Note Bassline (16 Beats / 4 Bars) -->
+    <pattern id="bass_16">
+      <!-- Bar 1: A minor -->
+      <note pitch="A1" start="0.0" duration="e" velocity="0.9" />
+      <note pitch="A2" start="0.5" duration="e" velocity="1.0" />
+      <note pitch="A1" start="1.0" duration="e" velocity="0.9" />
+      <note pitch="A2" start="1.5" duration="e" velocity="1.0" />
+      <note pitch="A1" start="2.0" duration="e" velocity="0.9" />
+      <note pitch="A2" start="2.5" duration="e" velocity="1.0" />
+      <note pitch="A1" start="3.0" duration="e" velocity="0.9" />
+      <note pitch="A2" start="3.5" duration="e" velocity="1.0" />
+      <!-- Bar 2: F major -->
+      <note pitch="F1" start="4.0" duration="e" velocity="0.9" />
+      <note pitch="F2" start="4.5" duration="e" velocity="1.0" />
+      <note pitch="F1" start="5.0" duration="e" velocity="0.9" />
+      <note pitch="F2" start="5.5" duration="e" velocity="1.0" />
+      <note pitch="F1" start="6.0" duration="e" velocity="0.9" />
+      <note pitch="F2" start="6.5" duration="e" velocity="1.0" />
+      <note pitch="F1" start="7.0" duration="e" velocity="0.9" />
+      <note pitch="F2" start="7.5" duration="e" velocity="1.0" />
+      <!-- Bar 3: C major -->
+      <note pitch="C2" start="8.0" duration="e" velocity="0.9" />
+      <note pitch="C3" start="8.5" duration="e" velocity="1.0" />
+      <note pitch="C2" start="9.0" duration="e" velocity="0.9" />
+      <note pitch="C3" start="9.5" duration="e" velocity="1.0" />
+      <note pitch="C2" start="10.0" duration="e" velocity="0.9" />
+      <note pitch="C3" start="10.5" duration="e" velocity="1.0" />
+      <note pitch="C2" start="11.0" duration="e" velocity="0.9" />
+      <note pitch="C3" start="11.5" duration="e" velocity="1.0" />
+      <!-- Bar 4: G major -->
+      <note pitch="G1" start="12.0" duration="e" velocity="0.9" />
+      <note pitch="G2" start="12.5" duration="e" velocity="1.0" />
+      <note pitch="G1" start="13.0" duration="e" velocity="0.9" />
+      <note pitch="G2" start="13.5" duration="e" velocity="1.0" />
+      <note pitch="G1" start="14.0" duration="e" velocity="0.9" />
+      <note pitch="G2" start="14.5" duration="e" velocity="1.0" />
+      <note pitch="G1" start="15.0" duration="e" velocity="0.9" />
+      <note pitch="G2" start="15.5" duration="e" velocity="1.0" />
+    </pattern>
+
+    <!-- Sustained Pad Chords (16 Beats / 4 Bars) -->
+    <pattern id="chords_pad_16">
+      <chord start="0" duration="w">
+        <note pitch="A3" />
+        <note pitch="C4" />
+        <note pitch="E4" />
+      </chord>
+      <chord start="4" duration="w">
+        <note pitch="F3" />
+        <note pitch="A3" />
+        <note pitch="C4" />
+      </chord>
+      <chord start="8" duration="w">
+        <note pitch="C3" />
+        <note pitch="E3" />
+        <note pitch="G3" />
+        <note pitch="C4" />
+      </chord>
+      <chord start="12" duration="w">
+        <note pitch="G3" />
+        <note pitch="B3" />
+        <note pitch="D4" />
+      </chord>
+    </pattern>
+
+    <!-- Pumping Quarter-Note Drop Chords (16 Beats / 4 Bars) -->
+    <pattern id="chords_pump_16">
+      <!-- Bar 1: Am -->
+      <chord start="0" duration="q"><note pitch="A3" /><note pitch="C4" /><note pitch="E4" /></chord>
+      <chord start="1" duration="q"><note pitch="A3" /><note pitch="C4" /><note pitch="E4" /></chord>
+      <chord start="2" duration="q"><note pitch="A3" /><note pitch="C4" /><note pitch="E4" /></chord>
+      <chord start="3" duration="q"><note pitch="A3" /><note pitch="C4" /><note pitch="E4" /></chord>
+      <!-- Bar 2: F -->
+      <chord start="4" duration="q"><note pitch="F3" /><note pitch="A3" /><note pitch="C4" /></chord>
+      <chord start="5" duration="q"><note pitch="F3" /><note pitch="A3" /><note pitch="C4" /></chord>
+      <chord start="6" duration="q"><note pitch="F3" /><note pitch="A3" /><note pitch="C4" /></chord>
+      <chord start="7" duration="q"><note pitch="F3" /><note pitch="A3" /><note pitch="C4" /></chord>
+      <!-- Bar 3: C -->
+      <chord start="8" duration="q"><note pitch="C4" /><note pitch="E4" /><note pitch="G4" /></chord>
+      <chord start="9" duration="q"><note pitch="C4" /><note pitch="E4" /><note pitch="G4" /></chord>
+      <chord start="10" duration="q"><note pitch="C4" /><note pitch="E4" /><note pitch="G4" /></chord>
+      <chord start="11" duration="q"><note pitch="C4" /><note pitch="E4" /><note pitch="G4" /></chord>
+      <!-- Bar 4: G -->
+      <chord start="12" duration="q"><note pitch="G3" /><note pitch="B3" /><note pitch="D4" /></chord>
+      <chord start="13" duration="q"><note pitch="G3" /><note pitch="B3" /><note pitch="D4" /></chord>
+      <chord start="14" duration="q"><note pitch="G3" /><note pitch="B3" /><note pitch="D4" /></chord>
+      <chord start="15" duration="q"><note pitch="G3" /><note pitch="B3" /><note pitch="D4" /></chord>
+    </pattern>
+
+    <!-- ========================================== -->
+    <!-- 3. ARPEGGIO & ELEKTRONOMIA LEAD MELODIES   -->
+    <!-- ========================================== -->
+
+    <!-- Pluck Arpeggio (16 Beats / 4 Bars) -->
+    <pattern id="arp_16">
+      <!-- Bar 1: Am arp -->
+      <note pitch="A4" start="0.0" duration="e" />
+      <note pitch="C5" start="0.5" duration="e" />
+      <note pitch="E5" start="1.0" duration="e" />
+      <note pitch="C5" start="1.5" duration="e" />
+      <note pitch="A4" start="2.0" duration="e" />
+      <note pitch="C5" start="2.5" duration="e" />
+      <note pitch="E5" start="3.0" duration="e" />
+      <note pitch="C5" start="3.5" duration="e" />
+      <!-- Bar 2: F arp -->
+      <note pitch="F4" start="4.0" duration="e" />
+      <note pitch="A4" start="4.5" duration="e" />
+      <note pitch="C5" start="5.0" duration="e" />
+      <note pitch="A4" start="5.5" duration="e" />
+      <note pitch="F4" start="6.0" duration="e" />
+      <note pitch="A4" start="6.5" duration="e" />
+      <note pitch="C5" start="7.0" duration="e" />
+      <note pitch="A4" start="7.5" duration="e" />
+      <!-- Bar 3: C arp -->
+      <note pitch="C4" start="8.0" duration="e" />
+      <note pitch="E4" start="8.5" duration="e" />
+      <note pitch="G4" start="9.0" duration="e" />
+      <note pitch="E4" start="9.5" duration="e" />
+      <note pitch="C4" start="10.0" duration="e" />
+      <note pitch="E4" start="10.5" duration="e" />
+      <note pitch="G4" start="11.0" duration="e" />
+      <note pitch="E4" start="11.5" duration="e" />
+      <!-- Bar 4: G arp -->
+      <note pitch="G4" start="12.0" duration="e" />
+      <note pitch="B4" start="12.5" duration="e" />
+      <note pitch="D5" start="13.0" duration="e" />
+      <note pitch="B4" start="13.5" duration="e" />
+      <note pitch="G4" start="14.0" duration="e" />
+      <note pitch="B4" start="14.5" duration="e" />
+      <note pitch="D5" start="15.0" duration="e" />
+      <note pitch="B4" start="15.5" duration="e" />
+    </pattern>
+
+    <!-- Euphoric Drop Lead Melody A (16 Beats / 4 Bars) -->
+    <pattern id="lead_drop_a">
+      <!-- Bar 1 (Am): Catchy syncopated hook -->
+      <note pitch="A4" start="0.0" duration="e" velocity="1.0" />
+      <note pitch="C5" start="0.5" duration="e" velocity="1.0" />
+      <note pitch="E5" start="1.0" duration="q" velocity="1.0" />
+      <note pitch="E5" start="2.0" duration="e" velocity="0.95" />
+      <note pitch="D5" start="2.5" duration="e" velocity="0.9" />
+      <note pitch="C5" start="3.0" duration="e" velocity="0.95" />
+      <note pitch="D5" start="3.5" duration="e" velocity="0.95" />
+      <!-- Bar 2 (F): Soaring high F5/A5 -->
+      <note pitch="C5" start="4.0" duration="q" velocity="1.0" />
+      <note pitch="A4" start="5.0" duration="e" velocity="0.9" />
+      <note pitch="C5" start="5.5" duration="e" velocity="0.95" />
+      <note pitch="F5" start="6.0" duration="q" velocity="1.0" />
+      <note pitch="E5" start="7.0" duration="e" velocity="0.95" />
+      <note pitch="D5" start="7.5" duration="e" velocity="0.9" />
+      <!-- Bar 3 (C): Bright uplifting phrase -->
+      <note pitch="E5" start="8.0" duration="e" velocity="1.0" />
+      <note pitch="G5" start="8.5" duration="e" velocity="1.0" />
+      <note pitch="E5" start="9.0" duration="q" velocity="1.0" />
+      <note pitch="C5" start="10.0" duration="q" velocity="0.95" />
+      <note pitch="D5" start="11.0" duration="e" velocity="0.95" />
+      <note pitch="E5" start="11.5" duration="e" velocity="1.0" />
+      <!-- Bar 4 (G): Energetic turnaround -->
+      <note pitch="D5" start="12.0" duration="h" velocity="1.0" />
+      <note pitch="B4" start="14.0" duration="q" velocity="0.95" />
+      <note pitch="G4" start="15.0" duration="e" velocity="0.9" />
+      <note pitch="B4" start="15.5" duration="e" velocity="0.95" />
+    </pattern>
+
+    <!-- Euphoric Drop Lead Melody B - Climax Variation (16 Beats / 4 Bars) -->
+    <pattern id="lead_drop_b">
+      <!-- Bar 1 (Am) -->
+      <note pitch="A4" start="0.0" duration="e" velocity="1.0" />
+      <note pitch="C5" start="0.5" duration="e" velocity="1.0" />
+      <note pitch="E5" start="1.0" duration="q" velocity="1.0" />
+      <note pitch="A5" start="2.0" duration="q" velocity="1.0" />
+      <note pitch="G5" start="3.0" duration="q" velocity="0.95" />
+      <!-- Bar 2 (F) -->
+      <note pitch="F5" start="4.0" duration="q" velocity="1.0" />
+      <note pitch="E5" start="5.0" duration="e" velocity="0.95" />
+      <note pitch="F5" start="5.5" duration="e" velocity="1.0" />
+      <note pitch="A5" start="6.0" duration="q" velocity="1.0" />
+      <note pitch="G5" start="7.0" duration="q" velocity="0.95" />
+      <!-- Bar 3 (C) -->
+      <note pitch="E5" start="8.0" duration="e" velocity="1.0" />
+      <note pitch="G5" start="8.5" duration="e" velocity="1.0" />
+      <note pitch="C6" start="9.0" duration="q" velocity="1.0" />
+      <note pitch="B5" start="10.0" duration="q" velocity="0.95" />
+      <note pitch="G5" start="11.0" duration="q" velocity="0.95" />
+      <!-- Bar 4 (G) -->
+      <note pitch="B5" start="12.0" duration="q" velocity="1.0" />
+      <note pitch="A5" start="13.0" duration="q" velocity="0.95" />
+      <note pitch="G5" start="14.0" duration="q" velocity="1.0" />
+      <note pitch="B5" start="15.0" duration="q" velocity="1.0" />
+    </pattern>
+  </patterns>
+
+  <!-- ========================================================================= -->
+  <!-- ARRANGEMENT TIMELINE (256 Beats @ 128 BPM = Exactly 2:00 Minutes)         -->
+  <!--   0 -  32 : Intro (Arp, Chords & Kick entering at beat 16)                -->
+  <!--  32 -  64 : Verse 1 (Melodic Tease + Groove)                              -->
+  <!--  64 -  80 : Build-Up 1 (Snare Riser + Lead Filter Tension)                -->
+  <!--  80 - 112 : Drop 1 (Full Anthem Energy)                                   -->
+  <!-- 112 - 144 : Breakdown (Atmospheric Piano/Pads + Pluck Arp)                -->
+  <!-- 144 - 160 : Build-Up 2 (Full Riser)                                       -->
+  <!-- 160 - 224 : Drop 2 (Extended Climax - 64 Beats)                           -->
+  <!-- 224 - 256 : Outro (Groove Wind-Down)                                      -->
+  <!-- ========================================================================= -->
+
+  <tracks>
+    <!-- 1. KICK TRACK -->
+    <track instrument="kick" name="Kick Drum">
+      <!-- Intro Part 2 (16-32) -->
+      <play pattern="kick_16" start="16" />
+      <!-- Verse 1 (32-64) -->
+      <play pattern="kick_16" start="32" />
+      <play pattern="kick_16" start="48" />
+      <!-- Drop 1 (80-112) -->
+      <play pattern="kick_16" start="80" />
+      <play pattern="kick_16" start="96" />
+      <!-- Drop 2 (160-224) -->
+      <play pattern="kick_16" start="160" />
+      <play pattern="kick_16" start="176" />
+      <play pattern="kick_16" start="192" />
+      <play pattern="kick_16" start="208" />
+      <!-- Outro Part 1 (224-240) -->
+      <play pattern="kick_16" start="224" />
+    </track>
+
+    <!-- 2. SNARE / CLAP TRACK -->
+    <track instrument="snare" name="Snare &amp; Build">
+      <!-- Verse 1 (32-64) -->
+      <play pattern="snare_16" start="32" />
+      <play pattern="snare_16" start="48" />
+      <!-- Build-Up 1 (64-80) -->
+      <play pattern="snare_build_16" start="64" />
+      <!-- Drop 1 (80-112) -->
+      <play pattern="snare_16" start="80" />
+      <play pattern="snare_16" start="96" />
+      <!-- Build-Up 2 (144-160) -->
+      <play pattern="snare_build_16" start="144" />
+      <!-- Drop 2 (160-224) -->
+      <play pattern="snare_16" start="160" />
+      <play pattern="snare_16" start="176" />
+      <play pattern="snare_16" start="192" />
+      <play pattern="snare_16" start="208" />
+      <!-- Outro Part 1 (224-240) -->
+      <play pattern="snare_16" start="224" />
+    </track>
+
+    <!-- 3. HI-HAT TRACK -->
+    <track instrument="hihat" name="Off-Beat Hi-Hats">
+      <!-- Verse 1 Part 2 (48-64) -->
+      <play pattern="hat_16" start="48" />
+      <!-- Drop 1 (80-112) -->
+      <play pattern="hat_16" start="80" />
+      <play pattern="hat_16" start="96" />
+      <!-- Drop 2 (160-224) -->
+      <play pattern="hat_16" start="160" />
+      <play pattern="hat_16" start="176" />
+      <play pattern="hat_16" start="192" />
+      <play pattern="hat_16" start="208" />
+      <!-- Outro (224-240) -->
+      <play pattern="hat_16" start="224" />
+    </track>
+
+    <!-- 4. BASSLINE TRACK -->
+    <track instrument="bass" name="Driving Saw Bass">
+      <!-- Verse 1 (32-64) -->
+      <play pattern="bass_16" start="32" />
+      <play pattern="bass_16" start="48" />
+      <!-- Drop 1 (80-112) -->
+      <play pattern="bass_16" start="80" />
+      <play pattern="bass_16" start="96" />
+      <!-- Drop 2 (160-224) -->
+      <play pattern="bass_16" start="160" />
+      <play pattern="bass_16" start="176" />
+      <play pattern="bass_16" start="192" />
+      <play pattern="bass_16" start="208" />
+      <!-- Outro (224-240) -->
+      <play pattern="bass_16" start="224" />
+    </track>
+
+    <!-- 5. SUPERSAW CHORDS TRACK -->
+    <track instrument="chords" name="Supersaw Chords">
+      <!-- Intro (0-32) -->
+      <play pattern="chords_pad_16" start="0" />
+      <play pattern="chords_pad_16" start="16" />
+      <!-- Verse 1 (32-64) -->
+      <play pattern="chords_pad_16" start="32" />
+      <play pattern="chords_pad_16" start="48" />
+      <!-- Build-Up 1 (64-80) -->
+      <play pattern="chords_pump_16" start="64" />
+      <!-- Drop 1 (80-112) -->
+      <play pattern="chords_pump_16" start="80" />
+      <play pattern="chords_pump_16" start="96" />
+      <!-- Breakdown (112-144) -->
+      <play pattern="chords_pad_16" start="112" />
+      <play pattern="chords_pad_16" start="128" />
+      <!-- Build-Up 2 (144-160) -->
+      <play pattern="chords_pump_16" start="144" />
+      <!-- Drop 2 (160-224) -->
+      <play pattern="chords_pump_16" start="160" />
+      <play pattern="chords_pump_16" start="176" />
+      <play pattern="chords_pump_16" start="192" />
+      <play pattern="chords_pump_16" start="208" />
+      <!-- Outro (224-256) -->
+      <play pattern="chords_pad_16" start="224" />
+      <play pattern="chords_pad_16" start="240" />
+    </track>
+
+    <!-- 6. PLUCK ARPEGGIO TRACK -->
+    <track instrument="pluck" name="Pluck Arpeggio">
+      <!-- Intro (0-32) -->
+      <play pattern="arp_16" start="0" />
+      <play pattern="arp_16" start="16" />
+      <!-- Verse 1 (32-64) -->
+      <play pattern="arp_16" start="32" />
+      <play pattern="arp_16" start="48" />
+      <!-- Breakdown (112-144) -->
+      <play pattern="arp_16" start="112" />
+      <play pattern="arp_16" start="128" />
+      <!-- Drop 2 Second Half Layer (192-224) -->
+      <play pattern="arp_16" start="192" />
+      <play pattern="arp_16" start="208" />
+      <!-- Outro (224-256) -->
+      <play pattern="arp_16" start="224" />
+      <play pattern="arp_16" start="240" />
+    </track>
+
+    <!-- 7. ANTHEM LEAD SYNTH TRACK -->
+    <track instrument="lead" name="Elektronomia Anthem Lead">
+      <!-- Verse 1 Part 2 Hook Tease (48-64) -->
+      <play pattern="lead_drop_a" start="48" />
+      <!-- Build-Up 1 Lead Tease (64-80) -->
+      <play pattern="lead_drop_a" start="64" />
+      <!-- Drop 1 (80-112) -->
+      <play pattern="lead_drop_a" start="80" />
+      <play pattern="lead_drop_b" start="96" />
+      <!-- Breakdown Part 2 Lead (128-144) -->
+      <play pattern="lead_drop_a" start="128" />
+      <!-- Build-Up 2 Lead (144-160) -->
+      <play pattern="lead_drop_a" start="144" />
+      <!-- Drop 2 Double Length Climax (160-224) -->
+      <play pattern="lead_drop_a" start="160" />
+      <play pattern="lead_drop_b" start="176" />
+      <play pattern="lead_drop_a" start="192" />
+      <play pattern="lead_drop_b" start="208" />
+    </track>
+  </tracks>
+</axml>

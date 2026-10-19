@@ -1,0 +1,27 @@
+<aside class="sidebar section">
+    <div class="tabs-header">
+        <button class="tab-btn active" onclick="showTab('projects')">LIBRARY</button>
+        <button class="tab-btn" onclick="showTab('presets')">PRESETS</button>
+        <button class="tab-btn" onclick="showTab('help')">DOCS</button>
+    </div>
+
+    <!-- Compositions Library -->
+    <div id="tab-projects" class="tab-content active">
+        <div class="search-bar-wrapper">
+            <i class="material-icons search-icon">search</i>
+            <input type="text" id="project-search" class="search-input" placeholder="Search compositions..." oninput="filterProjects(this.value)">
+        </div>
+        <div id="project-list" class="project-list"></div>
+    </div>
+
+    <!-- Synth Presets -->
+    <div id="tab-presets" class="tab-content">
+        <div class="preset-header-hint">Click a preset to insert into active project:</div>
+        <div id="preset-list" class="project-list"></div>
+    </div>
+
+    <!-- Documentation & Syntax Guide -->
+    <div id="tab-help" class="tab-content">
+        <div id="help-content" class="project-list documentation"></div>
+    </div>
+</aside>

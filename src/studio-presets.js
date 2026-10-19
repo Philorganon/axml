@@ -1,3 +1,7 @@
+/**
+ * AXML Studio Presets
+ * Phase 1b: no innerHTML, no emoji in log, keyboard-friendly actions.
+ */
 var AXML_PRESETS = {
     // Basses
     "Cyber Bass": `<instrument id="cyberbass" type="sawtooth" volume="0.8" attack="0.01" decay="0.1" sustain="0.6" release="0.2" cutoff="600" resonance="12" distortion="0.6" lfoRate="4" lfoAmount="0.3" lfoTarget="cutoff" />`,
@@ -20,80 +24,118 @@ var AXML_PRESETS = {
     // Percussion
     "Industrial Kick": `<instrument id="kick" type="kick" volume="1.0" attack="0.01" release="0.1" distortion="0.3" />`,
     "Crispy Snare": `<instrument id="snare" type="snare" volume="0.8" attack="0.01" release="0.1" cutoff="1500" bitcrush="0.2" />`,
-    "Metallic Hihat": `<instrument id="hihat" type="hihat" volume="0.4" attack="0.01" release="0.05" cutoff="8000" resonance="5" />`
+    "Metallic Hihat": `<instrument id="hihat" type="hihat" volume="0.4" attack="0.01" release="0.05" cutoff="8000" resonance="5" />`,
 };
+
+function makeIconButton(iconName, label, handler) {
+    const btn = document.createElement('button');
+    btn.className = 'btn-mini';
+    btn.type = 'button';
+    btn.title = label;
+    btn.setAttribute('aria-label', label);
+
+    const icon = document.createElement('i');
+    icon.className = 'material-icons';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.style.fontSize = '12px';
+    icon.textContent = iconName;
+    btn.appendChild(icon);
+
+    btn.addEventListener('click', handler);
+    return btn;
+}
 
 function loadPresetsToUI() {
     const list = document.getElementById('preset-list');
     if (!list) return;
 
-    list.innerHTML = '';
+    while (list.firstChild) list.removeChild(list.firstChild);
+
     Object.keys(AXML_PRESETS).forEach(name => {
-        const div = document.createElement('div');
-        div.className = 'project-item preset-item';
-        div.style.display = 'flex';
-        div.style.alignItems = 'center';
-        div.style.justifyContent = 'space-between';
-        div.style.padding = '8px 12px';
-        div.style.marginBottom = '4px';
-        div.style.cursor = 'pointer';
-        div.style.borderRadius = '4px';
-        div.style.transition = 'var(--transition)';
+        const row = document.createElement('div');
+        row.className = 'project-item preset-item';
+        row.style.display = 'flex';
+        row.style.alignItems = 'center';
+        row.style.justifyContent = 'space-between';
+        row.style.padding = '8px 12px';
+        row.style.marginBottom = '4px';
+        row.style.cursor = 'pointer';
+        row.style.borderRadius = '4px';
+        row.style.transition = 'var(--transition)';
 
         const info = document.createElement('div');
         info.style.display = 'flex';
         info.style.alignItems = 'center';
         info.style.gap = '8px';
-        info.innerHTML = `<i class="material-icons" style="font-size:16px; color:var(--primary);">extension</i> <span style="font-size:0.85rem;">${name}</span>`;
+
+        const infoIcon = document.createElement('i');
+        infoIcon.className = 'material-icons';
+        infoIcon.setAttribute('aria-hidden', 'true');
+        infoIcon.style.fontSize = '16px';
+        infoIcon.style.color = 'var(--primary)';
+        infoIcon.textContent = 'extension';
+
+        const nameSpan = document.createElement('span');
+        nameSpan.style.fontSize = '0.85rem';
+        nameSpan.textContent = name;
+
+        info.appendChild(infoIcon);
+        info.appendChild(nameSpan);
 
         const actions = document.createElement('div');
         actions.style.display = 'flex';
         actions.style.gap = '4px';
 
-        const btnInsert = document.createElement('button');
-        btnInsert.className = 'btn-mini';
-        btnInsert.innerHTML = '<i class="material-icons" style="font-size:12px;">add</i>';
-        btnInsert.title = 'Insert to Editor';
-        btnInsert.onclick = (e) => {
+        const btnInsert = makeIconButton('add', `Insert preset ${name}`, (e) => {
             e.stopPropagation();
             insertPreset(name);
-        };
-
-        const btnCopy = document.createElement('button');
-        btnCopy.className = 'btn-mini';
-        btnCopy.innerHTML = '<i class="material-icons" style="font-size:12px;">content_copy</i>';
-        btnCopy.title = 'Copy XML';
-        btnCopy.onclick = (e) => {
+        });
+        const btnCopy = makeIconButton('content_copy', `Copy preset ${name} to clipboard`, (e) => {
             e.stopPropagation();
             copyPresetToClipboard(name);
-        };
+        });
 
         actions.appendChild(btnInsert);
         actions.appendChild(btnCopy);
 
-        div.appendChild(info);
-        div.appendChild(actions);
+        row.appendChild(info);
+        row.appendChild(actions);
 
-        div.onclick = () => insertPreset(name);
+        row.addEventListener('click', () => insertPreset(name));
+        row.setAttribute('role', 'listitem');
 
-        list.appendChild(div);
+        list.appendChild(row);
     });
 }
 
 function insertPreset(name) {
     const xml = AXML_PRESETS[name];
     const editor = document.getElementById('code-editor');
-    if (editor) {
-        const pos = editor.selectionStart;
-        editor.value = editor.value.substring(0, pos) + xml + "\n" + editor.value.substring(pos);
-        if (typeof log === 'function') log(`✨ Preset '${name}' inserted at cursor`);
-    }
+    if (!editor) return;
+
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
+    const value = editor.value;
+    const insertion = xml + '\n';
+    editor.value = value.slice(0, start) + insertion + value.slice(end);
+
+    const newCursor = start + insertion.length;
+    editor.selectionStart = newCursor;
+    editor.selectionEnd = newCursor;
+    editor.focus();
+
+    if (typeof log === 'function') log(`Preset '${name}' inserted at cursor`);
 }
 
 function copyPresetToClipboard(name) {
     const xml = AXML_PRESETS[name];
+    if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        if (typeof log === 'function') log('Clipboard API not available in this context', 'error');
+        return;
+    }
     navigator.clipboard.writeText(xml).then(() => {
-        if (typeof log === 'function') log(`📋 Preset '${name}' copied to clipboard`);
-        else alert('Preset copied to clipboard!');
+        if (typeof log === 'function') log(`Preset '${name}' copied to clipboard`);
+    }).catch(() => {
+        if (typeof log === 'function') log(`Failed to copy preset '${name}'`, 'error');
     });
 }

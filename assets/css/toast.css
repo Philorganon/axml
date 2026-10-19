@@ -1,0 +1,47 @@
+/* Toast & Notification Styles */
+.toast {
+    animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background: var(--bg-surface-2);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    color: var(--text-main);
+    padding: 12px 16px;
+    font-family: var(--font-ui);
+    font-size: 0.8125rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 3px solid var(--primary);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.toast i {
+    font-size: 18px;
+}
+
+.toast-info {
+    border-left-color: var(--primary) !important;
+}
+
+.toast-success {
+    border-left-color: var(--phosphor) !important;
+}
+
+.toast-error {
+    border-left-color: var(--danger) !important;
+}
+
+.toast-warning {
+    border-left-color: var(--warning) !important;
+}

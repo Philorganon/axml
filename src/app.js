@@ -1,141 +1,213 @@
 /**
  * AXML Studio App Entry Point
- * v2.0 - Agentic Upgrade
+ * v4.0 - Modular Architecture & Diagnostics Edition
+ * Phase 1b: DOMContentLoaded, addEventListener, transport state management.
  */
+
 var parser = new AXMLParser();
 var player = new AXMLPlayer();
+var project = new ProjectManager();
+var shortcuts;
 
-window.onload = () => {
-    // These are initialized here to ensure DOM is ready and avoid conflicts
+function onReady(fn) {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fn, { once: true });
+    } else {
+        fn();
+    }
+}
+
+onReady(async () => {
+    if (typeof ComponentLoader !== 'undefined') {
+        await ComponentLoader.loadComponents();
+    }
+
     window.editorElement = document.getElementById('code-editor');
     window.statusBadgeElement = document.getElementById('status-badge');
 
     const canvas = document.getElementById('canvas');
-    if (canvas) initVisualizer(canvas, player);
+    if (canvas && typeof initVisualizer === 'function') {
+        initVisualizer(canvas, player);
+    }
 
-    // Initialize UI Modules
-    initLibrary(parser, player);
+    if (typeof initLibrary === 'function') {
+        initLibrary(parser, player);
+    }
+    shortcuts = new ShortcutManager(player);
 
-    // Load from URL (Hash) or Local Storage
+    if (typeof initMobileResponsive === 'function') {
+        initMobileResponsive();
+    }
+
+    bindActions();
+
     if (!loadFromHash(parser, player)) {
-        const last = localStorage.getItem('axml_last_project');
-        const projList = document.getElementById('project-list');
+        let last = localStorage.getItem('axml_last_project');
+        // Migration guard: format lama JSON tidak kompatibel dengan parser XML.
+        if (last && last.trim().startsWith('{')) {
+            localStorage.removeItem('axml_last_project');
+            last = null;
+        }
 
         if (last && window.editorElement) {
             window.editorElement.value = last;
             try {
                 const data = parser.parse(last);
                 updateUI(data, player);
-            } catch (e) { }
-        } else if (projList && projList.children.length) {
-            projList.children[0].click();
-        }
-    }
-
-    log("🚀 AXML Studio Engine Ready");
-};
-
-// --- Action Bindings ---
-
-const btnPlay = document.getElementById('btn-play');
-if (btnPlay) {
-    btnPlay.onclick = async () => {
-        try {
-            if (!window.editorElement) return;
-            await player.init();
-            const data = parser.parse(window.editorElement.value);
-            player.load(data);
-            updateUI(data, player);
-
-            if (window.statusBadgeElement) window.statusBadgeElement.textContent = "SYNCING AUDIO...";
-            await player.loadSamples();
-
-            await player.play();
-            if (window.statusBadgeElement) {
-                window.statusBadgeElement.textContent = "ENGINE PLAYING";
-                window.statusBadgeElement.classList.add('playing');
+                if (typeof updateCursorPos === 'function') updateCursorPos();
+            } catch (e) {
+                if (typeof log === 'function') log('Failed to restore last session', 'error');
             }
-            log("▶ Sound engine active");
-        } catch (e) {
-            log(e.message, 'error');
-            console.error(e);
-        }
-    };
-}
-
-const btnStop = document.getElementById('btn-stop');
-if (btnStop) {
-    btnStop.onclick = () => {
-        player.stop();
-        if (window.statusBadgeElement) {
-            window.statusBadgeElement.textContent = "ENGINE IDLE";
-            window.statusBadgeElement.classList.remove('playing');
-        }
-        log("⏹ Playback terminated");
-    };
-}
-
-const btnExport = document.getElementById('btn-export');
-if (btnExport) {
-    btnExport.onclick = async () => {
-        if (!window.editorElement) return;
-        const code = window.editorElement.value;
-        if (!code.trim()) return;
-        const btn = document.getElementById('btn-export');
-        const originalText = btn.innerHTML;
-        try {
-            btn.innerHTML = `<i class="material-icons rotating" style="font-size:14px;">sync</i> RENDERING...`;
-            btn.disabled = true;
-            log("⏳ Rendering project to WAV...");
-
-            const data = parser.parse(code);
-            player.load(data);
-            await player.downloadWAV();
-
-            log("✅ Export complete!");
-        } catch (e) {
-            log("❌ Export failed: " + e.message, 'error');
-        } finally {
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
-    };
-}
-
-// --- Keyboard Shortcuts ---
-
-if (document.getElementById('code-editor')) {
-    document.getElementById('code-editor').onkeydown = (e) => {
-        const el = e.target;
-        if (e.ctrlKey && e.key === 's') { e.preventDefault(); saveToLocal(); }
-        if (e.ctrlKey && e.key === 'i') { e.preventDefault(); formatCode(parser); }
-
-        if (e.key === 'Tab') {
-            e.preventDefault();
-            const s = el.selectionStart;
-            el.value = el.value.substring(0, s) + "  " + el.value.substring(el.selectionEnd);
-            el.selectionStart = el.selectionEnd = s + 2;
-        }
-
-        setTimeout(() => {
-            const sub = el.value.substring(0, el.selectionStart);
-            const ln = sub.split('\n').length;
-            const col = sub.split('\n').pop().length + 1;
-            const posEl = document.getElementById('cursor-pos');
-            if (posEl) posEl.textContent = `Ln ${ln}, Col ${col}`;
-        }, 0);
-    };
-}
-
-window.onkeydown = (e) => {
-    if (e.code === 'Space' && e.target === document.body) {
-        e.preventDefault();
-        if (player.isPlaying) {
-            const stopBtn = document.getElementById('btn-stop');
-            if (stopBtn) stopBtn.click();
         } else {
-            const playBtn = document.getElementById('btn-play');
-            if (playBtn) playBtn.click();
+            const first = document.querySelector('#project-list .project-item');
+            if (first) first.click();
         }
     }
-};
+
+    if (typeof log === 'function') {
+        log("AXML Studio 4.0 Engine Initialized - Ready", "info");
+    }
+});
+
+function setTransportBusy(busy) {
+    const btnPlay = document.getElementById('btn-play');
+    const btnStop = document.getElementById('btn-stop');
+    if (btnPlay) {
+        btnPlay.disabled = busy;
+        btnPlay.setAttribute('aria-busy', busy ? 'true' : 'false');
+    }
+    if (btnStop) {
+        btnStop.disabled = busy;
+    }
+    if (window.statusBadgeElement) {
+        window.statusBadgeElement.setAttribute('aria-busy', busy ? 'true' : 'false');
+    }
+}
+
+function bindActions() {
+    const btnPlay = document.getElementById('btn-play');
+    if (btnPlay) {
+        btnPlay.addEventListener('click', () => { playProject().catch(() => {}); });
+    }
+
+    const btnStop = document.getElementById('btn-stop');
+    if (btnStop) {
+        btnStop.addEventListener('click', () => {
+            player.stop();
+            if (statusBadgeElement) {
+                statusBadgeElement.className = 'status-badge';
+                statusBadgeElement.textContent = 'IDLE';
+            }
+            if (typeof log === 'function') log('Playback halted', 'audio');
+        });
+    }
+
+    const btnExport = document.getElementById('btn-export');
+    if (btnExport) {
+        btnExport.addEventListener('click', async () => {
+            if (!window.editorElement) window.editorElement = document.getElementById('code-editor');
+            if (!window.editorElement) return;
+
+            const icon = btnExport.querySelector('i');
+            try {
+                btnExport.disabled = true;
+                if (icon) icon.classList.add('rotating');
+                if (typeof log === 'function') log('Rendering 32-bit float audio master to WAV...', 'audio');
+                const data = parser.parse(window.editorElement.value);
+                player.load(data);
+                await player.downloadWAV();
+                if (typeof log === 'function') log('Master WAV exported successfully', 'audio');
+            } catch (e) {
+                if (typeof log === 'function') {
+                    log(`WAV render failed: ${e.message}`, 'error', {
+                        line: e.line,
+                        column: e.column,
+                        snippet: e.snippet,
+                        hint: e.hint
+                    });
+                }
+            } finally {
+                btnExport.disabled = false;
+                if (icon) icon.classList.remove('rotating');
+            }
+        });
+    }
+
+    const btnMidi = document.getElementById('btn-midi');
+    if (btnMidi) {
+        btnMidi.addEventListener('click', () => {
+            if (!window.editorElement) window.editorElement = document.getElementById('code-editor');
+            if (!window.editorElement) return;
+            try {
+                const data = parser.parse(window.editorElement.value);
+                const exporter = new MidiExporter(data);
+                exporter.export();
+                if (typeof log === 'function') log('Standard MIDI File (Type 1) exported', 'audio');
+            } catch (e) {
+                if (typeof log === 'function') {
+                    log(`MIDI export failed: ${e.message}`, 'error', {
+                        line: e.line,
+                        column: e.column,
+                        snippet: e.snippet,
+                        hint: e.hint
+                    });
+                }
+            }
+        });
+    }
+
+    if (window.editorElement) {
+        window.editorElement.addEventListener('input', () => {
+            if (typeof updateCursorPos === 'function') updateCursorPos();
+        });
+    }
+}
+
+async function playProject() {
+    if (!window.editorElement) window.editorElement = document.getElementById('code-editor');
+    if (!window.statusBadgeElement) window.statusBadgeElement = document.getElementById('status-badge');
+    if (!window.editorElement) return;
+
+    setTransportBusy(true);
+
+    try {
+        await player.init();
+        const xmlCode = window.editorElement.value;
+        const data = parser.parse(xmlCode);
+        player.load(data);
+        updateUI(data, player);
+
+        if (statusBadgeElement) {
+            statusBadgeElement.className = 'status-badge';
+            statusBadgeElement.textContent = 'SYNCING AUDIO';
+        }
+        await player.loadSamples();
+        await player.play();
+
+        if (statusBadgeElement) {
+            statusBadgeElement.className = 'status-badge playing';
+            statusBadgeElement.textContent = 'LIVE';
+        }
+        project.save(xmlCode);
+        if (typeof log === 'function') {
+            log(`Audio live: ${data.tracks.length} tracks compiling at ${data.metadata.tempo} BPM`, 'audio');
+        }
+    } catch (e) {
+        if (statusBadgeElement) {
+            statusBadgeElement.className = 'status-badge has-error';
+            statusBadgeElement.textContent = e.line ? `ERROR (LN ${e.line})` : 'PARSING ERROR';
+        }
+        if (typeof log === 'function') {
+            log(e.message, 'error', {
+                line: e.line,
+                column: e.column,
+                snippet: e.snippet,
+                hint: e.hint
+            });
+        }
+        console.error(e);
+        throw e;
+    } finally {
+        setTransportBusy(false);
+    }
+}

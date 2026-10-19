@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axml version="3.5">
+  <metadata>
+    <title>Boss Fight - Final Cyber Overlord</title>
+    <artist>AXML Sound Studio</artist>
+    <tempo>150</tempo>
+    <key>Dm</key>
+    <time-signature>4/4</time-signature>
+    <duration>180</duration>
+  </metadata>
+
+  <instruments>
+    <!-- Heavy Industrial Boss Kick -->
+    <instrument id="boss_kick" type="kick" volume="1.0" attack="0.002" release="0.12" distortion="0.4" />
+    
+    <!-- Bitcrushed Aggressive Snare -->
+    <instrument id="boss_snare" type="snare" volume="0.9" attack="0.004" release="0.1" cutoff="2800" bitcrush="0.25" />
+    
+    <!-- Fast Cyber Hi-Hats -->
+    <instrument id="cyber_hat" type="hihat" volume="0.6" attack="0.002" release="0.04" cutoff="8500" />
+    
+    <!-- Heavy Distorted Saw Synth Bass -->
+    <instrument id="boss_bass" type="sawtooth" volume="0.85" attack="0.005" decay="0.12" sustain="0.75" release="0.15" cutoff="850" resonance="16" distortion="0.6" lfoRate="8" lfoAmount="0.25" lfoTarget="cutoff" />
+    <instrument id="sub_impact" type="sine" volume="0.85" attack="0.008" decay="0.25" sustain="0.8" release="0.25" cutoff="250" />
+    
+    <!-- Gothic Cyber Boss Lead Synth -->
+    <instrument id="boss_lead" type="square" volume="0.75" attack="0.01" decay="0.15" sustain="0.6" release="0.25" cutoff="5500" distortion="0.3" chorus="0.5" reverb="0.4" />
+    
+    <!-- Manic Arpeggiator -->
+    <instrument id="manic_arp" type="sawtooth" volume="0.5" attack="0.005" decay="0.08" sustain="0.3" release="0.1" cutoff="4500" arp="updown" arpRate="0.125" octaves="2" reverb="0.5" />
+    
+    <!-- Dark Brass / Choir Stabs -->
+    <instrument id="dark_brass" type="sawtooth" volume="0.7" attack="0.02" decay="0.1" sustain="0.4" release="0.2" cutoff="3200" resonance="10" reverb="0.6" />
+    
+    <!-- Ambient Tension Pad -->
+    <instrument id="tension_pad" type="triangle" volume="0.45" attack="0.6" decay="0.3" sustain="0.8" release="1.2" cutoff="2000" chorus="0.65" reverb="0.75" />
+  </instruments>
+
+  <patterns>
+    <!-- BOSS RHYTHM PATTERNS (150 BPM) -->
+    <pattern id="kick_boss_fast">
+      <note pitch="C2" start="0" duration="q" />
+      <note pitch="C2" start="1" duration="q" />
+      <note pitch="C2" start="2" duration="q" />
+      <note pitch="C2" start="3" duration="q" />
+    </pattern>
+
+    <pattern id="snare_boss_double">
+      <note pitch="D2" start="1" duration="q" />
+      <note pitch="D2" start="3" duration="q" />
+      <note pitch="D2" start="3.75" duration="s" />
+    </pattern>
+
+    <pattern id="hats_32nd_cyber">
+      <note pitch="F#2" start="0" duration="s" /><note pitch="F#2" start="0.25" duration="s" />
+      <note pitch="F#2" start="0.5" duration="s" /><note pitch="F#2" start="0.75" duration="s" />
+      <note pitch="F#2" start="1" duration="s" /><note pitch="F#2" start="1.25" duration="s" />
+      <note pitch="F#2" start="1.5" duration="s" /><note pitch="F#2" start="1.75" duration="s" />
+      <note pitch="F#2" start="2" duration="s" /><note pitch="F#2" start="2.25" duration="s" />
+      <note pitch="F#2" start="2.5" duration="s" /><note pitch="F#2" start="2.75" duration="s" />
+      <note pitch="F#2" start="3" duration="s" /><note pitch="F#2" start="3.25" duration="s" />
+      <note pitch="F#2" start="3.5" duration="s" /><note pitch="F#2" start="3.75" duration="s" />
+    </pattern>
+
+    <pattern id="snare_boss_buildup">
+      <note pitch="D2" start="0" duration="e" /><note pitch="D2" start="0.5" duration="e" />
+      <note pitch="D2" start="1" duration="s" /><note pitch="D2" start="1.25" duration="s" /><note pitch="D2" start="1.5" duration="s" /><note pitch="D2" start="1.75" duration="s" />
+      <note pitch="D2" start="2" duration="s" /><note pitch="D2" start="2.25" duration="s" /><note pitch="D2" start="2.5" duration="s" /><note pitch="D2" start="2.75" duration="s" />
+      <note pitch="D2" start="3" duration="t" /><note pitch="D2" start="3.125" duration="t" /><note pitch="D2" start="3.25" duration="t" /><note pitch="D2" start="3.375" duration="t" />
+      <note pitch="D2" start="3.5" duration="t" /><note pitch="D2" start="3.625" duration="t" /><note pitch="D2" start="3.75" duration="t" /><note pitch="D2" start="3.875" duration="t" />
+    </pattern>
+
+    <!-- AGGRESSIVE BASSLINE (Dm - Bb - Gm - A7) -->
+    <pattern id="bass_boss_main">
+      <!-- Bar 1 (Dm) -->
+      <note pitch="D1" start="0" duration="e" /><note pitch="D1" start="0.5" duration="e" />
+      <note pitch="D1" start="1" duration="e" /><note pitch="F1" start="1.5" duration="e" />
+      <note pitch="D1" start="2" duration="e" /><note pitch="D1" start="2.5" duration="e" />
+      <note pitch="G1" start="3" duration="e" /><note pitch="G#1" start="3.5" duration="e" />
+      <!-- Bar 2 (Bb) -->
+      <note pitch="A#1" start="4" duration="e" /><note pitch="A#1" start="4.5" duration="e" />
+      <note pitch="A#1" start="5" duration="e" /><note pitch="D2" start="5.5" duration="e" />
+      <note pitch="A#1" start="6" duration="e" /><note pitch="A#1" start="6.5" duration="e" />
+      <note pitch="C2" start="7" duration="e" /><note pitch="C#2" start="7.5" duration="e" />
+      <!-- Bar 3 (Gm) -->
+      <note pitch="G1" start="8" duration="e" /><note pitch="G1" start="8.5" duration="e" />
+      <note pitch="G1" start="9" duration="e" /><note pitch="A#1" start="9.5" duration="e" />
+      <note pitch="G1" start="10" duration="e" /><note pitch="G1" start="10.5" duration="e" />
+      <note pitch="C2" start="11" duration="e" /><note pitch="C#2" start="11.5" duration="e" />
+      <!-- Bar 4 (A7) -->
+      <note pitch="A1" start="12" duration="e" /><note pitch="A1" start="12.5" duration="e" />
+      <note pitch="C#2" start="13" duration="e" /><note pitch="E2" start="13.5" duration="e" />
+      <note pitch="G2" start="14" duration="e" /><note pitch="F2" start="14.5" duration="e" />
+      <note pitch="E2" start="15" duration="e" /><note pitch="C#2" start="15.5" duration="e" />
+    </pattern>
+
+    <!-- EPIC EPIC BOSS MELODY -->
+    <pattern id="lead_boss_theme">
+      <!-- Phrase 1 (Ominous Rising Theme) -->
+      <note pitch="D5" start="0" duration="q" />
+      <note pitch="F5" start="1" duration="q" />
+      <note pitch="A5" start="2" duration="e" />
+      <note pitch="G#5" start="2.5" duration="e" />
+      <note pitch="A5" start="3" duration="q" />
+      <!-- Phrase 2 -->
+      <note pitch="A#5" start="4" duration="q" />
+      <note pitch="A5" start="5" duration="q" />
+      <note pitch="G5" start="6" duration="e" />
+      <note pitch="F5" start="6.5" duration="e" />
+      <note pitch="E5" start="7" duration="q" />
+      <!-- Phrase 3 -->
+      <note pitch="F5" start="8" duration="q" />
+      <note pitch="E5" start="9" duration="q" />
+      <note pitch="D5" start="10" duration="e" />
+      <note pitch="C#5" start="10.5" duration="e" />
+      <note pitch="D5" start="11" duration="q" />
+      <!-- Phrase 4 (Dramatic High Stabs) -->
+      <note pitch="E5" start="12" duration="e" />
+      <note pitch="F5" start="12.5" duration="e" />
+      <note pitch="G5" start="13" duration="e" />
+      <note pitch="A5" start="13.5" duration="e" />
+      <note pitch="C#6" start="14" duration="h" />
+    </pattern>
+
+    <!-- DARK BRASS STABS -->
+    <pattern id="brass_stabs_boss">
+      <chord start="0" duration="e"><note pitch="D4"/><note pitch="F4"/><note pitch="A4"/></chord>
+      <chord start="1.5" duration="e"><note pitch="D4"/><note pitch="F4"/><note pitch="A4"/></chord>
+      <chord start="2.5" duration="e"><note pitch="D4"/><note pitch="F4"/><note pitch="A4"/></chord>
+      <chord start="4" duration="e"><note pitch="A#3"/><note pitch="D4"/><note pitch="F4"/></chord>
+      <chord start="5.5" duration="e"><note pitch="A#3"/><note pitch="D4"/><note pitch="F4"/></chord>
+      <chord start="6.5" duration="e"><note pitch="A#3"/><note pitch="D4"/><note pitch="F4"/></chord>
+      <chord start="8" duration="e"><note pitch="G3"/><note pitch="A#3"/><note pitch="D4"/></chord>
+      <chord start="9.5" duration="e"><note pitch="G3"/><note pitch="A#3"/><note pitch="D4"/></chord>
+      <chord start="10.5" duration="e"><note pitch="G3"/><note pitch="A#3"/><note pitch="D4"/></chord>
+      <chord start="12" duration="e"><note pitch="A3"/><note pitch="C#4"/><note pitch="E4"/></chord>
+      <chord start="13.5" duration="e"><note pitch="A3"/><note pitch="C#4"/><note pitch="E4"/></chord>
+      <chord start="14.5" duration="e"><note pitch="A3"/><note pitch="C#4"/><note pitch="E4"/></chord>
+    </pattern>
+
+    <!-- TENSION PAD -->
+    <pattern id="pad_boss_chords">
+      <chord start="0" duration="4"><note pitch="D3"/><note pitch="F3"/><note pitch="A3"/></chord>
+      <chord start="4" duration="4"><note pitch="A#2"/><note pitch="D3"/><note pitch="F3"/></chord>
+      <chord start="8" duration="4"><note pitch="G2"/><note pitch="A#2"/><note pitch="D3"/></chord>
+      <chord start="12" duration="4"><note pitch="A2"/><note pitch="C#3"/><note pitch="E3"/></chord>
+    </pattern>
+
+    <!-- MANIC ARP PATTERN -->
+    <pattern id="manic_arp_loop">
+      <note pitch="D4" start="0" duration="4" />
+      <note pitch="A#3" start="4" duration="4" />
+      <note pitch="G3" start="8" duration="4" />
+      <note pitch="A3" start="12" duration="4" />
+    </pattern>
+  </patterns>
+
+  <tracks>
+    <!-- TRACK 1: INDUSTRIAL BOSS KICK (450 Beats / 3 Minutes at 150 BPM) -->
+    <track instrument="boss_kick" name="Boss Kick Drum">
+      <!-- Intro Tension Sirens (0-32) -->
+      <note pitch="C2" start="0" duration="q" />
+      <note pitch="C2" start="8" duration="q" />
+      <note pitch="C2" start="16" duration="q" />
+      <note pitch="C2" start="24" duration="q" />
+      
+      <!-- PHASE 1: BATTLE COMMENCES (32-192) -->
+      <play pattern="kick_boss_fast" start="32" /><play pattern="kick_boss_fast" start="36" />
+      <play pattern="kick_boss_fast" start="40" /><play pattern="kick_boss_fast" start="44" />
+      <play pattern="kick_boss_fast" start="48" /><play pattern="kick_boss_fast" start="52" />
+      <play pattern="kick_boss_fast" start="56" /><play pattern="kick_boss_fast" start="60" />
+      <play pattern="kick_boss_fast" start="64" /><play pattern="kick_boss_fast" start="80" />
+      <play pattern="kick_boss_fast" start="96" /><play pattern="kick_boss_fast" start="112" />
+      <play pattern="kick_boss_fast" start="128" /><play pattern="kick_boss_fast" start="144" />
+      <play pattern="kick_boss_fast" start="160" /><play pattern="kick_boss_fast" start="176" />
+
+      <!-- PHASE 2: DESPERATION / PHASE TRANSITION (192-256) -->
+      <play pattern="kick_boss_fast" start="192" /><play pattern="kick_boss_fast" start="208" />
+      <play pattern="kick_boss_fast" start="224" /><play pattern="kick_boss_fast" start="240" />
+
+      <!-- PHASE 3: FINAL ENRAGE CLIMAX (256-384) -->
+      <play pattern="kick_boss_fast" start="256" /><play pattern="kick_boss_fast" start="272" />
+      <play pattern="kick_boss_fast" start="288" /><play pattern="kick_boss_fast" start="304" />
+      <play pattern="kick_boss_fast" start="320" /><play pattern="kick_boss_fast" start="336" />
+      <play pattern="kick_boss_fast" start="352" /><play pattern="kick_boss_fast" start="368" />
+
+      <!-- OUTRO: BOSS DEFEATED (384-450) -->
+      <play pattern="kick_boss_fast" start="384" /><play pattern="kick_boss_fast" start="400" />
+      <play pattern="kick_boss_fast" start="416" /><play pattern="kick_boss_fast" start="432" />
+    </track>
+
+    <!-- TRACK 2: BITCRUSHED SNARE -->
+    <track instrument="boss_snare" name="Bitcrushed Snare">
+      <!-- Buildup 1 (16-32) -->
+      <play pattern="snare_boss_buildup" start="16" /><play pattern="snare_boss_buildup" start="24" />
+
+      <!-- Battle Snares -->
+      <play pattern="snare_boss_double" start="32" /><play pattern="snare_boss_double" start="48" />
+      <play pattern="snare_boss_double" start="64" /><play pattern="snare_boss_double" start="80" />
+      <play pattern="snare_boss_double" start="96" /><play pattern="snare_boss_double" start="112" />
+      <play pattern="snare_boss_double" start="128" /><play pattern="snare_boss_double" start="144" />
+      <play pattern="snare_boss_double" start="160" /><play pattern="snare_boss_double" start="176" />
+
+      <!-- Enrage Phase Snares -->
+      <play pattern="snare_boss_buildup" start="240" /><play pattern="snare_boss_buildup" start="248" />
+      <play pattern="snare_boss_double" start="256" /><play pattern="snare_boss_double" start="272" />
+      <play pattern="snare_boss_double" start="288" /><play pattern="snare_boss_double" start="304" />
+      <play pattern="snare_boss_double" start="320" /><play pattern="snare_boss_double" start="336" />
+      <play pattern="snare_boss_double" start="352" /><play pattern="snare_boss_double" start="368" />
+      <play pattern="snare_boss_double" start="384" /><play pattern="snare_boss_double" start="400" />
+    </track>
+
+    <!-- TRACK 3: CYBER HI-HATS -->
+    <track instrument="cyber_hat" name="Cyber Hi-Hats">
+      <play pattern="hats_32nd_cyber" start="32" /><play pattern="hats_32nd_cyber" start="48" />
+      <play pattern="hats_32nd_cyber" start="64" /><play pattern="hats_32nd_cyber" start="80" />
+      <play pattern="hats_32nd_cyber" start="96" /><play pattern="hats_32nd_cyber" start="112" />
+      <play pattern="hats_32nd_cyber" start="128" /><play pattern="hats_32nd_cyber" start="144" />
+      <play pattern="hats_32nd_cyber" start="256" /><play pattern="hats_32nd_cyber" start="272" />
+      <play pattern="hats_32nd_cyber" start="288" /><play pattern="hats_32nd_cyber" start="304" />
+      <play pattern="hats_32nd_cyber" start="320" /><play pattern="hats_32nd_cyber" start="336" />
+    </track>
+
+    <!-- TRACK 4: DISTORTED SAW BASSLINE -->
+    <track instrument="boss_bass" name="Distorted Boss Bass">
+      <play pattern="bass_boss_main" start="32" />
+      <play pattern="bass_boss_main" start="48" />
+      <play pattern="bass_boss_main" start="64" />
+      <play pattern="bass_boss_main" start="80" />
+      <play pattern="bass_boss_main" start="96" />
+      <play pattern="bass_boss_main" start="112" />
+      <play pattern="bass_boss_main" start="128" />
+      <play pattern="bass_boss_main" start="144" />
+      <play pattern="bass_boss_main" start="160" />
+      <play pattern="bass_boss_main" start="176" />
+      <play pattern="bass_boss_main" start="256" />
+      <play pattern="bass_boss_main" start="272" />
+      <play pattern="bass_boss_main" start="288" />
+      <play pattern="bass_boss_main" start="304" />
+      <play pattern="bass_boss_main" start="320" />
+      <play pattern="bass_boss_main" start="336" />
+      <play pattern="bass_boss_main" start="352" />
+      <play pattern="bass_boss_main" start="368" />
+    </track>
+
+    <!-- TRACK 5: SUB IMPACT -->
+    <track instrument="sub_impact" name="Sub Impact">
+      <note pitch="D1" start="0" duration="4" />
+      <note pitch="D1" start="32" duration="4" />
+      <note pitch="D1" start="64" duration="4" />
+      <note pitch="D1" start="128" duration="4" />
+      <note pitch="D1" start="256" duration="4" />
+      <note pitch="D1" start="384" duration="4" />
+      <note pitch="D1" start="440" duration="4" />
+    </track>
+
+    <!-- TRACK 6: CYBER GOTHIC BOSS LEAD -->
+    <track instrument="boss_lead" name="Gothic Boss Lead">
+      <play pattern="lead_boss_theme" start="64" />
+      <play pattern="lead_boss_theme" start="80" />
+      <play pattern="lead_boss_theme" start="96" />
+      <play pattern="lead_boss_theme" start="112" />
+      <play pattern="lead_boss_theme" start="256" />
+      <play pattern="lead_boss_theme" start="272" />
+      <play pattern="lead_boss_theme" start="288" />
+      <play pattern="lead_boss_theme" start="304" />
+      <play pattern="lead_boss_theme" start="320" />
+      <play pattern="lead_boss_theme" start="336" />
+    </track>
+
+    <!-- TRACK 7: DARK BRASS STABS -->
+    <track instrument="dark_brass" name="Dark Brass Stabs">
+      <play pattern="brass_stabs_boss" start="0" />
+      <play pattern="brass_stabs_boss" start="16" />
+      <play pattern="brass_stabs_boss" start="32" />
+      <play pattern="brass_stabs_boss" start="48" />
+      <play pattern="brass_stabs_boss" start="192" />
+      <play pattern="brass_stabs_boss" start="208" />
+      <play pattern="brass_stabs_boss" start="224" />
+      <play pattern="brass_stabs_boss" start="240" />
+      <play pattern="brass_stabs_boss" start="352" />
+      <play pattern="brass_stabs_boss" start="368" />
+      <chord start="444" duration="w"><note pitch="D3"/><note pitch="D4"/><note pitch="F4"/><note pitch="A4"/></chord>
+    </track>
+
+    <!-- TRACK 8: TENSION PAD -->
+    <track instrument="tension_pad" name="Tension Pad">
+      <play pattern="pad_boss_chords" start="0" />
+      <play pattern="pad_boss_chords" start="16" />
+      <play pattern="pad_boss_chords" start="192" />
+      <play pattern="pad_boss_chords" start="208" />
+      <play pattern="pad_boss_chords" start="384" />
+      <play pattern="pad_boss_chords" start="400" />
+      <play pattern="pad_boss_chords" start="416" />
+      <play pattern="pad_boss_chords" start="432" />
+    </track>
+
+    <!-- TRACK 9: MANIC ARPEGGIATOR -->
+    <track instrument="manic_arp" name="Manic Arpeggiator">
+      <play pattern="manic_arp_loop" start="0" />
+      <play pattern="manic_arp_loop" start="16" />
+      <play pattern="manic_arp_loop" start="32" />
+      <play pattern="manic_arp_loop" start="48" />
+      <play pattern="manic_arp_loop" start="64" />
+      <play pattern="manic_arp_loop" start="80" />
+      <play pattern="manic_arp_loop" start="96" />
+      <play pattern="manic_arp_loop" start="112" />
+      <play pattern="manic_arp_loop" start="256" />
+      <play pattern="manic_arp_loop" start="272" />
+      <play pattern="manic_arp_loop" start="288" />
+      <play pattern="manic_arp_loop" start="304" />
+    </track>
+  </tracks>
+</axml>

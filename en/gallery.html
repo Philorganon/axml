@@ -1,246 +1,911 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore - AXML Community Gallery</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@600&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/theme.css">
-    <style>
-        body {
-            margin: 0;
-            background: var(--bg-dark);
-            color: var(--text-main);
-            font-family: var(--font-ui);
-            padding-top: 80px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0A0A0B">
+  <title>Explore — AXML Community Gallery</title>
+  <meta name="description" content="Curated procedural compositions, synth loops, and soundtrack projects engineered entirely in declarative AXML.">
+  <meta property="og:title" content="Explore — AXML Community Gallery">
+  <meta property="og:description" content="A curated gallery of AXML compositions: lo-fi, synthwave, ambient, classical, and experimental.">
+  <meta property="og:type" content="website">
 
-        .header-content {
-            text-align: center;
-            padding: 60px 20px;
-        }
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0A0B'/%3E%3Cpath d='M8 20v-8M12 24V8M16 18v-4M20 26V6M24 21v-10' stroke='%23FF5C2B' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
 
-        .header-content h1 {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            padding: 40px 10%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+  <script>document.documentElement.classList.add('js');</script>
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 
-        .gallery-item {
-            background: var(--bg-panel);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--glass-border);
-            overflow: hidden;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-        }
+  <style>
+    /* ---------- Tokens (shared with landing) ---------- */
+    :root {
+      --bg: #0A0A0B;
+      --bg-elev: #0F0F11;
+      --surface: #141416;
+      --surface-2: #1A1A1D;
+      --line: #242428;
+      --line-strong: #34343A;
+      --text: #F2EFE9;
+      --text-2: #A8A49C;
+      --text-3: #8C8880;
+      --accent: #FF5C2B;
+      --accent-hover: #FF7448;
+      --accent-soft: rgba(255, 92, 43, 0.10);
+      --lime: #C8F751;
+      --lime-soft: rgba(200, 247, 81, 0.10);
+      --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+      --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --radius: 12px;
+      --max: 1240px;
+    }
 
-        .gallery-item:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-        }
+    /* ---------- Reset / base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    p { margin: 0; }
+    h1, h2, h3, h4 { margin: 0; }
+    ::selection { background: var(--accent); color: #0A0A0B; }
+    :focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; border-radius: 2px; }
 
-        .item-preview {
-            height: 180px;
-            background: linear-gradient(45deg, #121520, #0a0d14);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .skip-link {
+      position: absolute; left: 16px; top: -64px; z-index: 100;
+      background: var(--accent); color: #0A0A0B; padding: 10px 16px;
+      border-radius: 6px; font-weight: 600; transition: top .2s ease;
+    }
+    .skip-link:focus { top: 16px; }
 
-        .item-preview i {
-            font-size: 4rem;
-            color: var(--primary);
-            opacity: 0.3;
-        }
+    /* ---------- Background ---------- */
+    body::before {
+      content: "";
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.022) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.022) 1px, transparent 1px);
+      background-size: 72px 72px;
+      -webkit-mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 30%, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 30%, transparent 100%);
+    }
+    body::after {
+      content: "";
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(700px circle at 78% -8%, rgba(255,92,43,.10), transparent 65%);
+    }
+    .site-header, main, .site-footer { position: relative; z-index: 1; }
 
-        .item-info {
-            padding: 25px;
-        }
+    /* ---------- Layout ---------- */
+    .wrap { width: min(100% - 40px, var(--max)); margin-inline: auto; }
+    .section { padding: clamp(48px, 7vw, 88px) 0; }
 
-        .item-info h3 {
-            margin: 0 0 10px;
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-        }
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10, 10, 11, 0.78);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      backdrop-filter: blur(16px) saturate(140%);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; gap: 24px; min-height: 70px; }
 
-        .item-meta {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            display: flex;
-            justify-content: space-between;
-        }
+    .brand { display: inline-flex; align-items: center; gap: 10px; flex: none; }
+    .brand-mark {
+      width: 32px; height: 32px; border: 1px solid var(--line-strong);
+      border-radius: 8px; display: grid; place-items: center;
+      color: var(--accent);
+      background: linear-gradient(145deg, rgba(255,92,43,.14), rgba(255,92,43,.02));
+    }
+    .brand-mark svg { width: 18px; height: 18px; }
+    .brand-text {
+      display: flex; flex-direction: column; line-height: 1;
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 1rem; letter-spacing: -.01em;
+    }
+    .brand-text span {
+      font-family: var(--font-mono); font-size: .52rem; font-weight: 400;
+      letter-spacing: .22em; color: var(--text-3); margin-top: 5px;
+    }
 
-        .item-actions {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-        }
+    .nav-menu { display: flex; align-items: center; gap: 32px; margin-left: auto; }
+    .nav-links { display: flex; align-items: center; gap: 26px; font-size: .875rem; color: var(--text-2); }
+    .nav-links a { position: relative; padding: 4px 0; transition: color .2s ease; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a[aria-current="page"] { color: var(--text); }
+    .nav-links a[aria-current="page"]::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+      height: 1px; background: var(--accent);
+    }
+    .nav-cta { display: flex; align-items: center; gap: 14px; }
 
-        .btn-view {
-            flex: 1;
-            background: var(--primary-glow);
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            padding: 10px;
-            border-radius: 8px;
-            text-decoration: none;
-            text-align: center;
-            font-weight: 600;
-            transition: var(--transition);
-        }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: .6rem; letter-spacing: .1em;
+      color: var(--text-2); border: 1px solid var(--line);
+      border-radius: 999px; padding: 4px 9px;
+    }
+    .pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); }
 
-        .btn-view:hover {
-            background: var(--primary);
-            color: var(--bg-dark);
-        }
+    .nav-toggle {
+      display: none; width: 40px; height: 40px; margin-left: auto;
+      border: 1px solid var(--line-strong); border-radius: 8px;
+      background: transparent; align-items: center; justify-content: center;
+      flex: none;
+    }
+    .nav-toggle-lines { display: flex; flex-direction: column; gap: 5px; width: 16px; }
+    .nav-toggle-lines span { height: 1.5px; background: var(--text); border-radius: 2px; transition: transform .2s ease; }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-lines span:first-child { transform: translateY(3.25px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-lines span:last-child { transform: translateY(-3.25px) rotate(-45deg); }
 
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--glass-border);
-        }
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 13px 22px; border-radius: 8px; border: 1px solid transparent;
+      font-weight: 600; font-size: .9rem; white-space: nowrap;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+    }
+    .btn svg { width: 16px; height: 16px; flex: none; }
+    .btn-primary { background: var(--accent); color: #0A0A0B; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); transform: translateY(-1px); }
+    .btn-ghost { border-color: var(--line-strong); color: var(--text); background: rgba(255,255,255,.02); }
+    .btn-ghost:hover { border-color: var(--text-3); background: rgba(255,255,255,.05); transform: translateY(-1px); }
+    .btn-sm { padding: 9px 15px; font-size: .78rem; }
 
-        .tag {
-            background: var(--glass-border);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-        }
+    /* ---------- Page intro ---------- */
+    .page-intro { padding: clamp(40px, 6vw, 76px) 0 clamp(28px, 4vw, 44px); }
+    .intro-grid {
+      display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr);
+      gap: clamp(28px, 5vw, 64px); align-items: end;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--text-2);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 6px 12px; background: rgba(255,255,255,.02);
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--lime);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(200,247,81,.28); }
+      50% { box-shadow: 0 0 0 4px rgba(200,247,81,0); }
+    }
+    h1 {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(2.4rem, 4.6vw, 3.8rem);
+      line-height: 1; letter-spacing: -.04em;
+      margin: 20px 0 0;
+    }
+    h1 .accent { color: var(--accent); }
+    .intro-copy { color: var(--text-2); max-width: 56ch; margin-top: 20px; font-size: 1rem; }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .nav-bar {
-                padding: 15px 20px;
-            }
+    .intro-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.022), rgba(255,255,255,.008));
+      overflow: hidden;
+    }
+    .intro-stats > div {
+      padding: 16px 18px; border-right: 1px solid var(--line);
+    }
+    .intro-stats > div:last-child { border-right: 0; }
+    .intro-stats dt {
+      font-family: var(--font-mono); font-size: .56rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 6px;
+    }
+    .intro-stats dd {
+      margin: 0; font-family: var(--font-display); font-weight: 600;
+      font-size: 1.35rem; letter-spacing: -.02em; line-height: 1.1;
+    }
+    .intro-stats dd small {
+      display: block; font-family: var(--font-mono); font-weight: 400;
+      font-size: .56rem; letter-spacing: .08em; color: var(--text-3);
+      margin-top: 4px;
+    }
 
-            .header-content h1 {
-                font-size: 2.2rem;
-            }
+    /* ---------- Filter bar ---------- */
+    .filter-bar {
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+      padding: 14px 0; margin-bottom: 24px;
+      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    }
+    .filter-label {
+      font-family: var(--font-mono); font-size: .6rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--text-3); flex: none;
+    }
+    .filter-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-chips button {
+      border: 1px solid var(--line); background: transparent;
+      border-radius: 999px; padding: 6px 13px;
+      font-size: .78rem; color: var(--text-2);
+      transition: border-color .2s ease, color .2s ease, background .2s ease;
+    }
+    .filter-chips button:hover { border-color: var(--line-strong); color: var(--text); }
+    .filter-chips button[aria-pressed="true"] {
+      border-color: var(--accent); color: #0A0A0B;
+      background: var(--accent); font-weight: 600;
+    }
+    .filter-count {
+      margin-left: auto; font-family: var(--font-mono);
+      font-size: .6rem; letter-spacing: .1em; color: var(--text-3);
+    }
 
-            .gallery-grid {
-                padding: 20px 5%;
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            }
-        }
+    /* ---------- Gallery grid ---------- */
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .track {
+      display: flex; flex-direction: column; min-width: 0;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.005));
+      overflow: hidden;
+      transition: border-color .25s ease, transform .25s ease;
+    }
+    .track:hover { border-color: var(--line-strong); }
+    .track.is-hidden { display: none; }
 
-        @media (max-width: 600px) {
-            .header-content {
-                padding: 40px 20px;
-            }
+    .track--lg   { grid-column: span 7; }
+    .track--md   { grid-column: span 5; }
+    .track--sm   { grid-column: span 4; }
+    .track--wide { grid-column: span 12; flex-direction: row; }
 
-            .header-content h1 {
-                font-size: 1.8rem;
-            }
+    /* ---------- Wave ---------- */
+    .track-wave {
+      position: relative;
+      padding: 20px 20px 14px;
+      background:
+        linear-gradient(180deg, rgba(255,92,43,.05), rgba(255,92,43,0) 70%),
+        var(--bg-elev);
+      border-bottom: 1px solid var(--line);
+    }
+    .track--lg .track-wave { padding: 24px 24px 16px; }
+    .track--wide .track-wave {
+      flex: 1 1 55%; border-bottom: 0; border-right: 1px solid var(--line);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 24px;
+    }
 
-            .gallery-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-        }
-    </style>
+    .wave {
+      display: flex; align-items: center; gap: 2px;
+      height: 72px;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+    }
+    .track--lg .wave { height: 110px; gap: 3px; }
+    .track--wide .wave { height: 150px; gap: 3px; }
+    .wave .bar {
+      flex: 1 1 0; min-width: 1px; max-width: 6px;
+      height: calc(var(--h, 40) * 1%);
+      background: var(--line-strong); border-radius: 1px;
+      transition: background .25s ease;
+    }
+    .wave .bar.hot { background: var(--accent); opacity: .85; }
+    .track:hover .wave .bar { background: var(--text-3); }
+    .track:hover .wave .bar.hot { background: var(--accent-hover); opacity: 1; }
+
+    .wave-foot {
+      display: flex; align-items: center; gap: 10px; margin-top: 12px;
+      font-family: var(--font-mono); font-size: .58rem; letter-spacing: .1em;
+      color: var(--text-3);
+    }
+    .wave-play {
+      display: inline-grid; place-items: center;
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1px solid var(--line-strong);
+      color: var(--text); flex: none;
+    }
+    .wave-play svg { width: 10px; height: 10px; margin-left: 1px; }
+    .wave-dur { margin-left: auto; }
+
+    /* ---------- Track body ---------- */
+    .track-body {
+      display: flex; flex-direction: column; gap: 12px;
+      padding: 18px 20px 20px; flex: 1 1 auto;
+    }
+    .track--lg .track-body { padding: 20px 24px 24px; }
+    .track--wide .track-body {
+      flex: 1 1 45%; padding: 24px;
+      justify-content: center;
+    }
+
+    .track-head { display: flex; align-items: flex-start; gap: 12px; }
+    .track-title {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 1.15rem; letter-spacing: -.015em; line-height: 1.2;
+    }
+    .track--lg .track-title { font-size: 1.45rem; }
+    .track-author {
+      font-family: var(--font-mono); font-size: .62rem; letter-spacing: .06em;
+      color: var(--text-3); margin-top: 4px;
+    }
+    .badge {
+      margin-left: auto; flex: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 1px solid var(--line-strong); border-radius: 999px;
+      padding: 3px 9px;
+      font-family: var(--font-mono); font-size: .54rem;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--text-2);
+    }
+    .badge--accent { border-color: rgba(255,92,43,.5); color: var(--accent); background: var(--accent-soft); }
+    .badge--lime   { border-color: rgba(200,247,81,.4); color: var(--lime);  background: var(--lime-soft); }
+
+    .track-desc { color: var(--text-2); font-size: .84rem; line-height: 1.6; }
+
+    .track-meta {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin: 0; padding: 0; list-style: none;
+    }
+    .track-meta li {
+      display: inline-flex; align-items: center; gap: 5px;
+      border: 1px solid var(--line); border-radius: 5px;
+      padding: 4px 8px; background: rgba(255,255,255,.01);
+      font-family: var(--font-mono); font-size: .58rem; letter-spacing: .06em;
+      color: var(--text-3);
+    }
+    .track-meta li b { color: var(--text); font-weight: 500; }
+
+    .track-actions {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 8px;
+    }
+    .track-actions .btn { flex: 1 1 auto; min-width: 0; }
+
+    /* ---------- Empty state ---------- */
+    .gallery-empty {
+      border: 1px dashed var(--line-strong); border-radius: var(--radius);
+      padding: 40px 24px; text-align: center;
+      color: var(--text-3); font-family: var(--font-mono);
+      font-size: .72rem; letter-spacing: .1em;
+    }
+    .gallery-empty[hidden] { display: none; }
+
+    /* ---------- CTA ---------- */
+    .cta-section {
+      position: relative; border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.014), transparent 40%);
+      text-align: center; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(500px circle at 50% 110%, rgba(255,92,43,.13), transparent 70%);
+    }
+    .cta-inner { position: relative; max-width: 640px; margin-inline: auto; }
+    .cta-inner h2 {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+      letter-spacing: -.03em; line-height: 1.05;
+    }
+    .cta-inner p { color: var(--text-2); margin-top: 16px; }
+    .cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+    /* ---------- Footer ---------- */
+    .site-footer { border-top: 1px solid var(--line); padding: 40px 0 28px; }
+    .footer-top {
+      display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+      padding-bottom: 28px; border-bottom: 1px solid var(--line);
+    }
+    .footer-brand p { color: var(--text-3); font-size: .8rem; max-width: 34ch; margin-top: 12px; }
+    .footer-nav { display: flex; gap: clamp(32px, 6vw, 72px); flex-wrap: wrap; }
+    .footer-heading {
+      font-family: var(--font-mono); font-size: .58rem; font-weight: 500;
+      letter-spacing: .16em; text-transform: uppercase; color: var(--text-3);
+      margin-bottom: 12px;
+    }
+    .footer-col a { display: block; font-size: .8rem; color: var(--text-2); padding: 4px 0; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+      padding-top: 20px;
+      font-family: var(--font-mono); font-size: .6rem; color: var(--text-3);
+    }
+
+    /* ---------- Reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1020px) {
+      .track--lg { grid-column: span 12; }
+      .track--md { grid-column: span 12; }
+      .track--sm { grid-column: span 6; }
+      .intro-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 880px) {
+      .nav { flex-wrap: wrap; gap: 0; padding: 10px 0; }
+      .nav-toggle { display: none; }
+      .js .nav-toggle { display: inline-flex; }
+      .nav-menu {
+        display: flex; flex-basis: 100%; flex-direction: column;
+        align-items: stretch; gap: 0; margin-left: 0; padding-top: 4px;
+      }
+      .js .nav-menu { display: none; }
+      .js .nav-menu.is-open { display: flex; }
+      .nav-links { flex-direction: column; align-items: stretch; gap: 0; }
+      .nav-links a { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+      .nav-links a[aria-current="page"]::after { display: none; }
+      .nav-cta { margin-top: 14px; justify-content: space-between; }
+    }
+    @media (max-width: 720px) {
+      .track--wide { flex-direction: column; }
+      .track--wide .track-wave {
+        border-right: 0; border-bottom: 1px solid var(--line);
+        flex: 0 0 auto;
+      }
+      .track--wide .track-body { flex: 1 1 auto; }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 32px, var(--max)); }
+      .track--sm { grid-column: span 12; }
+      .intro-stats { grid-template-columns: 1fr; }
+      .intro-stats > div { border-right: 0; border-bottom: 1px solid var(--line); }
+      .intro-stats > div:last-child { border-bottom: 0; }
+      .filter-count { width: 100%; margin-left: 0; padding-top: 4px; }
+      .footer-top { flex-direction: column; }
+      .footer-nav { gap: 32px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
-
 <body>
-    <nav class="nav-bar">
-        <div class="logo-area" style="display: flex; align-items: center; gap: 10px;">
-            <i class="material-icons" style="color: var(--primary);">blur_on</i>
-            <span style="font-family: var(--font-display); font-weight: 800;">AXML EXPLORE</span>
-        </div>
-        <div style="display:flex; gap:20px;">
-            <a href="landing" style="color:var(--text-main); text-decoration:none;">Home</a>
-            <a href="docs" style="color:var(--text-main); text-decoration:none;">Documentation</a>
-            <a href="../index" style="color:var(--primary); text-decoration:none;">Studio</a>
-        </div>
-    </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="header-content">
-        <h1>Discover Masterpieces</h1>
-        <p>Browse through the community favorites and built-in AXML classics.</p>
-    </header>
+  <header class="site-header">
+    <div class="wrap">
+      <nav class="nav" aria-label="Primary">
+        <a href="landing.html" class="brand">
+          <span class="brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+              <path d="M3 14v-4M7 17V7M11 20V4M15 16V8M19 13v-2"/>
+            </svg>
+          </span>
+          <span class="brand-text">AXML<span>EXPLORE</span></span>
+        </a>
 
-    <div class="gallery-grid">
-        <div class="gallery-item">
-            <div class="item-preview"><i class="material-icons">slow_motion_video</i></div>
-            <div class="item-info">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h3>Cyberpunk City</h3>
-                    <span class="tag">Showcase</span>
-                </div>
-                <p style="color:var(--text-muted); font-size:0.9rem;">A high-energy electronic piece with LFO
-                    automation.</p>
-                <div class="item-meta">
-                    <span>by AXML Master</span>
-                    <span>128 BPM | Am</span>
-                </div>
-                <div class="item-actions">
-                    <a href="../index" class="btn-view">Open in Studio</a>
-                </div>
-            </div>
-        </div>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+          <span class="nav-toggle-lines" aria-hidden="true"><span></span><span></span></span>
+        </button>
 
-        <div class="gallery-item">
-            <div class="item-preview"><i class="material-icons">nights_stay</i></div>
-            <div class="item-info">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h3>Lofi Chill Night</h3>
-                    <span class="tag">Loop</span>
-                </div>
-                <p style="color:var(--text-muted); font-size:0.9rem;">Relaxing beats with vintage Rhodes-style piano.
-                </p>
-                <div class="item-meta">
-                    <span>by Lofi Beats</span>
-                    <span>85 BPM | C</span>
-                </div>
-                <div class="item-actions">
-                    <a href="../index" class="btn-view">Open in Studio</a>
-                </div>
-            </div>
+        <div class="nav-menu" id="nav-menu">
+          <div class="nav-links">
+            <a href="landing.html">Home</a>
+            <a href="gallery.html" aria-current="page">Explore</a>
+            <a href="docs.html">Documentation</a>
+          </div>
+          <div class="nav-cta">
+            <span class="pill"><span class="pill-dot"></span>4.0</span>
+            <a href="../index.html" class="btn btn-primary btn-sm">Launch Studio</a>
+          </div>
         </div>
-
-        <div class="gallery-item">
-            <div class="item-preview"><i class="material-icons">flare</i></div>
-            <div class="item-info">
-                <h3>Neon Dreams</h3>
-                <p style="color:var(--text-muted); font-size:0.9rem;">Classic synthwave atmosphere with fat saw basses.
-                </p>
-                <div class="item-meta">
-                    <span>by RetroSynth</span>
-                    <span>120 BPM | Em</span>
-                </div>
-                <div class="item-actions">
-                    <a href="index.html" class="btn-view">Open in Studio</a>
-                </div>
-            </div>
-        </div>
+      </nav>
     </div>
-</body>
+  </header>
 
+  <main id="main">
+    <!-- Intro -->
+    <section class="page-intro">
+      <div class="wrap intro-grid">
+        <div class="reveal">
+          <span class="eyebrow"><span class="status-dot"></span>COMMUNITY · CURATED</span>
+          <h1>Discover <span class="accent">soundscapes.</span></h1>
+          <p class="intro-copy">A curated gallery of AXML compositions — procedural loops, soundtrack sketches, and full arrangements, all authored as plain text. Open any track to read its source and render it in the studio.</p>
+        </div>
+
+        <dl class="intro-stats reveal">
+          <div>
+            <dt>Tracks</dt>
+            <dd>06<small>CURATED</small></dd>
+          </div>
+          <div>
+            <dt>Genres</dt>
+            <dd>05<small>DISTINCT</small></dd>
+          </div>
+          <div>
+            <dt>Source</dt>
+            <dd>AXML<small>SPEC 4.0</small></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section" aria-labelledby="gallery-heading">
+      <div class="wrap">
+        <h2 id="gallery-heading" class="sr-only">Browse compositions</h2>
+
+        <div class="filter-bar reveal">
+          <span class="filter-label" id="filter-label">Filter</span>
+          <div class="filter-chips" role="group" aria-labelledby="filter-label">
+            <button type="button" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-filter="showcase" aria-pressed="false">Showcase</button>
+            <button type="button" data-filter="synthwave" aria-pressed="false">Synthwave</button>
+            <button type="button" data-filter="ambient" aria-pressed="false">Ambient</button>
+            <button type="button" data-filter="piano" aria-pressed="false">Piano</button>
+            <button type="button" data-filter="experimental" aria-pressed="false">Experimental</button>
+          </div>
+          <span class="filter-count" data-filter-count aria-live="polite">6 tracks</span>
+        </div>
+
+        <div class="gallery-grid" id="gallery-grid">
+          <!-- 1. Lofi Chill (featured) -->
+          <article class="track track--lg reveal" data-tags="showcase ambient" aria-labelledby="t1-title">
+            <div class="track-wave">
+              <div class="wave" data-wave="56" data-hot="8,18,30,42" aria-hidden="true"></div>
+              <div class="wave-foot">
+                <span class="wave-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </span>
+                <span>LOFI / PREVIEW</span>
+                <span class="wave-dur">0:34</span>
+              </div>
+            </div>
+            <div class="track-body">
+              <div class="track-head">
+                <div>
+                  <h2 class="track-title" id="t1-title">Lofi Chill</h2>
+                  <p class="track-author">by AXML Sound Lab</p>
+                </div>
+                <span class="badge badge--accent">Showcase</span>
+              </div>
+              <p class="track-desc">Warm vintage Rhodes chords with soft envelope decay, tape-style saturation, and a wide ambient reverb tail. Built as a 4-bar loop with polyphonic voicing.</p>
+              <ul class="track-meta">
+                <li><b>85</b> BPM</li>
+                <li><b>Gm</b> KEY</li>
+                <li><b>Triangle</b> OSC</li>
+                <li><b>Poly</b> VOICE</li>
+              </ul>
+              <div class="track-actions">
+                <a href="../index.html" class="btn btn-primary btn-sm">Open in Studio</a>
+                <a href="docs.html" class="btn btn-ghost btn-sm">View AXML</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. Cyberpunk City -->
+          <article class="track track--md reveal" data-tags="synthwave" aria-labelledby="t2-title">
+            <div class="track-wave">
+              <div class="wave" data-wave="40" data-hot="5,14,22,31" aria-hidden="true"></div>
+              <div class="wave-foot">
+                <span class="wave-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </span>
+                <span>SYNTHWAVE</span>
+                <span class="wave-dur">0:28</span>
+              </div>
+            </div>
+            <div class="track-body">
+              <div class="track-head">
+                <div>
+                  <h2 class="track-title" id="t2-title">Cyberpunk City</h2>
+                  <p class="track-author">by AXML Master</p>
+                </div>
+                <span class="badge badge--lime">Synthwave</span>
+              </div>
+              <p class="track-desc">High-energy synthwave with resonant lowpass filter modulation, arpeggiated bass, and a punchy gated lead.</p>
+              <ul class="track-meta">
+                <li><b>128</b> BPM</li>
+                <li><b>Am</b> KEY</li>
+                <li><b>Saw + Square</b> OSC</li>
+              </ul>
+              <div class="track-actions">
+                <a href="../index.html" class="btn btn-primary btn-sm">Open in Studio</a>
+                <a href="docs.html" class="btn btn-ghost btn-sm">View AXML</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. Neon Dreams -->
+          <article class="track track--sm reveal" data-tags="synthwave" aria-labelledby="t3-title">
+            <div class="track-wave">
+              <div class="wave" data-wave="32" data-hot="6,16,26" aria-hidden="true"></div>
+              <div class="wave-foot">
+                <span class="wave-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </span>
+                <span>EPIC</span>
+                <span class="wave-dur">0:41</span>
+              </div>
+            </div>
+            <div class="track-body">
+              <div class="track-head">
+                <div>
+                  <h2 class="track-title" id="t3-title">Neon Dreams</h2>
+                  <p class="track-author">by RetroSynth</p>
+                </div>
+              </div>
+              <p class="track-desc">Multi-track orchestral synthesis with harmonic minor progression and punchy kick layering.</p>
+              <ul class="track-meta">
+                <li><b>120</b> BPM</li>
+                <li><b>Em</b> KEY</li>
+                <li><b>Poly</b> VOICE</li>
+              </ul>
+              <div class="track-actions">
+                <a href="../index.html" class="btn btn-primary btn-sm">Open in Studio</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. Ambient Dawn (new) -->
+          <article class="track track--sm reveal" data-tags="ambient" aria-labelledby="t4-title">
+            <div class="track-wave">
+              <div class="wave" data-wave="32" data-hot="10,20" aria-hidden="true"></div>
+              <div class="wave-foot">
+                <span class="wave-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </span>
+                <span>AMBIENT</span>
+                <span class="wave-dur">1:02</span>
+              </div>
+            </div>
+            <div class="track-body">
+              <div class="track-head">
+                <div>
+                  <h2 class="track-title" id="t4-title">Ambient Dawn</h2>
+                  <p class="track-author">by Field Records</p>
+                </div>
+              </div>
+              <p class="track-desc">Slow-evolving pad layers with granular textures and a single sustained drone anchored to a low root.</p>
+              <ul class="track-meta">
+                <li><b>62</b> BPM</li>
+                <li><b>Dm</b> KEY</li>
+                <li><b>Pad</b> VOICE</li>
+              </ul>
+              <div class="track-actions">
+                <a href="../index.html" class="btn btn-primary btn-sm">Open in Studio</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5. Piano Nocturne (new) -->
+          <article class="track track--sm reveal" data-tags="piano ambient" aria-labelledby="t5-title">
+            <div class="track-wave">
+              <div class="wave" data-wave="32" data-hot="9,19,28" aria-hidden="true"></div>
+              <div class="wave-foot">
+                <span class="wave-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </span>
+                <span>CLASSICAL</span>
+                <span class="wave-dur">0:52</span>
+              </div>
+            </div>
+            <div class="track-body">
+              <div class="track-head">
+                <div>
+                  <h2 class="track-title" id="t5-title">Piano Nocturne</h2>
+                  <p class="track-author">by Clara Voss</p>
+                </div>
+              </div>
+              <p class="track-desc">Solo electric piano with expressive velocity curves, sustain pedal modeling, and intimate room reverb.</p>
+              <ul class="track-meta">
+                <li><b>72</b> BPM</li>
+                <li><b>Cm</b> KEY</li>
+                <li><b>Rhodes</b> OSC</li>
+              </ul>
+              <div class="track-actions">
+                <a href="../index.html" class="btn btn-primary btn-sm">Open in Studio</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6. Glitch Ritual (wide horizontal) -->
+          <article class="track track--wide reveal" data-tags="experimental" aria-labelledby="t6-title">
+            <div class="track-wave">
+              <div class="wave" data-wave="88" data-hot="3,11,19,27,35,43,51,59,67,75,83" aria-hidden="true"></div>
+              <div class="wave-foot">
+                <span class="wave-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </span>
+                <span>EXPERIMENTAL / 96 BPM</span>
+                <span class="wave-dur">0:47</span>
+              </div>
+            </div>
+            <div class="track-body">
+              <div class="track-head">
+                <div>
+                  <h2 class="track-title" id="t6-title">Glitch Ritual</h2>
+                  <p class="track-author">by NULLPTR</p>
+                </div>
+                <span class="badge badge--accent">New</span>
+              </div>
+              <p class="track-desc">Rhythmic glitch percussion built from randomized sample-and-hold envelopes, tight delay throws, and a deliberately broken-grid sequence. Deterministic: replaying it produces byte-identical output.</p>
+              <ul class="track-meta">
+                <li><b>96</b> BPM</li>
+                <li><b>F#m</b> KEY</li>
+                <li><b>Noise + Square</b> OSC</li>
+                <li><b>Deterministic</b> RENDER</li>
+              </ul>
+              <div class="track-actions">
+                <a href="../index.html" class="btn btn-primary btn-sm">Open in Studio</a>
+                <a href="docs.html" class="btn btn-ghost btn-sm">View AXML</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="gallery-empty" data-empty hidden>No tracks match this filter.</div>
+      </div>
+    </section>
+
+    <!-- Submit CTA -->
+    <section class="section cta-section" aria-labelledby="cta-title">
+      <div class="wrap cta-inner reveal">
+        <h2 id="cta-title">Made something in AXML?</h2>
+        <p>Submit your composition to the gallery. A published source file is all we need — the studio renders it deterministically, so listeners hear exactly what you wrote.</p>
+        <div class="cta-actions">
+          <a href="docs.html" class="btn btn-primary">
+            Submit a track
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="docs.html" class="btn btn-ghost">Read the spec</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="landing.html" class="brand" aria-label="AXML Studio home">
+            <span class="brand-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+                <path d="M3 14v-4M7 17V7M11 20V4M15 16V8M19 13v-2"/>
+              </svg>
+            </span>
+            <span class="brand-text">AXML<span>STUDIO</span></span>
+          </a>
+          <p>A declarative standard for procedural and AI-native music.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer">
+          <div class="footer-col">
+            <h3 class="footer-heading">Product</h3>
+            <a href="../index.html">Studio</a>
+            <a href="gallery.html">Explore</a>
+            <a href="docs.html">Documentation</a>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Standard</h3>
+            <a href="docs.html">Specification</a>
+            <a href="gallery.html">Examples</a>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> AXML Audio Foundation</span>
+        <span>Open standard · 4.0</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ---------- Mobile nav ---------- */
+      var toggle = document.querySelector(".nav-toggle");
+      var menu = document.getElementById("nav-menu");
+      if (toggle && menu) {
+        var setOpen = function (open) {
+          toggle.setAttribute("aria-expanded", open ? "true" : "false");
+          toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+          menu.classList.toggle("is-open", open);
+        };
+        toggle.addEventListener("click", function () {
+          setOpen(toggle.getAttribute("aria-expanded") !== "true");
+        });
+        menu.addEventListener("click", function (event) {
+          if (event.target.closest("a")) setOpen(false);
+        });
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") setOpen(false);
+        });
+        window.addEventListener("resize", function () {
+          if (window.innerWidth > 880) setOpen(false);
+        });
+      }
+
+      /* ---------- Deterministic waveform bars ---------- */
+      document.querySelectorAll("[data-wave]").forEach(function (el) {
+        var count = parseInt(el.getAttribute("data-wave"), 10) || 40;
+        var hotSet = Object.create(null);
+        (el.getAttribute("data-hot") || "").split(",").forEach(function (token) {
+          var n = parseInt(token, 10);
+          if (!isNaN(n) && n >= 0 && n < count) hotSet[n] = true;
+        });
+
+        var frag = document.createDocumentFragment();
+        for (var i = 0; i < count; i++) {
+          var bar = document.createElement("span");
+          bar.className = hotSet[i] ? "bar hot" : "bar";
+          var h = 18 + Math.abs(Math.sin(i * 0.7 + 0.5)) * 42 + Math.abs(Math.cos(i * 0.35)) * 30;
+          bar.style.setProperty("--h", Math.round(h));
+          frag.appendChild(bar);
+        }
+        el.appendChild(frag);
+      });
+
+      /* ---------- Filter ---------- */
+      var filterBtns = document.querySelectorAll("[data-filter]");
+      var trackItems = document.querySelectorAll(".track");
+      var countEl = document.querySelector("[data-filter-count]");
+      var emptyEl = document.querySelector("[data-empty]");
+
+      function applyFilter(value) {
+        var visible = 0;
+        trackItems.forEach(function (item) {
+          var tags = (item.getAttribute("data-tags") || "").split(/\s+/);
+          var show = value === "all" || tags.indexOf(value) !== -1;
+          item.classList.toggle("is-hidden", !show);
+          if (show) visible++;
+        });
+
+        if (countEl) countEl.textContent = visible + (visible === 1 ? " track" : " tracks");
+        if (emptyEl) emptyEl.hidden = visible > 0;
+      }
+
+      filterBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          filterBtns.forEach(function (b) {
+            b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+          });
+          applyFilter(btn.getAttribute("data-filter"));
+        });
+      });
+
+      /* ---------- Reveal on scroll ---------- */
+      var reveals = document.querySelectorAll(".reveal");
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach(function (el) { el.classList.add("is-visible"); });
+      } else {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+        reveals.forEach(function (el) { observer.observe(el); });
+      }
+
+      /* ---------- Year ---------- */
+      var year = document.getElementById("year");
+      if (year) year.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+</body>
 </html>

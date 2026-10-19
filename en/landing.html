@@ -1,308 +1,1089 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXML - The Future of Music Coding</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@600;900&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/theme.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: var(--bg-dark);
-            color: var(--text-main);
-            font-family: var(--font-ui);
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0A0A0B">
+  <title>AXML Studio — The score is source code</title>
+  <meta name="description" content="AXML is a declarative XML standard for composing music in plain text. Deterministic, AI-native, and rendered with sample-accurate DSP in the browser.">
+  <meta property="og:title" content="AXML Studio — The score is source code">
+  <meta property="og:description" content="Write instruments, polyphony, and multi-track sequences as Git-friendly text. Render them with sample-accurate DSP.">
+  <meta property="og:type" content="website">
 
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, var(--secondary-glow) 0%, transparent 70%);
-            position: relative;
-        }
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0A0B'/%3E%3Cpath d='M8 20v-8M12 24V8M16 18v-4M20 26V6M24 21v-10' stroke='%23FF5C2B' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
 
-        .hero h1 {
-            font-family: var(--font-display);
-            font-size: 5rem;
-            margin: 0;
-            letter-spacing: 10px;
-            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px var(--primary-glow));
-            animation: hero-appear 1.5s ease-out;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-        @keyframes hero-appear {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.9);
-            }
+  <script>document.documentElement.classList.add('js');</script>
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
+  <style>
+    /* ---------- Tokens ---------- */
+    :root {
+      --bg: #0A0A0B;
+      --bg-elev: #0F0F11;
+      --surface: #141416;
+      --surface-2: #1A1A1D;
+      --line: #242428;
+      --line-strong: #34343A;
+      --text: #F2EFE9;
+      --text-2: #A8A49C;
+      --text-3: #8C8880;
+      --accent: #FF5C2B;
+      --accent-hover: #FF7448;
+      --accent-soft: rgba(255, 92, 43, 0.10);
+      --lime: #C8F751;
+      --lime-soft: rgba(200, 247, 81, 0.10);
+      --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+      --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --radius: 12px;
+      --max: 1240px;
+    }
 
-        .hero p {
-            font-size: 1.5rem;
-            color: var(--text-muted);
-            margin: 20px 0 40px;
-            max-width: 600px;
-            line-height: 1.6;
-        }
+    /* ---------- Reset / base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; }
+    p { margin: 0; }
+    h1, h2, h3, h4 { margin: 0; }
+    ::selection { background: var(--accent); color: #0A0A0B; }
+    :focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; border-radius: 2px; }
 
-        .btn-primary {
-            background: var(--primary);
-            color: var(--bg-dark);
-            padding: 18px 40px;
-            border-radius: 50px;
-            font-family: var(--font-display);
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1.2rem;
-            box-shadow: 0 0 30px var(--primary-glow);
-            transition: var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 0 50px var(--primary);
-        }
+    .skip-link {
+      position: absolute; left: 16px; top: -64px; z-index: 100;
+      background: var(--accent); color: #0A0A0B; padding: 10px 16px;
+      border-radius: 6px; font-weight: 600; transition: top .2s ease;
+    }
+    .skip-link:focus { top: 16px; }
 
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--glass-border);
-        }
+    /* ---------- Background ---------- */
+    body::before {
+      content: "";
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.022) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.022) 1px, transparent 1px);
+      background-size: 72px 72px;
+      -webkit-mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 30%, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 30%, transparent 100%);
+    }
+    body::after {
+      content: "";
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(700px circle at 78% -8%, rgba(255,92,43,.12), transparent 65%);
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
+    .site-header, main, .site-footer { position: relative; z-index: 1; }
 
-        .nav-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: var(--transition);
-        }
+    /* ---------- Layout ---------- */
+    .wrap { width: min(100% - 40px, var(--max)); margin-inline: auto; }
+    .section { padding: clamp(56px, 8vw, 104px) 0; }
 
-        .nav-links a:hover {
-            color: var(--primary);
-            text-shadow: 0 0 10px var(--primary-glow);
-        }
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10, 10, 11, 0.78);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      backdrop-filter: blur(16px) saturate(140%);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; gap: 24px; min-height: 70px; }
 
-        .features {
-            padding: 100px 50px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .brand { display: inline-flex; align-items: center; gap: 10px; flex: none; }
+    .brand-mark {
+      width: 32px; height: 32px; border: 1px solid var(--line-strong);
+      border-radius: 8px; display: grid; place-items: center;
+      color: var(--accent);
+      background: linear-gradient(145deg, rgba(255,92,43,.14), rgba(255,92,43,.02));
+    }
+    .brand-mark svg { width: 18px; height: 18px; }
+    .brand-text {
+      display: flex; flex-direction: column; line-height: 1;
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 1rem; letter-spacing: -.01em;
+    }
+    .brand-text span {
+      font-family: var(--font-mono); font-size: .52rem; font-weight: 400;
+      letter-spacing: .22em; color: var(--text-3); margin-top: 5px;
+    }
 
-        .feature-card {
-            background: var(--bg-panel);
-            padding: 40px;
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--glass-border);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
+    .nav-menu { display: flex; align-items: center; gap: 32px; margin-left: auto; }
+    .nav-links { display: flex; align-items: center; gap: 26px; font-size: .875rem; color: var(--text-2); }
+    .nav-links a { position: relative; padding: 4px 0; transition: color .2s ease; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a[aria-current="page"] { color: var(--text); }
+    .nav-links a[aria-current="page"]::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+      height: 1px; background: var(--accent);
+    }
+    .nav-cta { display: flex; align-items: center; gap: 14px; }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: .6rem; letter-spacing: .1em;
+      color: var(--text-2); border: 1px solid var(--line);
+      border-radius: 999px; padding: 4px 9px;
+    }
+    .pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); }
 
-        .feature-card i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
+    .nav-toggle {
+      display: none; width: 40px; height: 40px; margin-left: auto;
+      border: 1px solid var(--line-strong); border-radius: 8px;
+      background: transparent; align-items: center; justify-content: center;
+      cursor: pointer; flex: none;
+    }
+    .nav-toggle-lines { display: flex; flex-direction: column; gap: 5px; width: 16px; }
+    .nav-toggle-lines span { height: 1.5px; background: var(--text); border-radius: 2px; transition: transform .2s ease; }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-lines span:first-child { transform: translateY(3.25px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-lines span:last-child { transform: translateY(-3.25px) rotate(-45deg); }
 
-        .feature-card h3 {
-            font-family: var(--font-display);
-            margin: 0 0 15px;
-        }
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 13px 22px; border-radius: 8px; border: 1px solid transparent;
+      font-weight: 600; font-size: .9rem; white-space: nowrap; cursor: pointer;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+    }
+    .btn svg { width: 16px; height: 16px; flex: none; }
+    .btn-primary { background: var(--accent); color: #0A0A0B; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); transform: translateY(-1px); }
+    .btn-ghost { border-color: var(--line-strong); color: var(--text); background: rgba(255,255,255,.02); }
+    .btn-ghost:hover { border-color: var(--text-3); background: rgba(255,255,255,.05); transform: translateY(-1px); }
+    .btn-sm { padding: 9px 15px; font-size: .78rem; }
 
-        .feature-card p {
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
+    /* ---------- Hero ---------- */
+    .hero { padding: clamp(48px, 8vw, 110px) 0 clamp(40px, 6vw, 80px); }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.02fr .98fr;
+      gap: clamp(32px, 5vw, 72px); align-items: center;
+    }
 
-        .floating-blobs {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-            top: 0;
-            left: 0;
-        }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--text-2);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 6px 12px; background: rgba(255,255,255,.02);
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--lime);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(200,247,81,.28); }
+      50% { box-shadow: 0 0 0 4px rgba(200,247,81,0); }
+    }
 
-        .blob {
-            position: absolute;
-            background: var(--secondary);
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.2;
-            animation: drift 20s infinite alternate;
-        }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6.2vw, 5.4rem);
+      line-height: .94; letter-spacing: -.045em; font-weight: 700;
+      margin: 22px 0 0;
+    }
+    h1 .accent { color: var(--accent); }
 
-        @keyframes drift {
-            from {
-                transform: translate(0, 0);
-            }
+    .hero-sub {
+      max-width: 52ch; color: var(--text-2);
+      font-size: clamp(1rem, 1.2vw, 1.1rem); line-height: 1.65;
+      margin-top: 24px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 
-            to {
-                transform: translate(100px, 100px);
-            }
-        }
+    .hero-meta {
+      display: flex; margin: 40px 0 0; border-top: 1px solid var(--line);
+      max-width: 520px;
+    }
+    .hero-meta > div { flex: 1; padding: 16px 18px 0 0; border-right: 1px solid var(--line); }
+    .hero-meta > div:last-child { border-right: 0; padding-right: 0; }
+    .hero-meta dt {
+      font-family: var(--font-mono); font-size: .6rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 4px;
+    }
+    .hero-meta dd { margin: 0; font-size: .8rem; font-weight: 500; color: var(--text); }
 
-        footer {
-            padding: 50px;
-            text-align: center;
-            border-top: 1px solid var(--glass-border);
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
+    /* ---------- Console ---------- */
+    .hero-visual { margin: 0; min-width: 0; }
+    .console {
+      border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+      background: linear-gradient(180deg, #121214, #0D0D0F);
+      box-shadow: 0 40px 100px -50px rgba(0,0,0,.95), 0 0 120px -60px rgba(255,92,43,.45);
+    }
+    .console-top {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.018);
+    }
+    .console-dots { display: flex; gap: 5px; }
+    .console-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--line-strong); }
+    .console-tab {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--font-mono); font-size: .66rem; color: var(--text-2);
+      background: var(--bg-elev); border: 1px solid var(--line);
+      border-radius: 6px; padding: 4px 9px;
+    }
+    .console-tab svg { width: 11px; height: 11px; color: var(--text-3); }
+    .console-state {
+      margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: .58rem; letter-spacing: .12em;
+      color: var(--lime);
+    }
+    .console-state i { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); }
+    .console-code {
+      margin: 0; padding: 18px 16px;
+      font-family: var(--font-mono); font-size: .72rem; line-height: 1.7;
+      color: var(--text-2); overflow-x: auto; white-space: pre; tab-size: 2;
+    }
+    .console-transport {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 14px; border-top: 1px solid var(--line);
+      background: rgba(255,255,255,.018);
+    }
+    .transport-meta {
+      display: flex; gap: 12px;
+      font-family: var(--font-mono); font-size: .58rem; letter-spacing: .08em;
+      color: var(--text-3);
+    }
+    .transport-meta span:first-child { color: var(--text-2); }
+    .mini-wave { display: flex; align-items: center; gap: 2px; height: 24px; margin-left: auto; }
+    .mini-wave .bar {
+      width: 2px; height: calc(var(--h) * 1%);
+      background: var(--accent); opacity: .65; border-radius: 1px;
+      transform-origin: center;
+      animation: wave 1.6s ease-in-out infinite;
+      animation-delay: calc(var(--i) * -0.1s);
+    }
+    @keyframes wave {
+      0%, 100% { transform: scaleY(.55); }
+      50% { transform: scaleY(1); }
+    }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero h1 {
-                font-size: 4rem;
-            }
+    /* ---------- Syntax token colors ---------- */
+    .t-tag { color: #FF8A63; }
+    .t-attr { color: var(--lime); }
+    .t-str { color: #E8D9B8; }
+    .t-punct { color: #6E6A63; }
+    .t-comment { color: #6B6862; font-style: italic; }
 
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-                padding: 60px 30px;
-            }
-        }
+    /* ---------- Section headings ---------- */
+    .section-head { max-width: 660px; margin-bottom: clamp(32px, 4vw, 52px); }
+    .kicker {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-size: .66rem; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+    }
+    .kicker::before { content: ""; width: 24px; height: 1px; background: var(--accent); }
+    h2 {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(1.9rem, 3.6vw, 3rem);
+      line-height: 1.05; letter-spacing: -.035em;
+    }
+    .section-head p { color: var(--text-2); margin-top: 16px; max-width: 56ch; }
 
-        @media (max-width: 768px) {
-            .nav-bar {
-                padding: 15px 20px;
-            }
+    /* ---------- Bento ---------- */
+    .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+    .card {
+      position: relative; display: flex; flex-direction: column;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.008));
+      padding: 24px; overflow: hidden;
+      transition: border-color .25s ease, transform .25s ease;
+    }
+    .card:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+    .card--lg { grid-column: span 3; min-height: 300px; }
+    .card--sm { grid-column: span 2; min-height: 260px; }
 
-            .nav-links {
-                display: none;
-            }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+    .card-index {
+      font-family: var(--font-mono); font-size: .6rem; letter-spacing: .14em;
+      color: var(--text-3);
+    }
+    .card-icon { width: 24px; height: 24px; color: var(--accent); flex: none; }
+    .card h3 {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 1.12rem; letter-spacing: -.01em; line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .card p { color: var(--text-2); font-size: .86rem; line-height: 1.6; }
+    .card-copy { margin-top: auto; padding-top: 20px; }
 
-            /* Could add a hamburger menu if needed, but for now just hiding simple links */
-            .hero h1 {
-                font-size: 3rem;
-                letter-spacing: 5px;
-            }
+    /* Card visuals */
+    .diff {
+      font-family: var(--font-mono); font-size: .64rem; line-height: 1.9;
+      border: 1px solid var(--line); border-radius: 8px;
+      background: var(--bg); padding: 12px; margin-bottom: 4px;
+      overflow: hidden;
+    }
+    .diff-file { color: var(--text-3); border-bottom: 1px solid var(--line); padding-bottom: 6px; margin-bottom: 6px; }
+    .diff .ctx { color: var(--text-3); }
+    .diff .add { color: var(--lime); }
 
-            .hero p {
-                font-size: 1.1rem;
-                padding: 0 20px;
-            }
+    .chain {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: .58rem; letter-spacing: .08em;
+      margin-bottom: 4px;
+    }
+    .chip {
+      border: 1px solid var(--line-strong); border-radius: 5px;
+      padding: 5px 8px; color: var(--text-2); background: var(--bg);
+    }
+    .chip--active { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+    .chain .arrow { color: var(--text-3); }
 
-            .features {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
+    .sliders { display: grid; gap: 12px; margin-bottom: 4px; }
+    .slider {
+      display: grid; grid-template-columns: 64px 1fr 40px;
+      align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-size: .56rem; letter-spacing: .06em;
+      color: var(--text-3);
+    }
+    .slider-track {
+      display: block; position: relative; height: 3px;
+      background: var(--line); border-radius: 2px;
+    }
+    .slider-track::after {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+      width: var(--v); background: var(--accent); border-radius: 2px;
+    }
+    .slider-knob {
+      position: absolute; top: 50%; left: var(--v);
+      width: 8px; height: 8px; border-radius: 50%; background: var(--text);
+      transform: translate(-50%, -50%);
+    }
 
-            .btn-primary {
-                padding: 15px 30px;
-                font-size: 1rem;
-            }
-        }
+    .files { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 4px; }
+    .file-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--line-strong); border-radius: 7px;
+      padding: 8px 11px; font-family: var(--font-mono); font-size: .62rem;
+      color: var(--text-2); background: var(--bg);
+    }
+    .file-chip svg { width: 12px; height: 12px; color: var(--text-3); }
+    .file-chip b { color: var(--lime); font-weight: 500; }
 
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
+    .version-box {
+      border: 1px solid var(--line); border-radius: 8px;
+      padding: 12px; margin-bottom: 4px;
+      font-family: var(--font-mono); font-size: .62rem; color: var(--text-3);
+      display: grid; gap: 7px;
+    }
+    .version-box .row { display: flex; justify-content: space-between; gap: 12px; }
+    .version-box strong { color: var(--text); font-weight: 500; }
 
-            .logo-area span {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+    /* ---------- Syntax section ---------- */
+    .syntax-section {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.014), transparent 40%);
+    }
+    .syntax-grid {
+      display: grid; grid-template-columns: 1.35fr .8fr;
+      gap: 14px; align-items: stretch;
+    }
+
+    .editor {
+      display: flex; flex-direction: column; min-width: 0;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      background: #0C0C0E; overflow: hidden;
+    }
+    .editor-top {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .editor-tab {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--font-mono); font-size: .66rem; color: var(--text-2);
+    }
+    .editor-tab svg { width: 12px; height: 12px; color: var(--text-3); }
+    .editor-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .editor-version {
+      font-family: var(--font-mono); font-size: .58rem; letter-spacing: .1em;
+      color: var(--text-3);
+    }
+    .icon-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 1px solid var(--line-strong); background: transparent;
+      border-radius: 6px; padding: 5px 9px; cursor: pointer;
+      font-family: var(--font-mono); font-size: .58rem; color: var(--text-2);
+      transition: color .2s ease, border-color .2s ease;
+    }
+    .icon-btn:hover { color: var(--text); border-color: var(--text-3); }
+    .icon-btn svg { width: 12px; height: 12px; }
+
+    .code-body {
+      margin: 0; padding: 16px 0; flex: 1;
+      font-family: var(--font-mono); font-size: .74rem; line-height: 1.9;
+      overflow: auto; counter-reset: line;
+      scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent;
+    }
+    .code-body::-webkit-scrollbar { height: 8px; }
+    .code-body::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 4px; }
+    .code-body::-webkit-scrollbar-track { background: transparent; }
+    .code-line {
+      display: block; position: relative;
+      padding: 0 18px 0 54px; white-space: pre; min-width: max-content;
+    }
+    .code-line::before {
+      counter-increment: line; content: counter(line);
+      position: absolute; left: 0; width: 36px; text-align: right;
+      color: #55524C; font-size: .66rem;
+    }
+    .code-line:hover { background: rgba(255,255,255,.022); }
+
+    .output {
+      display: flex; flex-direction: column; gap: 18px; min-width: 0;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      background: linear-gradient(180deg, #121214, #0C0C0E);
+      padding: 20px;
+    }
+    .output-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      font-family: var(--font-mono); font-size: .6rem; letter-spacing: .12em;
+      color: var(--text-3);
+    }
+    .output-live { display: inline-flex; align-items: center; gap: 6px; color: var(--lime); }
+    .output-live i { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); }
+    .output-title {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 1.4rem; letter-spacing: -.02em; line-height: 1.1;
+    }
+    .output-meta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+      padding: 10px 0;
+      font-family: var(--font-mono); font-size: .6rem; color: var(--text-3);
+    }
+    .output-meta b { color: var(--text); font-weight: 500; }
+
+    .waveform {
+      position: relative; display: flex; align-items: center; gap: 1px;
+      height: 78px; padding: 4px 0;
+    }
+    .waveform .bar {
+      flex: 1 1 0; min-width: 1px; max-width: 5px;
+      height: calc(var(--h) * 1%);
+      background: var(--line-strong); border-radius: 1px;
+    }
+    .waveform .bar.hot { background: var(--accent); opacity: .9; }
+    .playhead {
+      position: absolute; top: 0; bottom: 0; left: 42%;
+      width: 1px; background: var(--accent);
+      box-shadow: 0 0 10px rgba(255,92,43,.8);
+    }
+    .playhead::before {
+      content: ""; position: absolute; top: -1px; left: -3px;
+      border-left: 3.5px solid transparent;
+      border-right: 3.5px solid transparent;
+      border-top: 5px solid var(--accent);
+    }
+
+    .track-row {
+      display: flex; align-items: center; gap: 10px;
+      border: 1px solid var(--line); border-radius: 6px;
+      padding: 9px 10px; background: rgba(255,255,255,.015);
+      font-family: var(--font-mono); font-size: .6rem; letter-spacing: .06em;
+      color: var(--text-3);
+    }
+    .track-row .name { color: var(--text-2); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .track-row .db { color: var(--lime); }
+
+    .output-actions { display: flex; gap: 8px; margin-top: auto; }
+    .output-actions .btn { flex: 1; padding: 10px 10px; font-size: .7rem; letter-spacing: .04em; }
+
+    /* ---------- CTA ---------- */
+    .cta-section { position: relative; text-align: center; overflow: hidden; }
+    .cta-section::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(600px circle at 50% 110%, rgba(255,92,43,.13), transparent 70%);
+    }
+    .cta-inner { position: relative; max-width: 760px; margin-inline: auto; }
+    .cta-section h2 { font-size: clamp(2.2rem, 5vw, 4rem); }
+    .cta-section p { color: var(--text-2); margin: 20px auto 0; max-width: 50ch; }
+    .cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .cta-note {
+      margin-top: 20px; font-family: var(--font-mono); font-size: .6rem;
+      letter-spacing: .1em; color: var(--text-3);
+    }
+
+    /* ---------- Footer ---------- */
+    .site-footer { border-top: 1px solid var(--line); padding: 40px 0 28px; }
+    .footer-top {
+      display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+      padding-bottom: 28px; border-bottom: 1px solid var(--line);
+    }
+    .footer-brand p { color: var(--text-3); font-size: .8rem; max-width: 34ch; margin-top: 12px; }
+    .footer-nav { display: flex; gap: clamp(32px, 6vw, 72px); flex-wrap: wrap; }
+    .footer-heading {
+      font-family: var(--font-mono); font-size: .58rem; font-weight: 500;
+      letter-spacing: .16em; text-transform: uppercase; color: var(--text-3);
+      margin-bottom: 12px;
+    }
+    .footer-col a { display: block; font-size: .8rem; color: var(--text-2); padding: 4px 0; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+      padding-top: 20px;
+      font-family: var(--font-mono); font-size: .6rem; color: var(--text-3);
+    }
+
+    /* ---------- Reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero-meta { max-width: none; }
+      .bento { grid-template-columns: repeat(2, 1fr); }
+      .card--lg, .card--sm { grid-column: span 1; }
+      .card--lg:first-child { grid-column: span 2; }
+      .syntax-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 880px) {
+      .nav { flex-wrap: wrap; gap: 0; padding: 10px 0; }
+      .nav-toggle { display: none; }
+      .js .nav-toggle { display: inline-flex; }
+      .nav-menu {
+        display: flex; flex-basis: 100%; flex-direction: column;
+        align-items: stretch; gap: 0; margin-left: 0; padding-top: 4px;
+      }
+      .js .nav-menu { display: none; }
+      .js .nav-menu.is-open { display: flex; }
+      .nav-links { flex-direction: column; align-items: stretch; gap: 0; }
+      .nav-links a { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+      .nav-links a[aria-current="page"]::after { display: none; }
+      .nav-cta { margin-top: 14px; justify-content: space-between; }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 32px, var(--max)); }
+      .bento { grid-template-columns: 1fr; }
+      .card--lg:first-child { grid-column: span 1; }
+      .hero-meta { flex-wrap: wrap; }
+      .hero-meta > div { flex: 1 1 40%; border-right: 0; padding: 14px 0 0; }
+      .hero-meta > div:nth-child(2) { border-right: 0; }
+      .console-code { font-size: .66rem; padding: 16px 12px; }
+      .code-body { font-size: .68rem; }
+      .code-line { padding-left: 44px; }
+      .code-line::before { width: 28px; font-size: .6rem; }
+      .editor-version { display: none; }
+      .output { padding: 16px; }
+      .footer-top { flex-direction: column; }
+      .footer-nav { gap: 32px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
-
 <body>
-    <nav class="nav-bar">
-        <div class="logo-area" style="display: flex; align-items: center; gap: 10px;">
-            <i class="material-icons" style="color: var(--primary); font-size: 32px;">blur_on</i>
-            <span style="font-family: var(--font-display); font-weight: 900; letter-spacing: 2px;">AXML STUDIO</span>
-        </div>
-        <div class="nav-links">
-            <a href="landing">Home</a>
-            <a href="gallery">Explore</a>
-            <a href="docs">Documentation</a>
-            <a href="../index"
-                style="color: var(--primary); border: 1px solid var(--primary); padding: 5px 15px; border-radius: 4px;">Launch
-                App</a>
-        </div>
-    </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <div class="hero">
-        <div class="floating-blobs">
-            <div class="blob" style="width: 400px; height: 400px; top: 10%; left: 10%;"></div>
-            <div class="blob" style="width: 300px; height: 300px; bottom: 10%; right: 10%; background: var(--accent);">
-            </div>
+  <header class="site-header">
+    <div class="wrap">
+      <nav class="nav" aria-label="Primary">
+        <a href="landing.html" class="brand">
+          <span class="brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+              <path d="M3 14v-4M7 17V7M11 20V4M15 16V8M19 13v-2"/>
+            </svg>
+          </span>
+          <span class="brand-text">AXML<span>STUDIO</span></span>
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+          <span class="nav-toggle-lines" aria-hidden="true"><span></span><span></span></span>
+        </button>
+
+        <div class="nav-menu" id="nav-menu">
+          <div class="nav-links">
+            <a href="landing.html" aria-current="page">Home</a>
+            <a href="gallery.html">Explore</a>
+            <a href="docs.html">Documentation</a>
+          </div>
+          <div class="nav-cta">
+            <span class="pill"><span class="pill-dot"></span>4.0</span>
+            <a href="../index.html" class="btn btn-primary btn-sm">Launch Studio</a>
+          </div>
         </div>
-        <h1>CODE YOUR BEAT</h1>
-        <p>AXML is an XML-based markup for creating professional music through code. Synthesize, sequence, and sculpt
-            sound with the precision of programming.</p>
-        <a href="../index" class="btn-primary">Start Creating Now</a>
+      </nav>
     </div>
+  </header>
 
-    <section class="features">
-        <div class="feature-card">
-            <i class="material-icons">code</i>
-            <h3>Declarative Syntax</h3>
-            <p>Write music like you write HTML/SVG. Modular, readable, and version-control friendly.</p>
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow"><span class="status-dot"></span>AXML SPEC 4.0 · OPEN STANDARD</span>
+          <h1>The score is<br><span class="accent">source code.</span></h1>
+          <p class="hero-sub">AXML is a declarative XML standard for engineering music with text. Define instruments, polyphony, and multi-track sequences — then render them with sample-accurate DSP in the browser. Built for producers, and native to AI.</p>
+
+          <div class="hero-actions">
+            <a href="../index.html" class="btn btn-primary">
+              Launch Studio
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="docs.html" class="btn btn-ghost">Read the specification</a>
+          </div>
+
+          <dl class="hero-meta">
+            <div>
+              <dt>Spec</dt>
+              <dd>4.0 / Stable</dd>
+            </div>
+            <div>
+              <dt>Scheduling</dt>
+              <dd>Sub-millisecond</dd>
+            </div>
+            <div>
+              <dt>Export</dt>
+              <dd>32-bit WAV + MIDI</dd>
+            </div>
+          </dl>
         </div>
-        <div class="feature-card">
-            <i class="material-icons">graphic_eq</i>
-            <h3>Pro Synthesis</h3>
-            <p>Built-in ADSR envelopes, LFO modulations, and a full effects rack for cinematic sound design.</p>
-        </div>
-        <div class="feature-card">
-            <i class="material-icons">bolt</i>
-            <h3>Real-time Engine</h3>
-            <p>Ultra-low latency rendering with Web Audio API. See your music as you hear it through dynamic
-                visualizers.</p>
-        </div>
+
+        <figure class="hero-visual reveal">
+          <div class="console" aria-hidden="true">
+            <div class="console-top">
+              <div class="console-dots"><span></span><span></span><span></span></div>
+              <div class="console-tab">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                lofi_chill.axml
+              </div>
+              <div class="console-state"><i></i>VALID</div>
+            </div>
+
+            <pre class="console-code"><code><span class="t-punct">&lt;?</span><span class="t-attr">xml</span> <span class="t-attr">version</span><span class="t-punct">=</span><span class="t-str">"1.0"</span><span class="t-punct">?&gt;</span>
+<span class="t-punct">&lt;</span><span class="t-tag">axml</span> <span class="t-attr">version</span><span class="t-punct">=</span><span class="t-str">"4.0"</span><span class="t-punct">&gt;</span>
+  <span class="t-punct">&lt;</span><span class="t-tag">instruments</span><span class="t-punct">&gt;</span>
+    <span class="t-punct">&lt;</span><span class="t-tag">instrument</span> <span class="t-attr">id</span><span class="t-punct">=</span><span class="t-str">"keys"</span>
+      <span class="t-attr">type</span><span class="t-punct">=</span><span class="t-str">"triangle"</span>
+      <span class="t-attr">cutoff</span><span class="t-punct">=</span><span class="t-str">"1600"</span><span class="t-punct">/&gt;</span>
+  <span class="t-punct">&lt;/</span><span class="t-tag">instruments</span><span class="t-punct">&gt;</span>
+  <span class="t-punct">&lt;</span><span class="t-tag">tracks</span><span class="t-punct">&gt;</span>
+    <span class="t-punct">&lt;</span><span class="t-tag">track</span> <span class="t-attr">instrument</span><span class="t-punct">=</span><span class="t-str">"keys"</span><span class="t-punct">&gt;</span>
+      <span class="t-punct">&lt;</span><span class="t-tag">note</span> <span class="t-attr">pitch</span><span class="t-punct">=</span><span class="t-str">"G3"</span>
+        <span class="t-attr">start</span><span class="t-punct">=</span><span class="t-str">"0"</span> <span class="t-attr">duration</span><span class="t-punct">=</span><span class="t-str">"1"</span><span class="t-punct">/&gt;</span>
+    <span class="t-punct">&lt;/</span><span class="t-tag">track</span><span class="t-punct">&gt;</span>
+  <span class="t-punct">&lt;/</span><span class="t-tag">tracks</span><span class="t-punct">&gt;</span>
+<span class="t-punct">&lt;/</span><span class="t-tag">axml</span><span class="t-punct">&gt;</span></code></pre>
+
+            <div class="console-transport">
+              <div class="transport-meta"><span>85 BPM</span><span>G MINOR</span></div>
+              <div class="mini-wave">
+                <span class="bar" style="--h:30;--i:1"></span>
+                <span class="bar" style="--h:55;--i:2"></span>
+                <span class="bar" style="--h:80;--i:3"></span>
+                <span class="bar" style="--h:45;--i:4"></span>
+                <span class="bar" style="--h:65;--i:5"></span>
+                <span class="bar" style="--h:95;--i:6"></span>
+                <span class="bar" style="--h:50;--i:7"></span>
+                <span class="bar" style="--h:35;--i:8"></span>
+                <span class="bar" style="--h:70;--i:9"></span>
+                <span class="bar" style="--h:90;--i:10"></span>
+                <span class="bar" style="--h:40;--i:11"></span>
+                <span class="bar" style="--h:60;--i:12"></span>
+                <span class="bar" style="--h:85;--i:13"></span>
+                <span class="bar" style="--h:45;--i:14"></span>
+                <span class="bar" style="--h:25;--i:15"></span>
+                <span class="bar" style="--h:55;--i:16"></span>
+                <span class="bar" style="--h:75;--i:17"></span>
+                <span class="bar" style="--h:35;--i:18"></span>
+              </div>
+            </div>
+          </div>
+          <figcaption class="sr-only">Code preview: an AXML document describing a triangle keys instrument and a single-note track at 85 BPM in G minor.</figcaption>
+        </figure>
+      </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 AXML Studio Pro. Built for the future of electronic music.</p>
-    </footer>
-</body>
+    <!-- Features -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">The standard</div>
+          <h2>A format built for how music is actually made.</h2>
+          <p>Text is the most reviewable, diffable, and automatable interface ever built. AXML treats a composition as a document — not a binary you have to decode.</p>
+        </div>
 
+        <div class="bento">
+          <article class="card card--lg reveal">
+            <div class="card-top">
+              <span class="card-index">01 / COMPOSITION</span>
+              <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 6 3 12l5 6M16 6l5 6-5 6"/></svg>
+            </div>
+            <div class="diff" aria-hidden="true">
+              <div class="diff-file">tracks/main-lead.axml</div>
+              <div class="ctx">  &lt;note pitch="E4" start="2" /&gt;</div>
+              <div class="add">+ &lt;note pitch="G4" start="3" /&gt;</div>
+              <div class="add">+ &lt;note pitch="B4" start="3.5" /&gt;</div>
+            </div>
+            <div class="card-copy">
+              <h3>Declarative composition</h3>
+              <p>Instruments, chord polyphony, rhythms, and multi-track sequences as Git-friendly text. Review a track like a pull request.</p>
+            </div>
+          </article>
+
+          <article class="card card--lg reveal">
+            <div class="card-top">
+              <span class="card-index">02 / AI-NATIVE</span>
+              <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M18 16l.8 2.2L21 19l-2.2.8L18 22l-.8-2.2L15 19l2.2-.8z"/></svg>
+            </div>
+            <div class="chain" aria-hidden="true">
+              <span class="chip">PROMPT</span><span class="arrow">→</span>
+              <span class="chip chip--active">AXML</span><span class="arrow">→</span>
+              <span class="chip">SCHEMA</span><span class="arrow">→</span>
+              <span class="chip">AUDIO</span>
+            </div>
+            <div class="card-copy">
+              <h3>Machine-writable, human-readable</h3>
+              <p>A strict, versioned schema that LLMs can generate, validate, and diff. No hallucinated binaries. No opaque project files.</p>
+            </div>
+          </article>
+
+          <article class="card card--sm reveal">
+            <div class="card-top">
+              <span class="card-index">03 / DSP</span>
+              <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="7" cy="17" r="2"/></svg>
+            </div>
+            <div class="sliders" aria-hidden="true">
+              <div class="slider"><span>CUTOFF</span><span class="slider-track" style="--v:64%"><span class="slider-knob"></span></span><span>1800</span></div>
+              <div class="slider"><span>RESONANCE</span><span class="slider-track" style="--v:38%"><span class="slider-knob"></span></span><span>8.0</span></div>
+              <div class="slider"><span>LFO RATE</span><span class="slider-track" style="--v:22%"><span class="slider-knob"></span></span><span>0.3Hz</span></div>
+            </div>
+            <div class="card-copy">
+              <h3>Sample-accurate synthesis</h3>
+              <p>ADSR envelopes, dynamic biquad filters, LFO modulation, and sub-millisecond scheduling on the Web Audio API.</p>
+            </div>
+          </article>
+
+          <article class="card card--sm reveal">
+            <div class="card-top">
+              <span class="card-index">04 / EXPORT</span>
+              <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+            </div>
+            <div class="files" aria-hidden="true">
+              <span class="file-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                LOFI_CHILL.WAV <b>32-BIT</b>
+              </span>
+              <span class="file-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                LOFI_CHILL.MID <b>TRACK 1</b>
+              </span>
+            </div>
+            <div class="card-copy">
+              <h3>Portable by default</h3>
+              <p>Render to 32-bit WAV and standard MIDI. The source stays a text file you own.</p>
+            </div>
+          </article>
+
+          <article class="card card--sm reveal">
+            <div class="card-top">
+              <span class="card-index">05 / OPEN</span>
+              <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l8 4v6c0 4-3.5 7-8 8-4.5-1-8-4-8-8V7z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <div class="version-box" aria-hidden="true">
+              <div class="row"><span>SPEC</span><strong>4.0.2</strong></div>
+              <div class="row"><span>SCHEMA</span><strong>axml.xsd</strong></div>
+              <div class="row"><span>RENDER</span><strong>deterministic</strong></div>
+            </div>
+            <div class="card-copy">
+              <h3>An open, versioned standard</h3>
+              <p>A published schema, deterministic rendering, and no vendor lock-in. Your compositions outlive the tool.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Syntax -->
+    <section class="section syntax-section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">Syntax</div>
+          <h2>Read it, diff it, hear it.</h2>
+          <p>Every element maps to a DSP parameter. There is no hidden state and no proprietary project file — just a document that renders the same way every time.</p>
+        </div>
+
+        <div class="syntax-grid">
+          <div class="editor reveal">
+            <div class="editor-top">
+              <div class="editor-tab">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                lofi_chill.axml
+              </div>
+              <div class="editor-actions">
+                <span class="editor-version">AXML 4.0</span>
+                <button class="icon-btn" type="button" data-copy="#full-code">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+                  <span data-copy-label aria-live="polite">Copy</span>
+                </button>
+              </div>
+            </div>
+
+            <pre class="code-body" id="full-code" tabindex="0" aria-label="AXML example source code"><code><span class="code-line"><span class="t-punct">&lt;?</span><span class="t-attr">xml</span> <span class="t-attr">version</span><span class="t-punct">=</span><span class="t-str">"1.0"</span> <span class="t-attr">encoding</span><span class="t-punct">=</span><span class="t-str">"UTF-8"</span><span class="t-punct">?&gt;</span></span><span class="code-line"><span class="t-punct">&lt;</span><span class="t-tag">axml</span> <span class="t-attr">version</span><span class="t-punct">=</span><span class="t-str">"4.0"</span><span class="t-punct">&gt;</span></span><span class="code-line">  <span class="t-punct">&lt;</span><span class="t-tag">metadata</span><span class="t-punct">&gt;</span></span><span class="code-line">    <span class="t-punct">&lt;</span><span class="t-tag">title</span><span class="t-punct">&gt;</span>Lofi Chill<span class="t-punct">&lt;/</span><span class="t-tag">title</span><span class="t-punct">&gt;</span></span><span class="code-line">    <span class="t-punct">&lt;</span><span class="t-tag">tempo</span><span class="t-punct">&gt;</span>85<span class="t-punct">&lt;/</span><span class="t-tag">tempo</span><span class="t-punct">&gt;</span></span><span class="code-line">    <span class="t-punct">&lt;</span><span class="t-tag">key</span><span class="t-punct">&gt;</span>Gm<span class="t-punct">&lt;/</span><span class="t-tag">key</span><span class="t-punct">&gt;</span></span><span class="code-line">  <span class="t-punct">&lt;/</span><span class="t-tag">metadata</span><span class="t-punct">&gt;</span></span><span class="code-line">  <span class="t-punct">&lt;</span><span class="t-tag">instruments</span><span class="t-punct">&gt;</span></span><span class="code-line">    <span class="t-punct">&lt;</span><span class="t-tag">instrument</span> <span class="t-attr">id</span><span class="t-punct">=</span><span class="t-str">"keys"</span> <span class="t-attr">type</span><span class="t-punct">=</span><span class="t-str">"triangle"</span></span><span class="code-line">      <span class="t-attr">volume</span><span class="t-punct">=</span><span class="t-str">"0.7"</span> <span class="t-attr">cutoff</span><span class="t-punct">=</span><span class="t-str">"1600"</span></span><span class="code-line">      <span class="t-attr">resonance</span><span class="t-punct">=</span><span class="t-str">"4"</span> <span class="t-attr">delay</span><span class="t-punct">=</span><span class="t-str">"0.3"</span><span class="t-punct">/&gt;</span></span><span class="code-line">  <span class="t-punct">&lt;/</span><span class="t-tag">instruments</span><span class="t-punct">&gt;</span></span><span class="code-line">  <span class="t-punct">&lt;</span><span class="t-tag">tracks</span><span class="t-punct">&gt;</span></span><span class="code-line">    <span class="t-punct">&lt;</span><span class="t-tag">track</span> <span class="t-attr">instrument</span><span class="t-punct">=</span><span class="t-str">"keys"</span> <span class="t-attr">name</span><span class="t-punct">=</span><span class="t-str">"Keys"</span><span class="t-punct">&gt;</span></span><span class="code-line">      <span class="t-punct">&lt;</span><span class="t-tag">note</span> <span class="t-attr">pitch</span><span class="t-punct">=</span><span class="t-str">"G3"</span> <span class="t-attr">start</span><span class="t-punct">=</span><span class="t-str">"0"</span> <span class="t-attr">duration</span><span class="t-punct">=</span><span class="t-str">"1"</span><span class="t-punct">/&gt;</span></span><span class="code-line">      <span class="t-punct">&lt;</span><span class="t-tag">note</span> <span class="t-attr">pitch</span><span class="t-punct">=</span><span class="t-str">"Bb3"</span> <span class="t-attr">start</span><span class="t-punct">=</span><span class="t-str">"1"</span> <span class="t-attr">duration</span><span class="t-punct">=</span><span class="t-str">"1"</span><span class="t-punct">/&gt;</span></span><span class="code-line">      <span class="t-punct">&lt;</span><span class="t-tag">note</span> <span class="t-attr">pitch</span><span class="t-punct">=</span><span class="t-str">"D4"</span> <span class="t-attr">start</span><span class="t-punct">=</span><span class="t-str">"2"</span> <span class="t-attr">duration</span><span class="t-punct">=</span><span class="t-str">"1"</span><span class="t-punct">/&gt;</span></span><span class="code-line">      <span class="t-punct">&lt;</span><span class="t-tag">note</span> <span class="t-attr">pitch</span><span class="t-punct">=</span><span class="t-str">"F4"</span> <span class="t-attr">start</span><span class="t-punct">=</span><span class="t-str">"3"</span> <span class="t-attr">duration</span><span class="t-punct">=</span><span class="t-str">"1"</span><span class="t-punct">/&gt;</span></span><span class="code-line">    <span class="t-punct">&lt;/</span><span class="t-tag">track</span><span class="t-punct">&gt;</span></span><span class="code-line">  <span class="t-punct">&lt;/</span><span class="t-tag">tracks</span><span class="t-punct">&gt;</span></span><span class="code-line"><span class="t-punct">&lt;/</span><span class="t-tag">axml</span><span class="t-punct">&gt;</span></span></code></pre>
+          </div>
+
+          <aside class="output reveal" aria-label="Render output preview">
+            <div class="output-head">
+              <span>RENDER OUTPUT</span>
+              <span class="output-live"><i></i>READY</span>
+            </div>
+
+            <p class="output-title">Lofi Chill</p>
+
+            <div class="output-meta">
+              <span><b>85</b> BPM</span>
+              <span><b>G</b> MINOR</span>
+              <span><b>4</b> BARS</span>
+            </div>
+
+            <div class="waveform" aria-hidden="true">
+              <span class="bar" style="--h:12"></span>
+              <span class="bar" style="--h:22"></span>
+              <span class="bar" style="--h:38"></span>
+              <span class="bar" style="--h:55"></span>
+              <span class="bar hot" style="--h:70"></span>
+              <span class="bar" style="--h:48"></span>
+              <span class="bar" style="--h:32"></span>
+              <span class="bar" style="--h:60"></span>
+              <span class="bar hot" style="--h:82"></span>
+              <span class="bar" style="--h:64"></span>
+              <span class="bar" style="--h:40"></span>
+              <span class="bar" style="--h:26"></span>
+              <span class="bar" style="--h:48"></span>
+              <span class="bar" style="--h:68"></span>
+              <span class="bar hot" style="--h:88"></span>
+              <span class="bar" style="--h:72"></span>
+              <span class="bar" style="--h:50"></span>
+              <span class="bar" style="--h:34"></span>
+              <span class="bar" style="--h:58"></span>
+              <span class="bar" style="--h:80"></span>
+              <span class="bar hot" style="--h:95"></span>
+              <span class="bar" style="--h:66"></span>
+              <span class="bar" style="--h:44"></span>
+              <span class="bar" style="--h:28"></span>
+              <span class="bar" style="--h:52"></span>
+              <span class="bar hot" style="--h:74"></span>
+              <span class="bar" style="--h:62"></span>
+              <span class="bar" style="--h:38"></span>
+              <span class="bar" style="--h:24"></span>
+              <span class="bar" style="--h:46"></span>
+              <span class="bar" style="--h:78"></span>
+              <span class="bar hot" style="--h:90"></span>
+              <span class="bar" style="--h:58"></span>
+              <span class="bar" style="--h:36"></span>
+              <span class="bar" style="--h:54"></span>
+              <span class="bar" style="--h:70"></span>
+              <span class="bar" style="--h:48"></span>
+              <span class="bar" style="--h:30"></span>
+              <span class="bar" style="--h:62"></span>
+              <span class="bar hot" style="--h:84"></span>
+              <span class="bar" style="--h:56"></span>
+              <span class="bar" style="--h:34"></span>
+              <span class="bar" style="--h:20"></span>
+              <span class="bar" style="--h:16"></span>
+              <span class="playhead"></span>
+            </div>
+
+            <div class="track-row">
+              <span class="name">KEYS</span>
+              <span>TRIANGLE</span>
+              <span class="db">-6.0 dB</span>
+            </div>
+
+            <div class="output-actions">
+              <a href="../index.html" class="btn btn-primary">Export WAV</a>
+              <a href="../index.html" class="btn btn-ghost">Export MIDI</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta-section">
+      <div class="wrap cta-inner reveal">
+        <div class="kicker" style="justify-content:center">Start here</div>
+        <h2>Stop clicking.<br>Start composing.</h2>
+        <p>Open the studio, write a few lines, and hear it back. No install. No plugins. No account.</p>
+        <div class="cta-actions">
+          <a href="../index.html" class="btn btn-primary">
+            Launch Studio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="docs.html" class="btn btn-ghost">Read the docs</a>
+        </div>
+        <p class="cta-note">RUNS ENTIRELY IN YOUR BROWSER · OPEN STANDARD 4.0</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="landing.html" class="brand" aria-label="AXML Studio home">
+            <span class="brand-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+                <path d="M3 14v-4M7 17V7M11 20V4M15 16V8M19 13v-2"/>
+              </svg>
+            </span>
+            <span class="brand-text">AXML<span>STUDIO</span></span>
+          </a>
+          <p>A declarative standard for procedural and AI-native music.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer">
+          <div class="footer-col">
+            <h3 class="footer-heading">Product</h3>
+            <a href="../index.html">Studio</a>
+            <a href="gallery.html">Explore</a>
+            <a href="docs.html">Documentation</a>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Standard</h3>
+            <a href="docs.html">Specification</a>
+            <a href="gallery.html">Examples</a>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> AXML Audio Foundation</span>
+        <span>Open standard · 4.0</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var toggle = document.querySelector(".nav-toggle");
+      var menu = document.getElementById("nav-menu");
+
+      if (toggle && menu) {
+        var setOpen = function (open) {
+          toggle.setAttribute("aria-expanded", open ? "true" : "false");
+          toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+          menu.classList.toggle("is-open", open);
+        };
+
+        toggle.addEventListener("click", function () {
+          setOpen(toggle.getAttribute("aria-expanded") !== "true");
+        });
+
+        menu.addEventListener("click", function (event) {
+          if (event.target.closest("a")) setOpen(false);
+        });
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") setOpen(false);
+        });
+
+        window.addEventListener("resize", function () {
+          if (window.innerWidth > 880) setOpen(false);
+        });
+      }
+
+      var copyBtn = document.querySelector("[data-copy]");
+      if (copyBtn) {
+        var target = document.querySelector(copyBtn.getAttribute("data-copy"));
+        var label = copyBtn.querySelector("[data-copy-label]");
+
+        copyBtn.addEventListener("click", function () {
+          if (!target) return;
+
+          var text = (target.innerText || target.textContent || "").trim();
+
+          var done = function () {
+            if (!label) return;
+            var original = label.textContent;
+            label.textContent = "Copied";
+            window.setTimeout(function () {
+              label.textContent = original;
+            }, 1600);
+          };
+
+          var fallback = function () {
+            var area = document.createElement("textarea");
+            area.value = text;
+            area.setAttribute("readonly", "");
+            area.style.position = "fixed";
+            area.style.top = "-1000px";
+            area.style.opacity = "0";
+            document.body.appendChild(area);
+            area.select();
+            try {
+              document.execCommand("copy");
+              done();
+            } catch (err) {
+              /* Clipboard unavailable. */
+            }
+            area.remove();
+          };
+
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(done).catch(fallback);
+          } else {
+            fallback();
+          }
+        });
+      }
+
+      var reveals = document.querySelectorAll(".reveal");
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach(function (el) { el.classList.add("is-visible"); });
+      } else {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+        reveals.forEach(function (el) { observer.observe(el); });
+      }
+
+      var year = document.getElementById("year");
+      if (year) year.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+</body>
 </html>

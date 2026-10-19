@@ -1,308 +1,1119 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXML - Masa Depan Koding Musik</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@600;900&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/theme.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: var(--bg-dark);
-            color: var(--text-main);
-            font-family: var(--font-ui);
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0A0A0B">
+  <title>AXML Studio — Skor musik adalah kode sumber</title>
+  <meta name="description" content="AXML adalah standar XML deklaratif untuk mengarang musik dalam teks polos. Deterministik, native untuk AI, dan dirender dengan DSP presisi sampel di peramban.">
+  <meta property="og:title" content="AXML Studio — Skor musik adalah kode sumber">
+  <meta property="og:description" content="Tulis instrumen, polifoni, dan sekuens multi-track sebagai teks yang ramah Git. Render dengan DSP presisi sampel.">
+  <meta property="og:type" content="website">
 
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, var(--secondary-glow) 0%, transparent 70%);
-            position: relative;
-        }
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0A0B'/%3E%3Cpath d='M8 20v-8M12 24V8M16 18v-4M20 26V6M24 21v-10' stroke='%23FF5C2B' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
 
-        .hero h1 {
-            font-family: var(--font-display);
-            font-size: 5rem;
-            margin: 0;
-            letter-spacing: 10px;
-            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px var(--primary-glow));
-            animation: hero-appear 1.5s ease-out;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-        @keyframes hero-appear {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.9);
-            }
+  <script>document.documentElement.classList.add('js');</script>
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
+  <style>
+    /* ---------- Tokens ---------- */
+    :root {
+      --bg: #0A0A0B;
+      --bg-elev: #0F0F11;
+      --surface: #141416;
+      --surface-2: #1A1A1D;
+      --line: #242428;
+      --line-strong: #34343A;
+      --text: #F2EFE9;
+      --text-2: #A8A49C;
+      --text-3: #8C8880;
+      --accent: #FF5C2B;
+      --accent-hover: #FF7448;
+      --accent-soft: rgba(255, 92, 43, 0.10);
+      --lime: #C8F751;
+      --lime-soft: rgba(200, 247, 81, 0.10);
+      --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+      --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --radius: 12px;
+      --max: 1240px;
+    }
 
-        .hero p {
-            font-size: 1.5rem;
-            color: var(--text-muted);
-            margin: 20px 0 40px;
-            max-width: 600px;
-            line-height: 1.6;
-        }
+    /* ---------- Reset / base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; }
+    p { margin: 0; }
+    h1, h2, h3, h4 { margin: 0; }
+    ::selection { background: var(--accent); color: #0A0A0B; }
+    :focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; border-radius: 2px; }
 
-        .btn-primary {
-            background: var(--primary);
-            color: var(--bg-dark);
-            padding: 18px 40px;
-            border-radius: 50px;
-            font-family: var(--font-display);
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1.2rem;
-            box-shadow: 0 0 30px var(--primary-glow);
-            transition: var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 0 50px var(--primary);
-        }
+    .skip-link {
+      position: absolute; left: 16px; top: -64px; z-index: 100;
+      background: var(--accent); color: #0A0A0B; padding: 10px 16px;
+      border-radius: 6px; font-weight: 600; transition: top .2s ease;
+    }
+    .skip-link:focus { top: 16px; }
 
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--glass-border);
-        }
+    /* ---------- Background ---------- */
+    body::before {
+      content: "";
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.022) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.022) 1px, transparent 1px);
+      background-size: 72px 72px;
+      -webkit-mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 30%, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 30%, transparent 100%);
+    }
+    body::after {
+      content: "";
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(700px circle at 78% -8%, rgba(255,92,43,.12), transparent 65%);
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
+    .site-header, main, .site-footer { position: relative; z-index: 1; }
 
-        .nav-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: var(--transition);
-        }
+    /* ---------- Layout ---------- */
+    .wrap { width: min(100% - 40px, var(--max)); margin-inline: auto; }
+    .section { padding: clamp(56px, 8vw, 104px) 0; }
 
-        .nav-links a:hover {
-            color: var(--primary);
-            text-shadow: 0 0 10px var(--primary-glow);
-        }
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10, 10, 11, 0.78);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      backdrop-filter: blur(16px) saturate(140%);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; gap: 24px; min-height: 70px; }
 
-        .features {
-            padding: 100px 50px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .brand { display: inline-flex; align-items: center; gap: 10px; flex: none; }
+    .brand-mark {
+      width: 32px; height: 32px; border: 1px solid var(--line-strong);
+      border-radius: 8px; display: grid; place-items: center;
+      color: var(--accent);
+      background: linear-gradient(145deg, rgba(255,92,43,.14), rgba(255,92,43,.02));
+    }
+    .brand-mark svg { width: 18px; height: 18px; }
+    .brand-text {
+      display: flex; flex-direction: column; line-height: 1;
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 1rem; letter-spacing: -.01em;
+    }
+    .brand-text span {
+      font-family: var(--font-mono); font-size: .52rem; font-weight: 400;
+      letter-spacing: .22em; color: var(--text-3); margin-top: 5px;
+    }
 
-        .feature-card {
-            background: var(--bg-panel);
-            padding: 40px;
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--glass-border);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
+    .nav-menu { display: flex; align-items: center; gap: 32px; margin-left: auto; }
+    .nav-links { display: flex; align-items: center; gap: 26px; font-size: .875rem; color: var(--text-2); }
+    .nav-links a { position: relative; padding: 4px 0; transition: color .2s ease; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a[aria-current="page"] { color: var(--text); }
+    .nav-links a[aria-current="page"]::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+      height: 1px; background: var(--accent);
+    }
+    .nav-cta { display: flex; align-items: center; gap: 14px; }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: .6rem; letter-spacing: .1em;
+      color: var(--text-2); border: 1px solid var(--line);
+      border-radius: 999px; padding: 4px 9px;
+    }
+    .pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); }
 
-        .feature-card i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
+    .nav-toggle {
+      display: none; width: 40px; height: 40px; margin-left: auto;
+      border: 1px solid var(--line-strong); border-radius: 8px;
+      background: transparent; align-items: center; justify-content: center;
+      cursor: pointer; flex: none;
+    }
+    .nav-toggle-lines { display: flex; flex-direction: column; gap: 5px; width: 16px; }
+    .nav-toggle-lines span { height: 1.5px; background: var(--text); border-radius: 2px; transition: transform .2s ease; }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-lines span:first-child { transform: translateY(3.25px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-lines span:last-child { transform: translateY(-3.25px) rotate(-45deg); }
 
-        .feature-card h3 {
-            font-family: var(--font-display);
-            margin: 0 0 15px;
-        }
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 13px 22px; border-radius: 8px; border: 1px solid transparent;
+      font-weight: 600; font-size: .9rem; white-space: nowrap; cursor: pointer;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+    }
+    .btn svg { width: 16px; height: 16px; flex: none; }
+    .btn-primary { background: var(--accent); color: #0A0A0B; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); transform: translateY(-1px); }
+    .btn-ghost { border-color: var(--line-strong); color: var(--text); background: rgba(255,255,255,.02); }
+    .btn-ghost:hover { border-color: var(--text-3); background: rgba(255,255,255,.05); transform: translateY(-1px); }
+    .btn-sm { padding: 9px 15px; font-size: .78rem; }
 
-        .feature-card p {
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
+    /* ---------- Hero ---------- */
+    .hero { padding: clamp(48px, 8vw, 110px) 0 clamp(40px, 6vw, 80px); }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.02fr .98fr;
+      gap: clamp(32px, 5vw, 72px); align-items: center;
+    }
 
-        .floating-blobs {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-            top: 0;
-            left: 0;
-        }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--text-2);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 6px 12px; background: rgba(255,255,255,.02);
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--lime);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(200,247,81,.28); }
+      50% { box-shadow: 0 0 0 4px rgba(200,247,81,0); }
+    }
 
-        .blob {
-            position: absolute;
-            background: var(--secondary);
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.2;
-            animation: drift 20s infinite alternate;
-        }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6.2vw, 5.4rem);
+      line-height: .94; letter-spacing: -.045em; font-weight: 700;
+      margin: 22px 0 0;
+    }
+    h1 .accent { color: var(--accent); }
 
-        @keyframes drift {
-            from {
-                transform: translate(0, 0);
-            }
+    .hero-sub {
+      max-width: 52ch; color: var(--text-2);
+      font-size: clamp(1rem, 1.2vw, 1.1rem); line-height: 1.65;
+      margin-top: 24px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 
-            to {
-                transform: translate(100px, 100px);
-            }
-        }
+    .hero-meta {
+      display: flex; margin: 40px 0 0; border-top: 1px solid var(--line);
+      max-width: 520px;
+    }
+    .hero-meta > div { flex: 1; padding: 16px 18px 0 0; border-right: 1px solid var(--line); }
+    .hero-meta > div:last-child { border-right: 0; padding-right: 0; }
+    .hero-meta dt {
+      font-family: var(--font-mono); font-size: .6rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 4px;
+    }
+    .hero-meta dd { margin: 0; font-size: .8rem; font-weight: 500; color: var(--text); }
 
-        footer {
-            padding: 50px;
-            text-align: center;
-            border-top: 1px solid var(--glass-border);
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
+    /* ---------- Console ---------- */
+    .hero-visual { margin: 0; min-width: 0; }
+    .console {
+      border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+      background: linear-gradient(180deg, #121214, #0D0D0F);
+      box-shadow: 0 40px 100px -50px rgba(0,0,0,.95), 0 0 120px -60px rgba(255,92,43,.45);
+    }
+    .console-top {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.018);
+    }
+    .console-dots { display: flex; gap: 5px; }
+    .console-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--line-strong); }
+    .console-tab {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--font-mono); font-size: .66rem; color: var(--text-2);
+      background: var(--bg-elev); border: 1px solid var(--line);
+      border-radius: 6px; padding: 4px 9px;
+    }
+    .console-tab svg { width: 11px; height: 11px; color: var(--text-3); }
+    .console-state {
+      margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: .58rem; letter-spacing: .12em;
+      color: var(--lime);
+    }
+    .console-state i { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero h1 {
-                font-size: 4rem;
-            }
+    .console-code {
+      margin: 0; padding: 18px 20px; font-family: var(--font-mono);
+      font-size: clamp(.72rem, .9vw, .8rem); line-height: 1.65;
+      color: var(--text); background: transparent; overflow-x: auto;
+    }
+    .console-code code { font-family: inherit; }
 
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-                padding: 60px 30px;
-            }
-        }
+    .t-tag { color: #FF5C2B; font-weight: 500; }
+    .t-attr { color: #E8E4DC; }
+    .t-str { color: #C8F751; }
+    .t-punct { color: var(--text-3); }
+    .t-comment { color: var(--text-3); font-style: italic; }
 
-        @media (max-width: 768px) {
-            .nav-bar {
-                padding: 15px 20px;
-            }
+    .console-transport {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 10px 16px; border-top: 1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .transport-meta {
+      display: flex; gap: 14px; font-family: var(--font-mono);
+      font-size: .64rem; letter-spacing: .1em; color: var(--text-3);
+    }
+    .transport-meta span { color: var(--text-2); }
 
-            .nav-links {
-                display: none;
-            }
+    .mini-wave {
+      display: inline-flex; align-items: flex-end; gap: 2.5px;
+      height: 18px; padding-right: 4px;
+    }
+    .mini-wave .bar {
+      width: 2.5px; height: calc(var(--h) * 1%);
+      background: var(--accent); border-radius: 1px;
+      animation: wave 1.2s ease-in-out infinite alternate;
+      animation-delay: calc(var(--i, 0) * 0.06s);
+    }
+    @keyframes wave {
+      0% { transform: scaleY(0.4); opacity: 0.55; }
+      100% { transform: scaleY(1); opacity: 1; }
+    }
 
-            /* Could add a hamburger menu if needed, but for now just hiding simple links */
-            .hero h1 {
-                font-size: 3rem;
-                letter-spacing: 5px;
-            }
+    /* ---------- Section typography ---------- */
+    .section-head { max-width: 680px; margin-bottom: clamp(36px, 5vw, 64px); }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: .66rem; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+    }
+    .kicker::before {
+      content: ""; width: 14px; height: 1px; background: var(--accent);
+    }
+    .section-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+      line-height: 1.02; letter-spacing: -.035em; font-weight: 700;
+    }
+    .section-head p {
+      color: var(--text-2); font-size: 1.02rem;
+      margin-top: 16px; line-height: 1.6;
+    }
 
-            .hero p {
-                font-size: 1.1rem;
-                padding: 0 20px;
-            }
+    /* ---------- Bento Grid ---------- */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(20px, 3vw, 28px);
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+      transition: border-color .2s ease, transform .2s ease;
+    }
+    .card:hover {
+      border-color: var(--line-strong);
+      transform: translateY(-2px);
+    }
+    .card--lg { grid-column: span 6; min-height: 320px; }
+    .card--sm { grid-column: span 4; min-height: 260px; }
 
-            .features {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
+    .card-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .card-index {
+      font-family: var(--font-mono); font-size: .62rem;
+      letter-spacing: .16em; color: var(--text-3); text-transform: uppercase;
+    }
+    .card-icon { width: 18px; height: 18px; color: var(--text-2); }
 
-            .btn-primary {
-                padding: 15px 30px;
-                font-size: 1rem;
-            }
-        }
+    .card-copy { margin-top: auto; }
+    .card-copy h3 {
+      font-family: var(--font-display); font-size: 1.25rem;
+      letter-spacing: -.02em; font-weight: 600; margin-bottom: 8px;
+    }
+    .card-copy p {
+      color: var(--text-2); font-size: .88rem; line-height: 1.55;
+    }
 
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
+    /* Card visual elements */
+    .diff {
+      font-family: var(--font-mono); font-size: .72rem; line-height: 1.6;
+      background: var(--bg); border: 1px solid var(--line);
+      border-radius: 8px; padding: 12px 14px; margin-bottom: 20px;
+    }
+    .diff-file { color: var(--text-3); font-size: .64rem; margin-bottom: 6px; }
+    .diff .add { color: var(--lime); background: var(--lime-soft); display: block; margin: 0 -14px; padding: 0 14px; }
+    .diff .ctx { color: var(--text-3); }
 
-            .logo-area span {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+    .chain {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 20px; font-family: var(--font-mono); font-size: .7rem;
+    }
+    .chip {
+      padding: 6px 10px; border-radius: 6px; background: var(--surface-2);
+      border: 1px solid var(--line); color: var(--text-2); letter-spacing: .08em;
+    }
+    .chip--active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+    .arrow { color: var(--text-3); font-size: .8rem; }
+
+    .sliders { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .slider {
+      display: grid; grid-template-columns: 70px 1fr 45px;
+      align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-size: .66rem; color: var(--text-2);
+    }
+    .slider-track {
+      height: 4px; background: var(--surface-2); border-radius: 2px;
+      position: relative; overflow: visible;
+    }
+    .slider-track::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+      width: var(--v, 50%); background: var(--accent); border-radius: 2px;
+    }
+    .slider-knob {
+      position: absolute; left: var(--v, 50%); top: 50%;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--text); transform: translate(-50%, -50%);
+      box-shadow: 0 0 0 2px var(--surface);
+    }
+
+    .files { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .file-chip {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--surface-2); border: 1px solid var(--line);
+      border-radius: 6px; padding: 8px 12px;
+      font-family: var(--font-mono); font-size: .72rem; color: var(--text);
+    }
+    .file-chip svg { width: 14px; height: 14px; color: var(--accent); }
+    .file-chip b { margin-left: auto; font-weight: 500; font-size: .64rem; color: var(--text-3); }
+
+    .version-box {
+      font-family: var(--font-mono); font-size: .72rem;
+      background: var(--bg); border: 1px solid var(--line);
+      border-radius: 8px; padding: 12px 14px; margin-bottom: 20px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .version-box .row { display: flex; justify-content: space-between; }
+    .version-box span { color: var(--text-3); }
+    .version-box strong { color: var(--text); font-weight: 500; }
+
+    /* ---------- Syntax section ---------- */
+    .syntax-section { border-top: 1px solid var(--line); }
+    .syntax-grid {
+      display: grid; grid-template-columns: 1.15fr .85fr;
+      gap: 20px; align-items: stretch;
+    }
+
+    .editor {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .editor-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; border-bottom: 1px solid var(--line);
+      background: var(--surface-2);
+    }
+    .editor-tab {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: .72rem; color: var(--text);
+    }
+    .editor-tab svg { width: 13px; height: 13px; color: var(--text-3); }
+    .editor-actions { display: flex; align-items: center; gap: 10px; }
+    .editor-version {
+      font-family: var(--font-mono); font-size: .62rem;
+      letter-spacing: .08em; color: var(--text-3);
+    }
+
+    .icon-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent; border: 1px solid var(--line-strong);
+      border-radius: 6px; padding: 5px 9px; cursor: pointer;
+      color: var(--text-2); font-family: var(--font-mono); font-size: .68rem;
+      transition: color .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .icon-btn svg { width: 12px; height: 12px; }
+    .icon-btn:hover { color: var(--text); border-color: var(--text-3); background: rgba(255,255,255,.03); }
+
+    .code-body {
+      margin: 0; padding: 22px 24px;
+      font-family: var(--font-mono);
+      font-size: clamp(.72rem, .95vw, .82rem);
+      line-height: 1.7;
+      color: var(--text);
+      overflow-x: auto;
+      flex: 1;
+    }
+    .code-line { display: block; }
+
+    /* Output preview card */
+    .output {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex; flex-direction: column;
+    }
+    .output-head {
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--font-mono); font-size: .66rem; letter-spacing: .14em;
+      color: var(--text-3); text-transform: uppercase; margin-bottom: 20px;
+    }
+    .output-live {
+      display: inline-flex; align-items: center; gap: 6px; color: var(--lime);
+    }
+    .output-live i { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); }
+
+    .output-title {
+      font-family: var(--font-display); font-size: 1.6rem;
+      font-weight: 700; letter-spacing: -.02em; margin-bottom: 6px;
+    }
+    .output-meta {
+      display: flex; gap: 14px; font-family: var(--font-mono);
+      font-size: .72rem; color: var(--text-3); margin-bottom: 24px;
+    }
+    .output-meta span b { color: var(--text); font-weight: 500; }
+
+    .waveform {
+      background: var(--bg); border: 1px solid var(--line);
+      border-radius: 8px; padding: 18px 14px;
+      display: flex; align-items: flex-end; gap: 3px;
+      height: 90px; margin-bottom: 20px; position: relative;
+      overflow: hidden;
+    }
+    .waveform .bar {
+      flex: 1; height: calc(var(--h, 20) * 1%);
+      background: var(--line-strong); border-radius: 1px;
+      transition: height .2s ease;
+    }
+    .waveform .bar.hot { background: var(--accent); }
+    .waveform .playhead {
+      position: absolute; top: 0; bottom: 0; left: 34%;
+      width: 1.5px; background: var(--lime);
+      box-shadow: 0 0 8px var(--lime);
+    }
+
+    .track-row {
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--font-mono); font-size: .72rem;
+      padding: 10px 12px; background: var(--surface-2);
+      border: 1px solid var(--line); border-radius: 6px; margin-bottom: 8px;
+    }
+    .track-row .name { color: var(--text); font-weight: 500; }
+    .track-row .db { color: var(--lime); }
+
+    .output-actions {
+      margin-top: auto; padding-top: 20px;
+      display: flex; gap: 10px;
+    }
+    .output-actions .btn { flex: 1; padding: 11px 16px; font-size: .82rem; }
+
+    /* ---------- CTA section ---------- */
+    .cta-section {
+      border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, transparent, rgba(255,92,43,.04));
+      text-align: center;
+    }
+    .cta-inner { max-width: 680px; margin: 0 auto; }
+    .cta-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: .98; letter-spacing: -.04em; font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .cta-inner p {
+      color: var(--text-2); font-size: 1.1rem; line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .cta-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .cta-note {
+      font-family: var(--font-mono); font-size: .68rem; letter-spacing: .12em;
+      color: var(--text-3); text-transform: uppercase; margin-top: 24px;
+    }
+
+    /* ---------- Footer ---------- */
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding: clamp(48px, 6vw, 72px) 0 36px;
+      background: var(--bg);
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; gap: 48px;
+      flex-wrap: wrap; padding-bottom: 40px;
+      border-bottom: 1px solid var(--line);
+    }
+    .footer-brand { max-width: 320px; }
+    .footer-brand p { color: var(--text-3); font-size: .85rem; margin-top: 14px; }
+    .footer-nav { display: flex; gap: 64px; }
+    .footer-col { display: flex; flex-direction: column; gap: 10px; }
+    .footer-heading {
+      font-family: var(--font-mono); font-size: .64rem;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 4px;
+    }
+    .footer-col a {
+      color: var(--text-2); font-size: .85rem; transition: color .2s ease;
+    }
+    .footer-col a:hover { color: var(--text); }
+
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 28px; font-family: var(--font-mono); font-size: .7rem;
+      color: var(--text-3); flex-wrap: wrap; gap: 12px;
+    }
+
+    /* ---------- Scroll reveal ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .6s cubic-bezier(.2,.8,.2,1), transform .6s cubic-bezier(.2,.8,.2,1);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .syntax-grid { grid-template-columns: 1fr; }
+      .card--lg { grid-column: span 12; }
+      .card--sm { grid-column: span 6; }
+    }
+    @media (max-width: 880px) {
+      .nav-toggle { display: inline-flex; }
+      .nav-menu {
+        position: fixed; top: 71px; left: 0; right: 0;
+        background: var(--surface); border-bottom: 1px solid var(--line);
+        flex-direction: column; align-items: stretch; gap: 0;
+        padding: 16px 20px 24px; display: none;
+      }
+      .nav-menu.is-open { display: flex; }
+      .nav-links { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .nav-links a { font-size: 1rem; padding: 6px 0; }
+      .nav-links a[aria-current="page"]::after { display: none; }
+      .nav-cta {
+        margin-top: 18px; padding-top: 18px;
+        border-top: 1px solid var(--line);
+        justify-content: space-between;
+      }
+      .nav-cta .btn { flex: 1; text-align: center; }
+    }
+    @media (max-width: 640px) {
+      .card--sm { grid-column: span 12; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-nav { flex-direction: column; gap: 24px; }
+      .hero-meta { flex-direction: column; }
+      .hero-meta > div { border-right: 0; border-bottom: 1px solid var(--line); padding: 12px 0; }
+      .hero-meta > div:last-child { border-bottom: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
-
 <body>
-    <nav class="nav-bar">
-        <div class="logo-area" style="display: flex; align-items: center; gap: 10px;">
-            <i class="material-icons" style="color: var(--primary); font-size: 32px;">blur_on</i>
-            <span style="font-family: var(--font-display); font-weight: 900; letter-spacing: 2px;">AXML STUDIO</span>
-        </div>
-        <div class="nav-links">
-            <a href="landing">Beranda</a>
-            <a href="gallery">Eksplor</a>
-            <a href="docs">Dokumentasi</a>
-            <a href="../index"
-                style="color: var(--primary); border: 1px solid var(--primary); padding: 5px 15px; border-radius: 4px;">Buka
-                App</a>
-        </div>
-    </nav>
+  <a class="skip-link" href="#main">Langsung ke konten</a>
 
-    <div class="hero">
-        <div class="floating-blobs">
-            <div class="blob" style="width: 400px; height: 400px; top: 10%; left: 10%;"></div>
-            <div class="blob" style="width: 300px; height: 300px; bottom: 10%; right: 10%; background: var(--accent);">
-            </div>
+  <header class="site-header">
+    <div class="wrap">
+      <nav class="nav" aria-label="Utama">
+        <a href="landing.html" class="brand">
+          <span class="brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+              <path d="M3 14v-4M7 17V7M11 20V4M15 16V8M19 13v-2"/>
+            </svg>
+          </span>
+          <span class="brand-text">AXML<span>STUDIO</span></span>
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Buka menu">
+          <span class="nav-toggle-lines" aria-hidden="true"><span></span><span></span></span>
+        </button>
+
+        <div class="nav-menu" id="nav-menu">
+          <div class="nav-links">
+            <a href="landing.html" aria-current="page">Beranda</a>
+            <a href="gallery.html">Eksplor</a>
+            <a href="docs.html">Dokumentasi</a>
+          </div>
+          <div class="nav-cta">
+            <span class="pill"><span class="pill-dot"></span>4.0</span>
+            <a href="../index.html" class="btn btn-primary btn-sm">Buka Studio</a>
+          </div>
         </div>
-        <h1>KODE BEATMU</h1>
-        <p>AXML adalah markup berbasis XML untuk membuat musik profesional melalui kode. Sintesis, urutkan, dan bentuk
-            suara dengan presisi pemrograman.</p>
-        <a href="../index" class="btn-primary">Mulai Sekarang</a>
+      </nav>
     </div>
+  </header>
 
-    <section class="features">
-        <div class="feature-card">
-            <i class="material-icons">code</i>
-            <h3>Sintaks Deklaratif</h3>
-            <p>Tulis musik seperti Anda menulis HTML/SVG. Modular, mudah dibaca, dan ramah kontrol versi.</p>
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow"><span class="status-dot"></span>SPESIFIKASI AXML 4.0 · STANDAR TERBUKA</span>
+          <h1>Skor musik adalah<br><span class="accent">kode sumber.</span></h1>
+          <p class="hero-sub">AXML adalah standar XML deklaratif untuk merekayasa musik melalui teks. Definisikan instrumen, polifoni, dan sekuens multi-track — lalu render dengan DSP presisi sampel langsung di browser. Diciptakan untuk produser, dan native untuk AI.</p>
+
+          <div class="hero-actions">
+            <a href="../index.html" class="btn btn-primary">
+              Buka Studio
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="docs.html" class="btn btn-ghost">Baca Spesifikasi</a>
+          </div>
+
+          <dl class="hero-meta">
+            <div>
+              <dt>Spesifikasi</dt>
+              <dd>4.0 / Stabil</dd>
+            </div>
+            <div>
+              <dt>Penjadwalan</dt>
+              <dd>Sub-milidetik</dd>
+            </div>
+            <div>
+              <dt>Ekspor</dt>
+              <dd>WAV 32-bit + MIDI</dd>
+            </div>
+          </dl>
         </div>
-        <div class="feature-card">
-            <i class="material-icons">graphic_eq</i>
-            <h3>Sintesis Pro</h3>
-            <p>ADSR envelope bawaan, modulasi LFO, dan rak efek lengkap untuk desain suara sinematik.</p>
-        </div>
-        <div class="feature-card">
-            <i class="material-icons">bolt</i>
-            <h3>Engine Real-time</h3>
-            <p>Rendering latensi ultra-rendah dengan Web Audio API. Lihat musik Anda saat Anda mendengarnya melalui
-                visualizer dinamis.</p>
-        </div>
+
+        <figure class="hero-visual reveal">
+          <div class="console" aria-hidden="true">
+            <div class="console-top">
+              <div class="console-dots"><span></span><span></span><span></span></div>
+              <div class="console-tab">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                lofi_chill.axml
+              </div>
+              <div class="console-state"><i></i>VALID</div>
+            </div>
+
+            <pre class="console-code"><code><span class="t-punct">&lt;?</span><span class="t-attr">xml</span> <span class="t-attr">version</span><span class="t-punct">=</span><span class="t-str">"1.0"</span><span class="t-punct">?&gt;</span>
+<span class="t-punct">&lt;</span><span class="t-tag">axml</span> <span class="t-attr">version</span><span class="t-punct">=</span><span class="t-str">"4.0"</span><span class="t-punct">&gt;</span>
+  <span class="t-punct">&lt;</span><span class="t-tag">instruments</span><span class="t-punct">&gt;</span>
+    <span class="t-punct">&lt;</span><span class="t-tag">instrument</span> <span class="t-attr">id</span><span class="t-punct">=</span><span class="t-str">"keys"</span>
+      <span class="t-attr">type</span><span class="t-punct">=</span><span class="t-str">"triangle"</span>
+      <span class="t-attr">cutoff</span><span class="t-punct">=</span><span class="t-str">"1600"</span><span class="t-punct">/&gt;</span>
+  <span class="t-punct">&lt;/</span><span class="t-tag">instruments</span><span class="t-punct">&gt;</span>
+  <span class="t-punct">&lt;</span><span class="t-tag">tracks</span><span class="t-punct">&gt;</span>
+    <span class="t-punct">&lt;</span><span class="t-tag">track</span> <span class="t-attr">instrument</span><span class="t-punct">=</span><span class="t-str">"keys"</span><span class="t-punct">&gt;</span>
+      <span class="t-punct">&lt;</span><span class="t-tag">note</span> <span class="t-attr">pitch</span><span class="t-punct">=</span><span class="t-str">"G3"</span>
+        <span class="t-attr">start</span><span class="t-punct">=</span><span class="t-str">"0"</span> <span class="t-attr">duration</span><span class="t-punct">=</span><span class="t-str">"1"</span><span class="t-punct">/&gt;</span>
+    <span class="t-punct">&lt;/</span><span class="t-tag">track</span><span class="t-punct">&gt;</span>
+  <span class="t-punct">&lt;/</span><span class="t-tag">tracks</span><span class="t-punct">&gt;</span>
+<span class="t-punct">&lt;/</span><span class="t-tag">axml</span><span class="t-punct">&gt;</span></code></pre>
+
+            <div class="console-transport">
+              <div class="transport-meta"><span>85 BPM</span><span>G MINOR</span></div>
+              <div class="mini-wave">
+                <span class="bar" style="--h:30;--i:1"></span>
+                <span class="bar" style="--h:55;--i:2"></span>
+                <span class="bar" style="--h:80;--i:3"></span>
+                <span class="bar" style="--h:45;--i:4"></span>
+                <span class="bar" style="--h:65;--i:5"></span>
+                <span class="bar" style="--h:95;--i:6"></span>
+                <span class="bar" style="--h:50;--i:7"></span>
+                <span class="bar" style="--h:35;--i:8"></span>
+                <span class="bar" style="--h:70;--i:9"></span>
+                <span class="bar" style="--h:90;--i:10"></span>
+                <span class="bar" style="--h:40;--i:11"></span>
+                <span class="bar" style="--h:60;--i:12"></span>
+                <span class="bar" style="--h:85;--i:13"></span>
+                <span class="bar" style="--h:45;--i:14"></span>
+                <span class="bar" style="--h:25;--i:15"></span>
+                <span class="bar" style="--h:55;--i:16"></span>
+                <span class="bar" style="--h:75;--i:17"></span>
+                <span class="bar" style="--h:35;--i:18"></span>
+              </div>
+            </div>
+          </div>
+          <figcaption class="sr-only">Pratinjau kode: dokumen AXML yang mendefinisikan instrumen keys segitiga dan track not tunggal pada 85 BPM di tangga nada G minor.</figcaption>
+        </figure>
+      </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 AXML Studio Pro. Dibangun untuk masa depan musik elektronik.</p>
-    </footer>
-</body>
+    <!-- Features -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">Standar Terbuka</div>
+          <h2>Format yang dibangun sesuai cara musik diproduksi.</h2>
+          <p>Teks adalah antarmuka yang paling mudah ditinjau, di-diff, dan diotomasi. AXML memperlakukan komposisi sebagai dokumen — bukan biner tertutup yang harus didekode.</p>
+        </div>
 
+        <div class="bento">
+          <article class="card card--lg reveal">
+            <div class="card-top">
+              <span class="card-index">01 / KOMPOSISI</span>
+              <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 6 3 12l5 6M16 6l5 6-5 6"/></svg>
+            </div>
+            <div class="diff" aria-hidden="true">
+              <div class="diff-file">tracks/main-keys.axml</div>
+              <div class="ctx">  &lt;note pitch="G3" start="0" /&gt;</div>
+              <div class="add">+ &lt;note pitch="Bb3" start="1" /&gt;</div>
+              <div class="add">+ &lt;note pitch="D4" start="2" /&gt;</div>
+            </div>
+            <div class="card-copy">
+              <h3>Komposisi deklaratif</h3>
+              <p>Instrumen, polifoni akor, ritme, dan sekuens multi-track sebagai teks yang ramah Git. Tinjau karya musik layaknya pull request.</p>
+            </div>
+          </article>
+
+          <article class="card card--lg reveal">
+            <div class="card-top">
+              <span class="card-index">02 / NATIVE-AI</span>
+              <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M18 16l.8 2.2L21 19l-2.2.8L18 22l-.8-2.2L15 19l2.2-.8z"/></svg>
+            </div>
+            <div class="chain" aria-hidden="true">
+              <span class="chip">PROMPT</span><span class="arrow">→</span>
+              <span class="chip chip--active">AXML</span><span class="arrow">→</span>
+              <span class="chip">SKEMA</span><span class="arrow">→</span>
+              <span class="chip">AUDIO</span>
+            </div>
+            <div class="card-copy">
+              <h3>Bisa ditulis mesin, mudah dibaca manusia</h3>
+              <p>Skema versioning ketat yang dapat di-generate, divalidasi, dan di-diff oleh LLM. Tanpa biner halusinasi. Tanpa file proyek tertutup.</p>
+            </div>
+          </article>
+
+          <article class="card card--sm reveal">
+            <div class="card-top">
+              <span class="card-index">03 / DSP</span>
+              <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="7" cy="17" r="2"/></svg>
+            </div>
+            <div class="sliders" aria-hidden="true">
+              <div class="slider"><span>CUTOFF</span><span class="slider-track" style="--v:55%"><span class="slider-knob"></span></span><span>1600</span></div>
+              <div class="slider"><span>RESONANSI</span><span class="slider-track" style="--v:25%"><span class="slider-knob"></span></span><span>4.0</span></div>
+              <div class="slider"><span>LFO RATE</span><span class="slider-track" style="--v:22%"><span class="slider-knob"></span></span><span>0.3Hz</span></div>
+            </div>
+            <div class="card-copy">
+              <h3>Sintesis presisi sampel</h3>
+              <p>Envelope ADSR, filter biquad dinamis, modulasi LFO, dan penjadwalan audio sub-milidetik pada Web Audio API.</p>
+            </div>
+          </article>
+
+          <article class="card card--sm reveal">
+            <div class="card-top">
+              <span class="card-index">04 / EKSPOR</span>
+              <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+            </div>
+            <div class="files" aria-hidden="true">
+              <span class="file-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                LOFI_CHILL.WAV <b>32-BIT</b>
+              </span>
+              <span class="file-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                LOFI_CHILL.MID <b>TRACK 1</b>
+              </span>
+            </div>
+            <div class="card-copy">
+              <h3>Portabel secara bawaan</h3>
+              <p>Render langsung ke WAV 32-bit dan MIDI standar. Berkas sumber tetap berupa teks yang Anda miliki sepenuhnya.</p>
+            </div>
+          </article>
+
+          <article class="card card--sm reveal">
+            <div class="card-top">
+              <span class="card-index">05 / TERBUKA</span>
+              <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l8 4v6c0 4-3.5 7-8 8-4.5-1-8-4-8-8V7z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <div class="version-box" aria-hidden="true">
+              <div class="row"><span>SPEC</span><strong>4.0.2</strong></div>
+              <div class="row"><span>SKEMA</span><strong>axml.xsd</strong></div>
+              <div class="row"><span>RENDER</span><strong>deterministik</strong></div>
+            </div>
+            <div class="card-copy">
+              <h3>Standar terbuka terstruktur</h3>
+              <p>Skema terpublikasi, rendering deterministik, dan tanpa vendor lock-in. Komposisi musik Anda bertahan melampaui aplikasi.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Syntax -->
+    <section class="section syntax-section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">Sintaksis</div>
+          <h2>Baca, diff, dengarkan.</h2>
+          <p>Setiap elemen terpetakan ke parameter DSP. Tanpa state tersembunyi dan tanpa file proyek proprietary — cukup satu dokumen yang merender hasil yang sama setiap saat.</p>
+        </div>
+
+        <div class="syntax-grid">
+          <div class="editor reveal">
+            <div class="editor-top">
+              <div class="editor-tab">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                lofi_chill.axml
+              </div>
+              <div class="editor-actions">
+                <span class="editor-version">AXML 4.0</span>
+                <button class="icon-btn" type="button" data-copy="#full-code">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+                  <span data-copy-label aria-live="polite">Salin</span>
+                </button>
+              </div>
+            </div>
+
+            <pre class="code-body" id="full-code" tabindex="0" aria-label="Contoh kode sumber AXML"><code><span class="code-line"><span class="t-punct">&lt;?</span><span class="t-attr">xml</span> <span class="t-attr">version</span><span class="t-punct">=</span><span class="t-str">"1.0"</span> <span class="t-attr">encoding</span><span class="t-punct">=</span><span class="t-str">"UTF-8"</span><span class="t-punct">?&gt;</span></span><span class="code-line"><span class="t-punct">&lt;</span><span class="t-tag">axml</span> <span class="t-attr">version</span><span class="t-punct">=</span><span class="t-str">"4.0"</span><span class="t-punct">&gt;</span></span><span class="code-line">  <span class="t-punct">&lt;</span><span class="t-tag">metadata</span><span class="t-punct">&gt;</span></span><span class="code-line">    <span class="t-punct">&lt;</span><span class="t-tag">title</span><span class="t-punct">&gt;</span>Lofi Chill<span class="t-punct">&lt;/</span><span class="t-tag">title</span><span class="t-punct">&gt;</span></span><span class="code-line">    <span class="t-punct">&lt;</span><span class="t-tag">tempo</span><span class="t-punct">&gt;</span>85<span class="t-punct">&lt;/</span><span class="t-tag">tempo</span><span class="t-punct">&gt;</span></span><span class="code-line">    <span class="t-punct">&lt;</span><span class="t-tag">key</span><span class="t-punct">&gt;</span>Gm<span class="t-punct">&lt;/</span><span class="t-tag">key</span><span class="t-punct">&gt;</span></span><span class="code-line">  <span class="t-punct">&lt;/</span><span class="t-tag">metadata</span><span class="t-punct">&gt;</span></span><span class="code-line">  <span class="t-punct">&lt;</span><span class="t-tag">instruments</span><span class="t-punct">&gt;</span></span><span class="code-line">    <span class="t-punct">&lt;</span><span class="t-tag">instrument</span> <span class="t-attr">id</span><span class="t-punct">=</span><span class="t-str">"keys"</span> <span class="t-attr">type</span><span class="t-punct">=</span><span class="t-str">"triangle"</span></span><span class="code-line">      <span class="t-attr">volume</span><span class="t-punct">=</span><span class="t-str">"0.7"</span> <span class="t-attr">cutoff</span><span class="t-punct">=</span><span class="t-str">"1600"</span></span><span class="code-line">      <span class="t-attr">resonance</span><span class="t-punct">=</span><span class="t-str">"4"</span> <span class="t-attr">delay</span><span class="t-punct">=</span><span class="t-str">"0.3"</span><span class="t-punct">/&gt;</span></span><span class="code-line">  <span class="t-punct">&lt;/</span><span class="t-tag">instruments</span><span class="t-punct">&gt;</span></span><span class="code-line">  <span class="t-punct">&lt;</span><span class="t-tag">tracks</span><span class="t-punct">&gt;</span></span><span class="code-line">    <span class="t-punct">&lt;</span><span class="t-tag">track</span> <span class="t-attr">instrument</span><span class="t-punct">=</span><span class="t-str">"keys"</span> <span class="t-attr">name</span><span class="t-punct">=</span><span class="t-str">"Keys"</span><span class="t-punct">&gt;</span></span><span class="code-line">      <span class="t-punct">&lt;</span><span class="t-tag">note</span> <span class="t-attr">pitch</span><span class="t-punct">=</span><span class="t-str">"G3"</span> <span class="t-attr">start</span><span class="t-punct">=</span><span class="t-str">"0"</span> <span class="t-attr">duration</span><span class="t-punct">=</span><span class="t-str">"1"</span><span class="t-punct">/&gt;</span></span><span class="code-line">      <span class="t-punct">&lt;</span><span class="t-tag">note</span> <span class="t-attr">pitch</span><span class="t-punct">=</span><span class="t-str">"Bb3"</span> <span class="t-attr">start</span><span class="t-punct">=</span><span class="t-str">"1"</span> <span class="t-attr">duration</span><span class="t-punct">=</span><span class="t-str">"1"</span><span class="t-punct">/&gt;</span></span><span class="code-line">      <span class="t-punct">&lt;</span><span class="t-tag">note</span> <span class="t-attr">pitch</span><span class="t-punct">=</span><span class="t-str">"D4"</span> <span class="t-attr">start</span><span class="t-punct">=</span><span class="t-str">"2"</span> <span class="t-attr">duration</span><span class="t-punct">=</span><span class="t-str">"1"</span><span class="t-punct">/&gt;</span></span><span class="code-line">      <span class="t-punct">&lt;</span><span class="t-tag">note</span> <span class="t-attr">pitch</span><span class="t-punct">=</span><span class="t-str">"F4"</span> <span class="t-attr">start</span><span class="t-punct">=</span><span class="t-str">"3"</span> <span class="t-attr">duration</span><span class="t-punct">=</span><span class="t-str">"1"</span><span class="t-punct">/&gt;</span></span><span class="code-line">    <span class="t-punct">&lt;/</span><span class="t-tag">track</span><span class="t-punct">&gt;</span></span><span class="code-line">  <span class="t-punct">&lt;/</span><span class="t-tag">tracks</span><span class="t-punct">&gt;</span></span><span class="code-line"><span class="t-punct">&lt;/</span><span class="t-tag">axml</span><span class="t-punct">&gt;</span></span></code></pre>
+          </div>
+
+          <aside class="output reveal" aria-label="Pratinjau output render">
+            <div class="output-head">
+              <span>OUTPUT RENDER</span>
+              <span class="output-live"><i></i>SIAP</span>
+            </div>
+
+            <p class="output-title">Lofi Chill</p>
+
+            <div class="output-meta">
+              <span><b>85</b> BPM</span>
+              <span><b>G</b> MINOR</span>
+              <span><b>4</b> BIRAMA</span>
+            </div>
+
+            <div class="waveform" aria-hidden="true">
+              <span class="bar" style="--h:12"></span>
+              <span class="bar" style="--h:22"></span>
+              <span class="bar" style="--h:38"></span>
+              <span class="bar" style="--h:55"></span>
+              <span class="bar hot" style="--h:70"></span>
+              <span class="bar" style="--h:48"></span>
+              <span class="bar" style="--h:32"></span>
+              <span class="bar" style="--h:60"></span>
+              <span class="bar hot" style="--h:82"></span>
+              <span class="bar" style="--h:64"></span>
+              <span class="bar" style="--h:40"></span>
+              <span class="bar" style="--h:26"></span>
+              <span class="bar" style="--h:48"></span>
+              <span class="bar" style="--h:68"></span>
+              <span class="bar hot" style="--h:88"></span>
+              <span class="bar" style="--h:72"></span>
+              <span class="bar" style="--h:50"></span>
+              <span class="bar" style="--h:34"></span>
+              <span class="bar" style="--h:58"></span>
+              <span class="bar" style="--h:80"></span>
+              <span class="bar hot" style="--h:95"></span>
+              <span class="bar" style="--h:66"></span>
+              <span class="bar" style="--h:44"></span>
+              <span class="bar" style="--h:28"></span>
+              <span class="bar" style="--h:52"></span>
+              <span class="bar hot" style="--h:74"></span>
+              <span class="bar" style="--h:62"></span>
+              <span class="bar" style="--h:38"></span>
+              <span class="bar" style="--h:24"></span>
+              <span class="bar" style="--h:46"></span>
+              <span class="bar" style="--h:78"></span>
+              <span class="bar hot" style="--h:90"></span>
+              <span class="bar" style="--h:58"></span>
+              <span class="bar" style="--h:36"></span>
+              <span class="bar" style="--h:54"></span>
+              <span class="bar" style="--h:70"></span>
+              <span class="bar" style="--h:48"></span>
+              <span class="bar" style="--h:30"></span>
+              <span class="bar" style="--h:62"></span>
+              <span class="bar hot" style="--h:84"></span>
+              <span class="bar" style="--h:56"></span>
+              <span class="bar" style="--h:34"></span>
+              <span class="bar" style="--h:20"></span>
+              <span class="bar" style="--h:16"></span>
+              <span class="playhead"></span>
+            </div>
+
+            <div class="track-row">
+              <span class="name">KEYS</span>
+              <span>TRIANGLE</span>
+              <span class="db">-6.0 dB</span>
+            </div>
+
+            <div class="output-actions">
+              <a href="../index.html" class="btn btn-primary">Ekspor WAV</a>
+              <a href="../index.html" class="btn btn-ghost">Ekspor MIDI</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta-section">
+      <div class="wrap cta-inner reveal">
+        <div class="kicker" style="justify-content:center">Mulai Di Sini</div>
+        <h2>Berhenti klik acak.<br>Mulai mengarang musik.</h2>
+        <p>Buka studio, ketik beberapa baris kode, dan dengarkan hasilnya seketika. Tanpa instalasi. Tanpa plugin. Tanpa akun.</p>
+        <div class="cta-actions">
+          <a href="../index.html" class="btn btn-primary">
+            Buka Studio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="docs.html" class="btn btn-ghost">Baca Dokumentasi</a>
+        </div>
+        <p class="cta-note">BERJALAN SEPENUHNYA DI BROWSER · STANDAR TERBUKA 4.0</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="landing.html" class="brand" aria-label="Beranda AXML Studio">
+            <span class="brand-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+                <path d="M3 14v-4M7 17V7M11 20V4M15 16V8M19 13v-2"/>
+              </svg>
+            </span>
+            <span class="brand-text">AXML<span>STUDIO</span></span>
+          </a>
+          <p>Standar deklaratif untuk musik prosedural dan audio native-AI.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer">
+          <div class="footer-col">
+            <h3 class="footer-heading">Produk</h3>
+            <a href="../index.html">Studio DAW</a>
+            <a href="gallery.html">Eksplor Galeri</a>
+            <a href="docs.html">Dokumentasi</a>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Standar</h3>
+            <a href="docs.html">Spesifikasi</a>
+            <a href="gallery.html">Contoh Musik</a>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> AXML Audio Foundation</span>
+        <span>Standar terbuka · 4.0</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var toggle = document.querySelector(".nav-toggle");
+      var menu = document.getElementById("nav-menu");
+
+      if (toggle && menu) {
+        var setOpen = function (open) {
+          toggle.setAttribute("aria-expanded", open ? "true" : "false");
+          toggle.setAttribute("aria-label", open ? "Tutup menu" : "Buka menu");
+          menu.classList.toggle("is-open", open);
+        };
+
+        toggle.addEventListener("click", function () {
+          setOpen(toggle.getAttribute("aria-expanded") !== "true");
+        });
+
+        menu.addEventListener("click", function (event) {
+          if (event.target.closest("a")) setOpen(false);
+        });
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") setOpen(false);
+        });
+
+        window.addEventListener("resize", function () {
+          if (window.innerWidth > 880) setOpen(false);
+        });
+      }
+
+      var copyBtn = document.querySelector("[data-copy]");
+      if (copyBtn) {
+        var target = document.querySelector(copyBtn.getAttribute("data-copy"));
+        var label = copyBtn.querySelector("[data-copy-label]");
+
+        copyBtn.addEventListener("click", function () {
+          if (!target) return;
+
+          var text = (target.innerText || target.textContent || "").trim();
+
+          var done = function () {
+            if (!label) return;
+            var original = label.textContent;
+            label.textContent = "Tersalin";
+            window.setTimeout(function () {
+              label.textContent = original;
+            }, 1600);
+          };
+
+          var fallback = function () {
+            var area = document.createElement("textarea");
+            area.value = text;
+            area.setAttribute("readonly", "");
+            area.style.position = "fixed";
+            area.style.top = "-1000px";
+            area.style.opacity = "0";
+            document.body.appendChild(area);
+            area.select();
+            try {
+              document.execCommand("copy");
+              done();
+            } catch (err) {
+              /* Clipboard unavailable. */
+            }
+            area.remove();
+          };
+
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(done).catch(fallback);
+          } else {
+            fallback();
+          }
+        });
+      }
+
+      var reveals = document.querySelectorAll(".reveal");
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach(function (el) { el.classList.add("is-visible"); });
+      } else {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+        reveals.forEach(function (el) { observer.observe(el); });
+      }
+
+      var year = document.getElementById("year");
+      if (year) year.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+</body>
 </html>

@@ -4,329 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXML Ultimate Documentation | Standard v2.0</title>
+    <title>AXML Documentation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@600;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/theme.css">
-    <style>
-        body {
-            margin: 0;
-            background: var(--bg-dark);
-            color: var(--text-main);
-            font-family: var(--font-ui);
-            display: flex;
-            scroll-behavior: smooth;
-        }
-
-        .side-nav {
-            width: 320px;
-            height: 100vh;
-            background: var(--bg-panel);
-            border-right: 1px solid var(--glass-border);
-            position: fixed;
-            padding: 40px 24px;
-            box-sizing: border-box;
-            overflow-y: auto;
-            z-index: 100;
-        }
-
-        .side-nav h2 {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            margin-bottom: 30px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .nav-group {
-            margin-bottom: 32px;
-        }
-
-        .nav-group h4 {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            margin-bottom: 12px;
-            border-left: 2px solid var(--primary);
-            padding-left: 10px;
-        }
-
-        .nav-group ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .nav-group li a {
-            color: var(--text-main);
-            text-decoration: none;
-            display: block;
-            padding: 10px 0;
-            font-size: 0.9rem;
-            transition: var(--transition);
-            opacity: 0.75;
-        }
-
-        .nav-group li a:hover {
-            color: var(--primary);
-            padding-left: 8px;
-            opacity: 1;
-        }
-
-        main {
-            margin-left: 320px;
-            padding: 80px 120px;
-            max-width: 1000px;
-            box-sizing: border-box;
-            flex: 1;
-        }
-
-        .doc-section {
-            margin-bottom: 120px;
-            animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes fade-up {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        h1 {
-            font-family: var(--font-display);
-            font-size: 4rem;
-            margin-bottom: 24px;
-            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        h2 {
-            font-family: var(--font-display);
-            font-size: 2.2rem;
-            margin: 60px 0 24px;
-            border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        h2 i {
-            color: var(--primary);
-        }
-
-        h3 {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            color: var(--primary);
-            margin-top: 40px;
-            margin-bottom: 16px;
-        }
-
-        p {
-            line-height: 1.8;
-            font-size: 1.1rem;
-            color: var(--text-main);
-            opacity: 0.9;
-        }
-
-        pre {
-            background: #000;
-            padding: 24px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            overflow-x: auto;
-            font-family: var(--font-code);
-            line-height: 1.6;
-            color: #d1d5db;
-            margin: 20px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            position: relative;
-        }
-
-        .attr-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 32px 0;
-            background: var(--bg-panel);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-        }
-
-        .attr-table th,
-        .attr-table td {
-            text-align: left;
-            padding: 16px;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .attr-table th {
-            color: var(--primary);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        code {
-            background: rgba(0, 242, 255, 0.1);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-family: var(--font-code);
-            color: var(--primary);
-            font-size: 0.95em;
-        }
-
-        .back-btn {
-            position: fixed;
-            top: 30px;
-            right: 40px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            color: var(--text-main);
-            padding: 12px 24px;
-            border-radius: 50px;
-            text-decoration: none;
-            border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: var(--transition);
-            z-index: 1001;
-            font-weight: 600;
-        }
-
-        .back-btn:hover {
-            border-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px var(--primary-glow);
-        }
-
-        .tip-box {
-            background: rgba(189, 0, 255, 0.05);
-            border-left: 4px solid var(--secondary);
-            padding: 24px;
-            margin: 40px 0;
-            border-radius: 4px 16px 16px 4px;
-        }
-
-        .kbd {
-            background: #333;
-            border: 1px solid #555;
-            border-bottom: 3px solid #111;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-family: var(--font-code);
-            color: white;
-            margin: 0 4px;
-        }
-
-        .version-badge {
-            background: var(--accent);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            vertical-align: middle;
-            margin-left: 10px;
-        }
-
-        .lang-switcher {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .lang-btn {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            border: 1px solid var(--glass-border);
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: 0.2s;
-        }
-
-        .lang-btn.active {
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-
-        /* Responsive */
-        @media (max-width: 1100px) {
-            main {
-                padding: 60px 40px;
-            }
-
-            h1 {
-                font-size: 3rem;
-            }
-        }
-
-        @media (max-width: 850px) {
-            body {
-                flex-direction: column;
-            }
-
-            .side-nav {
-                width: 100%;
-                height: auto;
-                position: relative;
-                padding: 40px 20px;
-                border-right: none;
-                border-bottom: 1px solid var(--glass-border);
-            }
-
-            main {
-                margin-left: 0;
-                padding: 40px 20px;
-                width: 100%;
-            }
-
-            .back-btn {
-                position: static;
-                margin: 20px;
-                display: inline-flex;
-                width: fit-content;
-            }
-
-            h1 {
-                font-size: 2.2rem;
-            }
-
-            h2 {
-                font-size: 1.6rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/docs.css">
+    
 </head>
 
 <body>
-    <a href="../index" class="back-btn"><i class="material-icons">keyboard_return</i> Launch Studio</a>
+    <a href="../index.html" class="back-btn"><i class="material-icons">keyboard_return</i> Launch Studio</a>
 
     <aside class="side-nav">
         <h2><i class="material-icons">menu_book</i> AXML GUIDE</h2>
 
         <div class="lang-switcher">
-            <a href="../en/docs" class="lang-btn active">EN</a>
-            <a href="../id/docs" class="lang-btn">ID</a>
+            <a href="../en/docs.html" class="lang-btn active">EN</a>
+            <a href="../id/docs.html" class="lang-btn">ID</a>
         </div>
 
         <div class="nav-group" style="margin-top: 20px;">
@@ -359,6 +56,8 @@
         <div class="nav-group">
             <h4>Composition</h4>
             <ul>
+                <li><a href="#make-music">How to Make Music</a></li>
+                <li><a href="#ai-guide">AI Composer Guide</a></li>
                 <li><a href="#notation">Scientific Notation</a></li>
                 <li><a href="#tempo">Duration & Beats</a></li>
                 <li><a href="#chords">Chords & Polyphony</a></li>
@@ -377,7 +76,7 @@
 
     <main>
         <section id="intro" class="doc-section">
-            <h1>The Complete Reference <span class="version-badge">v2.0</span></h1>
+            <h1>The Complete Reference <span class="version-badge">4.0</span></h1>
             <p>Welcome to the ultimate guide for <strong>Audio XML (AXML)</strong>. This specification defines a robust,
                 text-based format for music synthesis and composition on the web.</p>
             <p>Whether you are a sound designer code-sculpting a lead synth or a composer building a complex
@@ -578,7 +277,7 @@
 
         <section id="effects" class="doc-section">
             <h2><i class="material-icons">auto_fix_high</i> The FX Rack</h2>
-            <p>AXML Studio v2.0 features a complex chainable effects rack for every instrument.</p>
+            <p>AXML Studio 4.0 features a complex chainable effects rack for every instrument.</p>
             <table class="attr-table">
                 <thead>
                     <tr>
@@ -745,14 +444,44 @@
             </div>
         </section>
 
+        <section id="make-music" class="doc-section">
+            <h2><i class="material-icons">music_note</i> How to Make Your Own Music from Scratch</h2>
+            <p>Creating music in AXML is as intuitive as building a website with HTML. Follow this 4-step framework:</p>
+            <ol style="margin-left: 20px; line-height: 1.8; color: var(--text-secondary);">
+                <li><strong>Declare Metadata</strong>: Set your <code>&lt;tempo&gt;</code> (BPM), <code>&lt;key&gt;</code> (root pitch like C or Am), and <code>&lt;scale&gt;</code> in <code>&lt;metadata&gt;</code>.</li>
+                <li><strong>Sound Design Palette</strong>: Define your sound generators in <code>&lt;instruments&gt;</code> using oscillators (<code>sawtooth</code>, <code>square</code>, <code>sine</code>) or drums (<code>kick</code>, <code>snare</code>, <code>hihat</code>).</li>
+                <li><strong>Multi-Track Sequencing</strong>: Score notes and chord polyphony inside <code>&lt;tracks&gt;</code> using <code>&lt;note pitch="C4" start="0" duration="q"/&gt;</code> and <code>&lt;chord&gt;</code> blocks.</li>
+                <li><strong>Arrangement Form</strong>: Structure your track into musical sections: Intro (beats 0-16) &rarr; Verse / Build &rarr; Drop / Chorus (peak energy) &rarr; Outro.</li>
+            </ol>
+            <div class="tip-box">
+                <strong>Pro Tip on 4/4 Timing:</strong> In standard 4/4 time, each bar contains 4 beats. Place your Kick drum on beats 0, 1, 2, 3 for an energetic club groove, Snare on beats 1 and 3, and off-beat Hi-Hats at 0.5, 1.5, 2.5, 3.5.
+            </div>
+        </section>
+
+        <section id="ai-guide" class="doc-section">
+            <h2><i class="material-icons">psychology</i> AI Composer & Prompting Specification</h2>
+            <p>AXML is an open, machine-readable standard built for generative AI audio. You can instruct ChatGPT, Claude, or Gemini to compose complete, valid songs with this prompt:</p>
+            <pre style="background: var(--bg-surface-3); padding: 16px; border-radius: var(--radius-sm); font-family: var(--font-code); font-size: 0.8rem; overflow-x: auto; color: #34d399; border: 1px solid var(--glass-border);"><code>Compose a complete electronic music piece in Audio XML (AXML 4.0).
+Rules:
+- Root tag: &lt;axml version="4.0"&gt;
+- Metadata tempo 124 BPM, Key Am
+- Define instruments: kick, snare, hihat, synth bass (sawtooth), lead melody (square/saw)
+- Arrange multi-tracks with 4-on-the-floor kick, octave 1-2 bassline, octave 3-4 chords, octave 4-5 lead
+- Synchronize all start and duration beats in 4/4 meter</code></pre>
+            <p>Copy the generated XML directly into AXML Studio and press <kbd class="kbd">Space</kbd> for instant playback!</p>
+        </section>
+
         <section id="shortcuts" class="doc-section">
-            <h2><i class="material-icons">keyboard</i> Keyboard Shortcuts</h2>
-            <p>Speed up your sound design workflow in the Studio:</p>
+            <h2><i class="material-icons">keyboard</i> Studio Keyboard Shortcuts</h2>
+            <p>Accelerate your sound design and live coding workflow in the Studio:</p>
             <ul>
-                <li><kbd class="kbd">Space</kbd> : Play / Stop Current Project</li>
-                <li><kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">S</kbd> : Save to Local Storage</li>
-                <li><kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">I</kbd> : Auto-Format XML Code</li>
-                <li><kbd class="kbd">Tab</kbd> : Indent Code (2 spaces)</li>
+                <li><kbd class="kbd">Space</kbd> : Toggle Audio Playback (Play / Stop)</li>
+                <li><kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">Enter</kbd> : Compile XML & Start Audio</li>
+                <li><kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">S</kbd> : Save Project to Local Storage</li>
+                <li><kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">Alt</kbd> + <kbd class="kbd">F</kbd> : Auto-Format Hierarchical XML (2 Spaces)</li>
+                <li><kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">B</kbd> : Toggle Left Drawer (Library & Presets)</li>
+                <li><kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">J</kbd> : Toggle Bottom Dock (Diagnostics & Mixer Console)</li>
+                <li><kbd class="kbd">Tab</kbd> : Indent 2 Spaces in Editor</li>
             </ul>
         </section>
 

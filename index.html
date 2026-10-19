@@ -4,289 +4,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXML STUDIO v2.0 - The Sound Engine</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' blob:; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self';">
+    <meta name="description" content="AXML Studio: Distraction-free, browser-based audio workstation for live coding synthesis and music composition.">
+    <title>AXML STUDIO 4.0 PRO</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@600;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/studio-clean.css">
 </head>
 
 <body>
     <div class="app-shell">
-        <header>
-            <div class="logo-area">
-                <i class="material-icons logo-icon">blur_on</i>
-                <div class="logo-text">
-                    <h1>AXML STUDIO <span>v2.0</span></h1>
+        <!-- Master DAW Header & Integrated Transport HUD -->
+        <header class="studio-header">
+            <div class="header-left">
+                <a href="en/landing.html" class="logo-brand" title="AXML Studio Pro Home">
+                    <i class="material-icons" aria-hidden="true">blur_on</i>
+                    <h1>AXML STUDIO <span class="version-tag">PRO</span></h1>
+                </a>
+            </div>
+
+            <!-- Central DAW Transport Bar -->
+            <div class="header-center">
+                <div class="transport-cluster" role="toolbar" aria-label="Audio Playback Transport">
+                    <button id="btn-play" class="btn-transport-hud btn-play-hud" type="button" title="Compile & Play (Space / Ctrl+Enter)" aria-label="Compile and Play">
+                        <i class="material-icons" aria-hidden="true">play_arrow</i>
+                        <span>PLAY</span>
+                    </button>
+                    <button id="btn-stop" class="btn-transport-hud btn-stop-hud" type="button" title="Stop Playback (Space)" aria-label="Stop Playback">
+                        <i class="material-icons" aria-hidden="true">stop</i>
+                        <span>STOP</span>
+                    </button>
+                    <button id="btn-loop" class="btn-transport-hud btn-loop-hud" type="button" title="Toggle Looping" aria-label="Loop Playback" aria-pressed="false">
+                        <i class="material-icons" aria-hidden="true">repeat</i>
+                        <span>LOOP</span>
+                    </button>
+
+                    <div class="hud-divider" aria-hidden="true"></div>
+
+                    <div id="status-badge" class="hud-status" role="status" aria-live="polite" title="Engine Status">IDLE</div>
+                    <div id="timer" class="hud-timer" aria-label="Playback Time Elapsed and Total">00:00 / 00:00</div>
                 </div>
             </div>
-            <div class="header-actions">
-                <nav class="studio-nav">
-                    <a href="en/landing">HOME</a>
-                    <a href="en/gallery">EXPLORE</a>
-                    <a href="en/docs">DOCS</a>
-                </nav>
-                <div id="status-badge" class="status-badge">ENGINE IDLE</div>
-                <div class="header-btns">
-                    <button class="btn-mini" onclick="openSequencer()" title="Sequencer Tool"><i class="material-icons"
-                            style="font-size:16px;">grid_view</i></button>
-                    <button class="btn-mini" onclick="shareProject()" title="Share Project"><i class="material-icons"
-                            style="font-size:16px;">share</i></button>
-                    <button class="btn-mini" onclick="toggleTheme()" style="min-width: 40px;"><i class="material-icons"
-                            style="font-size:16px;">settings</i></button>
+
+            <!-- Header Right: Quick Tools & View Toggles -->
+            <div class="header-right">
+                <div class="quick-insert-wrapper">
+                    <button class="btn-header-tool" id="btn-quick-insert" type="button" title="Quick Insert AXML Syntax" aria-haspopup="menu" aria-expanded="false">
+                        <i class="material-icons" aria-hidden="true">add</i> <span>INSERT</span>
+                    </button>
+                    <div class="quick-dropdown" id="quick-dropdown" role="menu">
+                        <button type="button" role="menuitem" data-snippet="track"><i class="material-icons" aria-hidden="true">view_stream</i> Track</button>
+                        <button type="button" role="menuitem" data-snippet="note"><i class="material-icons" aria-hidden="true">music_note</i> Note</button>
+                        <button type="button" role="menuitem" data-snippet="chord"><i class="material-icons" aria-hidden="true">grid_view</i> Chord</button>
+                        <button type="button" role="menuitem" data-snippet="pattern"><i class="material-icons" aria-hidden="true">repeat</i> Pattern</button>
+                        <button type="button" role="menuitem" data-snippet="synth"><i class="material-icons" aria-hidden="true">graphic_eq</i> Synth</button>
+                        <button type="button" role="menuitem" data-snippet="filter"><i class="material-icons" aria-hidden="true">tune</i> Filter</button>
+                    </div>
                 </div>
+
+                <button class="btn-header-tool" id="btn-format" type="button" title="Format XML Syntax (Ctrl+Alt+F)" aria-label="Format Code">
+                    <i class="material-icons" aria-hidden="true">auto_fix_high</i> <span>FORMAT</span>
+                </button>
+
+                <button class="btn-header-tool" id="btn-save" type="button" title="Save to Local Storage (Ctrl+S)" aria-label="Save Project">
+                    <i class="material-icons" aria-hidden="true">save</i> <span>SAVE</span>
+                </button>
+
+                <div class="hud-divider" aria-hidden="true"></div>
+
+                <!-- Panel View Toggles -->
+                <button class="btn-header-icon active" id="btn-toggle-sidebar" type="button" title="Toggle Library & Presets (Ctrl+B)" aria-label="Toggle Sidebar Drawer" aria-pressed="true">
+                    <i class="material-icons" aria-hidden="true">library_music</i>
+                </button>
+                <button class="btn-header-icon" id="btn-toggle-dock" type="button" title="Toggle Console & Mixer Dock (Ctrl+J)" aria-label="Toggle Bottom Dock" aria-pressed="false">
+                    <i class="material-icons" aria-hidden="true">terminal</i>
+                </button>
+                <button class="btn-header-icon active" id="btn-toggle-monitor" type="button" title="Toggle Visualizer & Inspector" aria-label="Toggle Monitor Inspector" aria-pressed="true">
+                    <i class="material-icons" aria-hidden="true">graphic_eq</i>
+                </button>
+                <button class="btn-header-icon" id="btn-theme" type="button" title="Toggle Dark/Light Interface Theme" aria-label="Toggle Theme">
+                    <i class="material-icons" aria-hidden="true">settings</i>
+                </button>
             </div>
         </header>
 
-        <main class="main-container">
-            <!-- Left: Project Manager & Mixer -->
-            <aside class="sidebar section">
-                <div class="tabs-header">
-                    <button class="tab-btn active" onclick="showTab('projects')">LIBRARY</button>
-                    <button class="tab-btn" onclick="showTab('presets')">PRESETS</button>
-                    <button class="tab-btn" onclick="showTab('help')">HELP</button>
+        <!-- Main Studio Workspace -->
+        <main class="main-workspace">
+            <!-- Left Collapsible Sidebar: Library, Presets & Documentation -->
+            <aside class="sidebar-panel" id="sidebar-panel" aria-label="Library and Presets Sidebar">
+                <div class="tabs-header" role="tablist">
+                    <button class="tab-btn active" role="tab" id="tab-btn-projects" data-tab="projects" aria-selected="true" aria-controls="tab-projects">LIBRARY</button>
+                    <button class="tab-btn" role="tab" id="tab-btn-presets" data-tab="presets" aria-selected="false" aria-controls="tab-presets">PRESETS</button>
+                    <button class="tab-btn" role="tab" id="tab-btn-help" data-tab="help" aria-selected="false" aria-controls="tab-help">DOCS</button>
                 </div>
 
-                <div id="tab-projects" class="tab-content active">
-                    <div id="project-list" class="project-list"></div>
-                </div>
-
-                <div id="tab-presets" class="tab-content" style="display:none;">
-                    <div id="preset-list" class="project-list"></div>
-                </div>
-
-                <div id="tab-help" class="tab-content" style="display:none;">
-                    <div id="help-content" class="project-list documentation">
-                        <!-- Documentation will be loaded here -->
+                <div id="tab-projects" class="tab-content active" role="tabpanel" aria-labelledby="tab-btn-projects">
+                    <div class="search-bar-wrapper">
+                        <i class="material-icons search-icon" aria-hidden="true">search</i>
+                        <input type="text" id="project-search" class="search-input" placeholder="Search compositions..." aria-label="Search compositions">
                     </div>
+                    <div id="project-list" class="project-list" role="list"></div>
                 </div>
 
-                <div class="mixer-area">
-                    <div class="pane-header">
-                        <span>VIRTUAL MIXER & FX</span>
-                        <div class="header-tools">
-                            <i class="material-icons" onclick="toggleMixerMode('mixer')" title="Mixer Mode">tune</i>
-                            <i class="material-icons" onclick="toggleMixerMode('fx')" title="FX Mode">graphic_eq</i>
-                        </div>
-                    </div>
-                    <!-- Mixer View -->
-                    <div class="mixer-grid" id="mixer-grid"></div>
-                    <!-- FX Dashboard View (Hidden by default) -->
-                    <div id="fx-dashboard" class="fx-grid" style="display:none;">
-                        <div class="fx-knob-container">
-                            <label title="Filter Cutoff (Hz)">CUTOFF</label>
-                            <input type="range" min="20" max="20000" value="20000" class="v-slider" id="fx-cutoff">
-                        </div>
-                        <div class="fx-knob-container">
-                            <label title="Filter Resonance (Q)">RES</label>
-                            <input type="range" min="0" max="20" value="1" class="v-slider" id="fx-reson">
-                        </div>
-                        <div class="fx-knob-container" title="Global Reverb Dry/Wet">
-                            <label>REVERB</label>
-                            <input type="range" min="0" max="1" step="0.01" value="0" class="v-slider" id="fx-reverb">
-                        </div>
-                    </div>
+                <div id="tab-presets" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-presets">
+                    <div class="preset-header-hint" style="padding: 10px 14px; font-size: 0.72rem; color: var(--text-muted);">Click a preset to insert at cursor:</div>
+                    <div id="preset-list" class="project-list" role="list"></div>
+                </div>
+
+                <div id="tab-help" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-help">
+                    <div id="help-content" class="project-list documentation" role="region" aria-label="AXML Syntax Quick Reference"></div>
                 </div>
             </aside>
 
-            <!-- Center: Advanced Code Editor -->
-            <section class="editor-main section">
-                <div class="pane-header">
-                    <span id="current-filename">UNTITLED_PROJECT.axml</span>
-                    <div style="display:flex; gap:8px;">
-                        <button class="btn-mini" onclick="formatCode(parser)"><i class="material-icons"
-                                style="font-size:12px; vertical-align:middle;">code</i> Format</button>
-                        <button class="btn-mini" onclick="saveToLocal()"><i class="material-icons"
-                                style="font-size:12px; vertical-align:middle;">save</i> Save</button>
+            <!-- Central Hero: Distraction-Free Code Editor -->
+            <section class="editor-pane" aria-label="Central Code Workspace">
+                <!-- Editor Top Info Bar -->
+                <div class="editor-top-bar">
+                    <div class="editor-file-tab">
+                        <i class="material-icons" aria-hidden="true">code</i>
+                        <span id="current-filename">UNTITLED_PROJECT.axml</span>
+                    </div>
+                    <div class="editor-bar-actions">
+                        <button class="btn-mini" id="btn-sequencer" type="button" title="Arpeggio Sequencer Generator" aria-label="Generate Arpeggio Sequence">
+                            <i class="material-icons" aria-hidden="true">grid_view</i>
+                        </button>
+                        <button class="btn-mini" id="btn-share" type="button" title="Share Project URL" aria-label="Copy Shareable URL">
+                            <i class="material-icons" aria-hidden="true">share</i>
+                        </button>
+                        <button class="btn-mini" id="btn-export" type="button" title="Render 32-bit Float WAV Master" aria-label="Render WAV">
+                            <i class="material-icons" aria-hidden="true">download</i>
+                        </button>
+                        <button class="btn-mini" id="btn-midi" type="button" title="Export MIDI File" aria-label="Export MIDI">
+                            <i class="material-icons" aria-hidden="true">music_note</i>
+                        </button>
                     </div>
                 </div>
-                <div class="editor-wrapper">
-                    <textarea id="code-editor" spellcheck="false" placeholder="Write your AXML code here..."></textarea>
+
+                <!-- Code Editor with Synchronized Line Numbers -->
+                <div class="editor-scroll-container">
+                    <div class="editor-gutter" id="editor-gutter" aria-hidden="true">1</div>
+                    <textarea id="code-editor" spellcheck="false" placeholder="Write your AXML code here..." autocomplete="off" autocapitalize="off" autocorrect="off" wrap="off" aria-label="AXML code editor"></textarea>
                 </div>
-                <div class="editor-footer">
-                    <span>Format: AXML 2.0</span>
-                    <span id="cursor-pos">Ln 1, Col 1</span>
+
+                <!-- Editor Status Telemetry Footer -->
+                <footer class="editor-status-footer">
+                    <div class="footer-stats">
+                        <span><i class="material-icons" aria-hidden="true">album</i> <span id="doc-stats">0 tracks</span></span>
+                        <span><i class="material-icons" aria-hidden="true">speed</i> <span id="doc-tempo">120 BPM</span></span>
+                        <span><i class="material-icons" aria-hidden="true">music_note</i> <span id="doc-key">C</span></span>
+                    </div>
+                    <div class="footer-cursor">
+                        <span id="doc-lang">XML 4.0</span>
+                        <span id="doc-encoding">UTF-8</span>
+                        <span id="doc-indent">Spaces: 2</span>
+                        <span id="cursor-pos">Ln 1, Col 1</span>
+                    </div>
+                </footer>
+
+                <!-- Collapsible Bottom Dock (Diagnostics & Mixing Console) -->
+                <div class="bottom-dock is-collapsed" id="bottom-dock" aria-label="Diagnostics and Mixing Rack">
+                    <div class="dock-header">
+                        <div class="dock-tabs" role="tablist">
+                            <button class="dock-tab-btn active" role="tab" data-dock-tab="diagnostics" aria-selected="true">
+                                <i class="material-icons" aria-hidden="true">terminal</i>
+                                <span>DIAGNOSTICS</span>
+                            </button>
+                            <button class="dock-tab-btn" role="tab" data-dock-tab="mixer" aria-selected="false">
+                                <i class="material-icons" aria-hidden="true">tune</i>
+                                <span>MIXER & DSP</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; align-items:center; gap: 8px;">
+                            <div class="console-toolbar" id="console-filter-toolbar">
+                                <button class="console-filter-btn active" type="button" data-filter="all" aria-pressed="true">ALL</button>
+                                <button class="console-filter-btn" type="button" data-filter="error" aria-pressed="false">ERRORS</button>
+                                <button class="console-filter-btn" type="button" data-filter="audio" aria-pressed="false">AUDIO</button>
+                                <button class="console-clear-btn" id="btn-clear-log" type="button" title="Clear Console Logs" aria-label="Clear Console Logs">
+                                    <i class="material-icons" aria-hidden="true">delete_sweep</i>
+                                </button>
+                            </div>
+                            <button class="btn-mini" id="btn-close-dock" type="button" title="Minimize Dock" aria-label="Minimize Dock">
+                                <i class="material-icons" aria-hidden="true">expand_more</i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="dock-body">
+                        <!-- Diagnostics Log Panel -->
+                        <div class="dock-pane active" id="dock-pane-diagnostics">
+                            <div id="log" class="log-panel" role="log" aria-live="polite" style="padding: 10px; height: 100%; overflow-y: auto;"></div>
+                        </div>
+
+                        <!-- Mixing Console & DSP Rack -->
+                        <div class="dock-pane" id="dock-pane-mixer" style="padding: 8px;">
+                            <div style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center;">
+                                <span class="rack-title" style="font-size:0.75rem; font-weight:700;">CHANNELS</span>
+                                <span class="rack-badge" id="rack-track-count">0 TRACKS</span>
+                                <div style="margin-left:auto; display:flex; gap:6px;">
+                                    <button class="tool-chip active" id="btn-mode-mixer" type="button">FADERS</button>
+                                    <button class="tool-chip" id="btn-mode-fx" type="button">DSP EFFECTS</button>
+                                </div>
+                            </div>
+                            <div class="mixer-grid" id="mixer-grid"></div>
+                            <div id="fx-dashboard" class="fx-grid" style="display:none;">
+                                <div class="fx-module">
+                                    <div class="fx-module-header">MASTER FILTER</div>
+                                    <div class="fx-knob-row">
+                                        <div class="fx-knob-container">
+                                            <label for="fx-cutoff">CUTOFF</label>
+                                            <input type="range" min="20" max="20000" value="20000" class="v-slider" id="fx-cutoff" data-param="cutoff" aria-describedby="val-cutoff">
+                                            <span class="knob-val" id="val-cutoff" aria-hidden="true">20kHz</span>
+                                        </div>
+                                        <div class="fx-knob-container">
+                                            <label for="fx-reson">RESONANCE</label>
+                                            <input type="range" min="0" max="20" value="1" class="v-slider" id="fx-reson" data-param="resonance" aria-describedby="val-reson">
+                                            <span class="knob-val" id="val-reson" aria-hidden="true">1.0 Q</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fx-module">
+                                    <div class="fx-module-header">GLOBAL REVERB</div>
+                                    <div class="fx-knob-row">
+                                        <div class="fx-knob-container">
+                                            <label for="fx-reverb">WET MIX</label>
+                                            <input type="range" min="0" max="1" step="0.01" value="0" class="v-slider" id="fx-reverb" data-param="reverb" aria-describedby="val-reverb">
+                                            <span class="knob-val" id="val-reverb" aria-hidden="true">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Right: Monitor & Controls -->
-            <aside class="monitor">
-                <div class="card visualizer-box">
-                    <canvas id="canvas"></canvas>
-                    <div class="visualizer-tools">
-                        <i class="material-icons" onclick="setVizMode('bars')" title="Bars">bar_chart</i>
-                        <i class="material-icons" onclick="setVizMode('wave')" title="Oscilloscope">show_chart</i>
-                        <i class="material-icons" onclick="setVizMode('circular')"
-                            title="Circular">slow_motion_video</i>
-                    </div>
-                    <div class="time-overlay" id="timer">00:00 / 00:00</div>
-                </div>
-
-
-                <div class="card control-strip">
-                    <button id="btn-play" class="btn-play-large">
-                        <i class="material-icons">play_circle_filled</i> PLAY PROJECT
-                    </button>
-                    <div class="secondary-actions">
-                        <button id="btn-stop" class="btn-mini"><i class="material-icons"
-                                style="font-size:14px;">stop</i> STOP</button>
-                        <button id="btn-export" class="btn-mini"><i class="material-icons"
-                                style="font-size:14px;">download</i> WAV</button>
+            <!-- Right Collapsible Monitor Inspector (Visualizer & Track Meta) -->
+            <aside class="monitor-panel" id="monitor-panel" aria-label="Audio Visualizer and Metadata Inspector">
+                <!-- Visualizer Canvas Card -->
+                <div class="card visualizer-box" style="margin: 0;">
+                    <canvas id="canvas" role="img" aria-label="Real-time audio spectrum visualization" style="width: 100%; height: 160px; display: block; border-radius: var(--radius-sm); background: #000;"></canvas>
+                    <div class="visualizer-tools" role="group" aria-label="Visualizer Display Modes" style="margin-top: 8px;">
+                        <button class="viz-btn active" type="button" data-mode="bars" aria-pressed="true" title="Frequency Spectrum">BARS</button>
+                        <button class="viz-btn" type="button" data-mode="wave" aria-pressed="false" title="Oscilloscope Waveform">WAVE</button>
+                        <button class="viz-btn" type="button" data-mode="circular" aria-pressed="false" title="Radial Spectrum">RADIAL</button>
+                        <button class="viz-btn" type="button" data-mode="spectrogram" aria-pressed="false" title="Spectrogram Matrix">MATRIX</button>
+                        <button class="viz-btn" type="button" data-mode="flow" aria-pressed="false" title="Phase Flow">FLOW</button>
                     </div>
                 </div>
 
+                <!-- Project Metadata Card (Master Studio Plate) -->
                 <div class="card info-card">
-                    <div class="meta-grid">
-                        <div class="meta-box"><label>Title</label><span id="meta-title">-</span></div>
-                        <div class="meta-box"><label>Artist</label><span id="meta-artist">-</span></div>
-                        <div class="meta-box"><label>Tempo</label><span id="meta-tempo">-</span></div>
-                        <div class="meta-box"><label>Key</label><span id="meta-key">-</span></div>
+                    <div class="info-card-header">
+                        <div class="info-card-title-group">
+                            <i class="material-icons info-icon" aria-hidden="true">album</i>
+                            <span class="info-card-title">PROJECT METADATA</span>
+                        </div>
+                        <span class="info-badge">STUDIO SPEC</span>
                     </div>
-                </div>
 
+                    <div class="meta-display">
+                        <!-- Full-width Composition Title Hero -->
+                        <div class="meta-item meta-hero">
+                            <div class="meta-label-row">
+                                <i class="material-icons" aria-hidden="true">audiotrack</i>
+                                <label>COMPOSITION</label>
+                            </div>
+                            <div class="meta-val meta-title-val" id="meta-title">UNTITLED_PROJECT</div>
+                        </div>
 
-                <div class="card console-card" style="flex:1; display:flex; flex-direction:column;">
-                    <div class="pane-header" style="background:transparent; padding:0 0 8px 0;">
-                        <span>CONSOLE LOG</span>
-                        <i class="material-icons" style="font-size:14px; cursor:pointer;"
-                            onclick="clearLog()">delete_sweep</i>
+                        <!-- Full-width Composer Row -->
+                        <div class="meta-item meta-artist-box">
+                            <div class="meta-label-row">
+                                <i class="material-icons" aria-hidden="true">person</i>
+                                <label>COMPOSER</label>
+                            </div>
+                            <div class="meta-val" id="meta-artist">Unknown Artist</div>
+                        </div>
+
+                        <!-- 2-Column Duo Row for Tempo and Key/Scale -->
+                        <div class="meta-row-duo">
+                            <div class="meta-item meta-compact">
+                                <div class="meta-label-row">
+                                    <i class="material-icons" aria-hidden="true">speed</i>
+                                    <label>TEMPO</label>
+                                </div>
+                                <div class="meta-badge-val" id="meta-tempo">120 BPM</div>
+                            </div>
+
+                            <div class="meta-item meta-compact">
+                                <div class="meta-label-row">
+                                    <i class="material-icons" aria-hidden="true">tune</i>
+                                    <label>KEY & SCALE</label>
+                                </div>
+                                <div class="meta-badge-val key-badge" id="meta-key">C major</div>
+                            </div>
+                        </div>
                     </div>
-                    <div id="log" class="log-panel"></div>
                 </div>
             </aside>
         </main>
-        <nav class="mobile-nav">
-            <button class="mobile-nav-item active" onclick="switchMobileView('sidebar', this)">
-                <i class="material-icons">library_music</i>
-                <span>Library</span>
-            </button>
-            <button class="mobile-nav-item" onclick="switchMobileView('editor', this)">
-                <i class="material-icons">code</i>
-                <span>Editor</span>
-            </button>
-            <button class="mobile-nav-item" onclick="switchMobileView('monitor', this)">
-                <i class="material-icons">play_circle_filled</i>
-                <span>Studio</span>
-            </button>
-        </nav>
+    </div>
 
-        <style>
-            .mobile-nav {
-                display: none;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                background: var(--bg-panel);
-                border-top: 1px solid var(--glass-border);
-                z-index: 1000;
-                padding: 8px 0;
-                justify-content: space-around;
-                backdrop-filter: blur(10px);
-            }
+    <!-- Core Audio Engine Libraries -->
+    <script src="src/axml.js"></script>
+    <script src="src/examples.js"></script>
 
-            .mobile-nav-item {
-                background: transparent;
-                border: none;
-                color: var(--text-muted);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 4px;
-                font-size: 0.6rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                cursor: pointer;
-                transition: 0.2s;
-                flex: 1;
-            }
+    <!-- Studio Modules -->
+    <script src="src/component-loader.js"></script>
+    <script src="src/studio-mobile.js"></script>
+    <script src="src/studio-ui.js"></script>
+    <script src="src/studio-mixer.js"></script>
+    <script src="src/studio-visualizer.js"></script>
+    <script src="src/studio-presets.js"></script>
+    <script src="src/studio-sequencer.js"></script>
+    <script src="src/app.js"></script>
 
-            .mobile-nav-item i {
-                font-size: 20px;
-            }
-
-            .mobile-nav-item.active {
-                color: var(--primary);
-            }
-
-            @media (max-width: 850px) {
-                .mobile-nav {
-                    display: flex;
-                }
-
-                .app-shell {
-                    padding-bottom: 60px;
-                }
-
-                /* Show only active section on mobile */
-                .main-container>aside,
-                .main-container>section {
-                    display: none !important;
-                }
-
-                .main-container>.active-view {
-                    display: flex !important;
-                }
-
-                .header-actions {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    gap: 12px;
-                }
-
-                .studio-nav {
-                    display: flex;
-                    gap: 15px;
-                    font-size: 0.7rem;
-                }
-
-                .studio-nav a {
-                    color: var(--text-muted);
-                    text-decoration: none;
-                }
-            }
-        </style>
-
-        <script>
-            function switchMobileView(view, btn) {
-                const sidebar = document.querySelector('.sidebar');
-                const editor = document.querySelector('.editor-main');
-                const monitor = document.querySelector('.monitor');
-
-                const sections = [sidebar, editor, monitor];
-                sections.forEach(s => s.classList.remove('active-view'));
-
-                if (view === 'sidebar') sidebar.classList.add('active-view');
-                if (view === 'editor') editor.classList.add('active-view');
-                if (view === 'monitor') monitor.classList.add('active-view');
-
-                document.querySelectorAll('.mobile-nav-item').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                window.scrollTo(0, 0);
-            }
-
-            // Initialize mobile view
-            if (window.innerWidth <= 850) {
-                document.querySelector('.sidebar').classList.add('active-view');
-            }
-        </script>
-
-        <!-- Core Libs -->
-        <script src="src/axml.js"></script>
-        <script src="src/examples.js"></script>
-
-        <!-- Studio Modules -->
-        <script src="src/studio-ui.js"></script>
-        <script src="src/studio-mixer.js"></script>
-        <script src="src/studio-visualizer.js"></script>
-        <script src="src/studio-presets.js"></script>
-        <script src="src/studio-sequencer.js"></script>
-        <script src="src/app.js"></script>
+    <noscript>
+        <div style="position:fixed;inset:0;background:#0a0a0c;color:#e6e9ed;padding:24px;font-family:sans-serif;z-index:9999;">
+            AXML Studio requires JavaScript to be enabled.
+        </div>
+    </noscript>
 </body>
 
 </html>

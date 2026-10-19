@@ -1,0 +1,75 @@
+<aside class="monitor">
+    <!-- Visualizer Monitor -->
+    <div class="card visualizer-box">
+        <canvas id="canvas"></canvas>
+        <div class="visualizer-tools">
+            <button class="viz-btn active" onclick="setVizMode('bars', this)" title="Frequency Spectrum">BARS</button>
+            <button class="viz-btn" onclick="setVizMode('wave', this)" title="Oscilloscope">WAVE</button>
+            <button class="viz-btn" onclick="setVizMode('circular', this)" title="Circular Radial">RADIAL</button>
+            <button class="viz-btn" onclick="setVizMode('spectrogram', this)" title="Spectrogram Matrix">MATRIX</button>
+            <button class="viz-btn" onclick="setVizMode('flow', this)" title="Phase Flow">FLOW</button>
+        </div>
+        <div class="time-overlay" id="timer">00:00 / 00:00</div>
+    </div>
+
+    <!-- Master DAW Transport Deck -->
+    <div class="card transport-card">
+        <div class="transport-primary">
+            <button id="btn-play" class="btn-transport btn-play" title="Compile & Play (Space / Ctrl+Enter)">
+                <i class="material-icons">play_arrow</i>
+                <span>PLAY</span>
+            </button>
+            <button id="btn-stop" class="btn-transport btn-stop" title="Stop Playback (Space)">
+                <i class="material-icons">stop</i>
+                <span>STOP</span>
+            </button>
+            <button id="btn-loop" class="btn-transport btn-toggle" onclick="toggleLoop()" title="Loop Track">
+                <i class="material-icons">repeat</i>
+                <span>LOOP</span>
+            </button>
+        </div>
+        <div class="transport-secondary">
+            <button id="btn-midi" class="btn-mini" title="Export Standard MIDI File (Type 1)"><i class="material-icons">music_note</i> MIDI</button>
+            <button id="btn-export" class="btn-mini" title="Render 32-bit Float Master WAV"><i class="material-icons">download</i> WAV</button>
+        </div>
+    </div>
+
+    <!-- Project Metadata Card -->
+    <div class="card info-card">
+        <div class="meta-grid">
+            <div class="meta-box">
+                <label>COMPOSITION</label>
+                <span id="meta-title">-</span>
+            </div>
+            <div class="meta-box">
+                <label>COMPOSER</label>
+                <span id="meta-artist">-</span>
+            </div>
+            <div class="meta-box">
+                <label>TEMPO</label>
+                <span id="meta-tempo">-</span>
+            </div>
+            <div class="meta-box">
+                <label>KEY & SCALE</label>
+                <span id="meta-key">-</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagnostic Terminal Console -->
+    <div class="card console-card">
+        <div class="console-header">
+            <div class="console-title-group">
+                <i class="material-icons terminal-icon">terminal</i>
+                <span class="console-title">DIAGNOSTICS</span>
+            </div>
+            <div class="console-toolbar">
+                <button class="console-filter-btn active" data-filter="all" onclick="filterLogs('all')">ALL</button>
+                <button class="console-filter-btn" data-filter="error" onclick="filterLogs('error')">ERRORS</button>
+                <button class="console-filter-btn" data-filter="audio" onclick="filterLogs('audio')">AUDIO</button>
+                <button class="console-clear-btn" onclick="clearLog()" title="Clear Console Logs"><i class="material-icons">delete_sweep</i></button>
+            </div>
+        </div>
+        <div id="log" class="log-panel" role="log" aria-live="polite"></div>
+    </div>
+</aside>

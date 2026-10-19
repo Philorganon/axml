@@ -1,0 +1,491 @@
+/* ==========================================================================
+   AXML Documentation Stylesheet
+   Obsidian Slate & Solar Phosphor Design System
+   High Readability, Crisp Typography, and Polished Code Blocks
+   ========================================================================== */
+
+@import url('theme.css');
+
+/* Root & Base Page Setup */
+html {
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-ui);
+    display: flex;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* ==========================================================================
+   Sidebar Navigation (.side-nav)
+   ========================================================================== */
+.side-nav {
+    width: 290px;
+    min-width: 290px;
+    height: 100vh;
+    background: var(--bg-panel);
+    border-right: 1px solid var(--glass-border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 28px 20px 40px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Custom Scrollbar for Sidebar */
+.side-nav::-webkit-scrollbar {
+    width: 5px;
+}
+.side-nav::-webkit-scrollbar-track {
+    background: transparent;
+}
+.side-nav::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: var(--radius-full);
+}
+
+.side-nav h2 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-main);
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.side-nav h2 i {
+    color: var(--primary);
+    font-size: 20px;
+}
+
+/* Language Switcher */
+.lang-switcher {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.lang-btn {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid var(--glass-border);
+    padding: 4px 12px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-family: var(--font-display);
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    background: var(--bg-surface-2);
+}
+
+.lang-btn:hover {
+    color: var(--text-main);
+    background: var(--bg-surface-3);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.lang-btn.active {
+    color: #06080a;
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* Navigation Groups */
+.nav-group {
+    margin-bottom: 22px;
+}
+
+.nav-group h4 {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    margin: 0 0 8px 0;
+    padding-left: 8px;
+    border-left: 2px solid var(--primary);
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+.nav-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nav-group li a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: block;
+    padding: 7px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: var(--transition);
+    line-height: 1.4;
+}
+
+.nav-group li a:hover {
+    color: var(--primary);
+    background: var(--bg-surface-2);
+    transform: translateX(3px);
+}
+
+/* Floating Return to Studio Button */
+.back-btn {
+    position: fixed;
+    top: 20px;
+    right: 32px;
+    background: var(--bg-surface-2);
+    border: 1px solid var(--glass-border);
+    color: var(--primary);
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 200;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+}
+
+.back-btn i {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+.back-btn:hover {
+    background: var(--primary);
+    color: #06080a;
+    box-shadow: 0 0 16px var(--primary-glow);
+    transform: translateY(-1px);
+}
+
+.back-btn:hover i {
+    transform: translateX(-3px);
+}
+
+/* ==========================================================================
+   Main Content Area & Typography
+   ========================================================================== */
+main, .doc-content {
+    margin-left: 290px;
+    padding: 56px 64px 100px;
+    max-width: 960px;
+    width: calc(100% - 290px);
+    box-sizing: border-box;
+}
+
+/* Document Sections */
+.doc-section {
+    margin-bottom: 56px;
+    scroll-margin-top: 40px;
+}
+
+/* Headings */
+h1, .doc-section h1 {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-main);
+    margin: 0 0 16px 0;
+    line-height: 1.25;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+h2, .doc-section h2 {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-main);
+    margin: 48px 0 18px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.35;
+}
+
+h2 i, .doc-section h2 i {
+    color: var(--primary);
+    font-size: 22px;
+}
+
+h3, .doc-section h3 {
+    font-family: var(--font-display);
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin: 28px 0 12px 0;
+    letter-spacing: 0.3px;
+}
+
+/* Body Text & Paragraphs */
+p, .doc-section p {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin: 0 0 16px 0;
+}
+
+strong {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+/* Lists */
+ul, ol {
+    margin: 0 0 20px 0;
+    padding-left: 24px;
+    color: #cbd5e1;
+}
+
+li {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 6px;
+}
+
+li strong {
+    color: var(--primary);
+}
+
+/* ==========================================================================
+   Code Blocks & Inline Code
+   ========================================================================== */
+/* Inline Code */
+code, .doc-section code {
+    font-family: var(--font-code);
+    background: rgba(245, 158, 11, 0.1);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.22);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.86em;
+    word-break: break-word;
+}
+
+/* Multiline Code Block (<pre>) */
+pre, .doc-section pre {
+    background: #06090e;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 20px 22px;
+    margin: 18px 0 24px 0;
+    overflow-x: auto;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+pre code, .doc-section pre code {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    color: #e2e8f0;
+    font-size: 0.85rem;
+    line-height: 1.65;
+    display: block;
+    word-break: normal;
+    white-space: pre;
+}
+
+/* Pre Scrollbar */
+pre::-webkit-scrollbar {
+    height: 6px;
+}
+pre::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+pre::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   Tables (.attr-table, .doc-table)
+   ========================================================================== */
+.attr-table, .doc-table, table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 22px 0 28px 0;
+    background: var(--bg-surface-2);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.attr-table thead, .doc-table thead, table thead {
+    background: var(--bg-surface-3);
+}
+
+.attr-table th, .doc-table th, table th {
+    padding: 12px 18px;
+    text-align: left;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.attr-table td, .doc-table td, table td {
+    padding: 12px 18px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    vertical-align: middle;
+}
+
+.attr-table tr:last-child td, .doc-table tr:last-child td, table tr:last-child td {
+    border-bottom: none;
+}
+
+.attr-table tbody tr:hover, .doc-table tbody tr:hover, table tbody tr:hover {
+    background: rgba(245, 158, 11, 0.03);
+}
+
+.attr-table td:first-child code {
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Callouts, Badges & Keyboard Badges
+   ========================================================================== */
+/* Tip Box & Callout */
+.tip-box, .doc-alert {
+    background: rgba(16, 185, 129, 0.07);
+    border-left: 3px solid var(--phosphor);
+    border-top: 1px solid rgba(16, 185, 129, 0.15);
+    border-right: 1px solid rgba(16, 185, 129, 0.15);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 16px 20px;
+    margin: 24px 0;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #e2e8f0;
+}
+
+.tip-box strong, .doc-alert strong {
+    color: var(--phosphor);
+    font-weight: 700;
+}
+
+/* Version Badge */
+.version-badge {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: var(--primary);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: var(--font-code);
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+}
+
+/* Tactile Keyboard Key (.kbd, kbd) */
+kbd, .kbd {
+    display: inline-block;
+    padding: 3px 7px;
+    font-family: var(--font-code);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #f1f5f9;
+    background: var(--bg-surface-3);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 4px;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
+    margin: 0 2px;
+}
+
+/* ==========================================================================
+   Responsive & Mobile Support
+   ========================================================================== */
+@media (max-width: 960px) {
+    body {
+        flex-direction: column;
+    }
+
+    .side-nav {
+        position: relative;
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--glass-border);
+        padding: 20px 24px;
+    }
+
+    main, .doc-content {
+        margin-left: 0;
+        width: 100%;
+        max-width: 100%;
+        padding: 32px 24px 80px;
+    }
+
+    .back-btn {
+        top: 16px;
+        right: 16px;
+        font-size: 0.72rem;
+        padding: 6px 12px;
+    }
+
+    h1, .doc-section h1 {
+        font-size: 1.85rem;
+    }
+
+    h2, .doc-section h2 {
+        font-size: 1.25rem;
+    }
+
+    .attr-table, .doc-table, table {
+        display: block;
+        overflow-x: auto;
+    }
+}

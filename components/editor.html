@@ -1,0 +1,103 @@
+<section class="editor-main section">
+    <!-- Editor Header & Tab Bar -->
+    <div class="pane-header editor-header">
+        <div class="editor-tabs">
+            <div class="editor-tab active">
+                <i class="material-icons tab-icon">code</i>
+                <span id="current-filename">UNTITLED_PROJECT.axml</span>
+                <span class="tab-dot" title="AXML 4.0 Valid"></span>
+            </div>
+        </div>
+        <div class="editor-actions">
+            <div class="quick-insert-wrapper">
+                <button class="btn-tool" id="btn-quick-insert" onclick="toggleQuickMenu(event)" title="Quick Insert AXML Syntax Tag">
+                    <i class="material-icons">add</i> <span>INSERT</span>
+                </button>
+                <div class="quick-dropdown" id="quick-dropdown">
+                    <button type="button" onclick="insertSnippet('track')"><i class="material-icons">view_stream</i> Track</button>
+                    <button type="button" onclick="insertSnippet('note')"><i class="material-icons">music_note</i> Note</button>
+                    <button type="button" onclick="insertSnippet('chord')"><i class="material-icons">grid_view</i> Chord</button>
+                    <button type="button" onclick="insertSnippet('pattern')"><i class="material-icons">repeat</i> Pattern</button>
+                    <button type="button" onclick="insertSnippet('synth')"><i class="material-icons">graphic_eq</i> Synth Instrument</button>
+                    <button type="button" onclick="insertSnippet('filter')"><i class="material-icons">tune</i> Lowpass Filter</button>
+                </div>
+            </div>
+            <button class="btn-tool" onclick="formatCode(parser)" title="Format XML Syntax (Ctrl+Alt+F)">
+                <i class="material-icons">auto_fix_high</i> <span>FORMAT</span>
+            </button>
+            <button class="btn-tool" onclick="saveToLocal()" title="Save to Local Storage (Ctrl+S)">
+                <i class="material-icons">save</i> <span>SAVE</span>
+            </button>
+            <button class="btn-tool btn-rack-toggle active" id="btn-toggle-rack" onclick="toggleMixerRack()" title="Toggle Mixing Console (F8)">
+                <i class="material-icons">tune</i> <span>CONSOLE</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Code Editor with Synchronized Line Gutter -->
+    <div class="editor-wrapper">
+        <div class="editor-gutter" id="editor-gutter" aria-hidden="true">1</div>
+        <textarea id="code-editor" spellcheck="false" placeholder="Write your AXML code here..." autocomplete="off" autocapitalize="off" wrap="off"></textarea>
+    </div>
+
+    <!-- Editor Telemetry Footer -->
+    <div class="editor-footer">
+        <div class="stat-group">
+            <span class="stat-badge"><i class="material-icons stat-icon">album</i> <span id="doc-stats">0 tracks</span></span>
+            <span class="stat-badge"><i class="material-icons stat-icon">speed</i> <span id="doc-tempo">120 BPM</span></span>
+            <span class="stat-badge"><i class="material-icons stat-icon">music_note</i> <span id="doc-key">C</span></span>
+        </div>
+        <div class="cursor-group">
+            <span class="stat-badge doc-tag"><span id="doc-lang">XML 4.0</span></span>
+            <span class="stat-badge doc-tag"><span id="doc-encoding">UTF-8</span></span>
+            <span class="stat-badge doc-tag"><span id="doc-indent">Spaces: 2</span></span>
+            <span id="cursor-pos">Ln 1, Col 1</span>
+        </div>
+    </div>
+
+    <!-- Wide Studio Mixing Console & DSP Rack -->
+    <div class="studio-rack" id="studio-rack">
+        <div class="rack-header">
+            <div class="rack-title-group">
+                <i class="material-icons rack-icon">equalizer</i>
+                <span class="rack-title">STUDIO MIXING CONSOLE</span>
+                <span class="rack-badge" id="rack-track-count">0 TRACKS</span>
+            </div>
+            <div class="rack-controls">
+                <button class="tool-chip active" id="btn-mode-mixer" onclick="toggleMixerMode('mixer')" title="Channel Faders">CHANNELS</button>
+                <button class="tool-chip" id="btn-mode-fx" onclick="toggleMixerMode('fx')" title="Global DSP Rack">DSP EFFECTS</button>
+                <button class="rack-btn-close" onclick="toggleMixerRack()" title="Collapse Mixing Console"><i class="material-icons">expand_more</i></button>
+            </div>
+        </div>
+        <!-- Mixer Channel Grid View -->
+        <div class="mixer-grid" id="mixer-grid"></div>
+        <!-- FX Dashboard View -->
+        <div id="fx-dashboard" class="fx-grid" style="display:none;">
+            <div class="fx-module">
+                <div class="fx-module-header">MASTER FILTER</div>
+                <div class="fx-knob-row">
+                    <div class="fx-knob-container">
+                        <label title="Filter Cutoff (Hz)">CUTOFF</label>
+                        <input type="range" min="20" max="20000" value="20000" class="v-slider" id="fx-cutoff" data-param="cutoff">
+                        <span class="knob-val" id="val-cutoff">20kHz</span>
+                    </div>
+                    <div class="fx-knob-container">
+                        <label title="Filter Resonance (Q)">RESONANCE</label>
+                        <input type="range" min="0" max="20" value="1" class="v-slider" id="fx-reson" data-param="resonance">
+                        <span class="knob-val" id="val-reson">1.0 Q</span>
+                    </div>
+                </div>
+            </div>
+            <div class="fx-module">
+                <div class="fx-module-header">GLOBAL REVERB</div>
+                <div class="fx-knob-row">
+                    <div class="fx-knob-container" title="Global Reverb Wet/Dry">
+                        <label>WET MIX</label>
+                        <input type="range" min="0" max="1" step="0.01" value="0" class="v-slider" id="fx-reverb" data-param="reverb">
+                        <span class="knob-val" id="val-reverb">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
